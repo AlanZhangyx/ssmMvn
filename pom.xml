@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.ddup</groupId>
+    <artifactId>ssm</artifactId>
+    <packaging>war</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>ssm Maven Webapp</name>
+    <url>http://maven.apache.org</url>
+
+    <!-- 依赖配置不需要执行jdk和tomcat之类， 因为那些东西是你必须有的，是前提，也是自定义的，我不想也不该控制 -->
+    <!-- http://search.maven.org/ http://repo1.maven.org/maven2/ -->
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>4.2.0.RELEASE</version>
+        </dependency>
+        
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+        <!-- 添加mybatis与Spring整合的核心包 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+
+
+    </dependencies>
+    <build>
+        <finalName>ssm</finalName>
+        <!-- 暂时不想用的插件<plugins> <plugin> <groupId>org.apache.maven.plugins</groupId> 
+            <artifactId>maven-compiler-plugin</artifactId> <configuration> <source>1.7</source> 
+            <target>1.7</target> </configuration> </plugin> <plugin> <groupId>org.codehaus.cargo</groupId> 
+            <artifactId>cargo-maven2-plugin</artifactId> <version>1.2.3</version> <configuration> 
+            <container> <containerId>tomcat5x</containerId> <home>D:/Program Files/Apache 
+            Software Foundation/Tomcat 5.0</home> </container> <configuration> <type>existing</type> 
+            <home>D:/Program Files/Apache Software Foundation/Tomcat 5.0</home> </configuration> 
+            </configuration> <executions> <execution> <id>cargo-run</id> <phase>install</phase> 
+            <goals> <goal>run</goal> </goals> </execution> </executions> </plugin> </plugins> -->
+    </build>
+</project>
