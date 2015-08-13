@@ -9,35 +9,42 @@
 
     <!-- 数据库驱动 -->
     <classPathEntry location="C:\Users\dznzyx\.m2\repository\mysql\mysql-connector-java\5.1.9\mysql-connector-java-5.1.9.jar"/>
+    
     <context id="MySql" targetRuntime="MyBatis3" defaultModelType="flat">
         <!-- 给表/字段名加上反单引号，因为有时候表名为两个单词中间一个空格 -->
         <property name="beginningDelimiter" value="`"/>
         <property name="endingDelimiter" value="`"/>
+        
+        <!-- 自动生成的注释无用，不要 是否去除自动生成的注释 true：是 ： false:否 -->
         <commentGenerator>
-            <!-- 自动生成的注释无用，不要 是否去除自动生成的注释 true：是 ： false:否 -->
             <property name="suppressDate" value="true"/>
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
+        
         <!-- 数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/casual" userId="root" password="root"></jdbcConnection>
-        <javaTypeResolver>
+        
         <!-- 是否强制DECIMAL和NUMERIC类型的字段转换为Java类型的java.math.BigDecimal -->
+        <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
+        
         <!-- 生成模型的包名和位置,targetProject使用的是绝对路径 -->
-        <javaModelGenerator targetPackage="com.ddup.model" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
+        <javaModelGenerator targetPackage="com.ddup.core.model" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
             <!-- 如果true，MBG会根据catalog和schema来生成子包。如果false就会直接用targetPackage属性。默认为false -->
             <property name="enableSubPackages" value="false"/>
             <!-- 数据库查询结果trim -->
             <property name="trimStrings" value="false"/>
         </javaModelGenerator>
+        
         <!-- 生成映射文件的包名和位置 -->
-        <sqlMapGenerator targetPackage="com.ddup.dao.mapper" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
-            <property name="enableSubPackages" value="true"/>
+        <sqlMapGenerator targetPackage="com.ddup.core.dao.mapper" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
+            <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
+        
         <!-- 生成DAO的包名和位置,XMLMAPPER所有的方法都在XML中，接口调用依赖XML文件 -->
-        <javaClientGenerator targetPackage="com.ddup.dao" type="XMLMAPPER" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java" implementationPackage="com.ddup.dao.impl">
-            <property name="enableSubPackages" value="true"/>
+        <javaClientGenerator targetPackage="com.ddup.core.dao" implementationPackage="com.ddup.core.dao.impl" type="XMLMAPPER" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
+            <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         
         <!-- 要生成哪些表 全部为tableName="%" -->
