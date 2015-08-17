@@ -1,6 +1,6 @@
-package com.ddup.dao;
+package com.ddup.core.dao;
 
-import com.ddup.model.User;
+import com.ddup.core.model.User;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);

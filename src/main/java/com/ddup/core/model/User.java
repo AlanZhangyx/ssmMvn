@@ -1,4 +1,4 @@
-package com.ddup.model;
+package com.ddup.core.model;
 
 import java.util.Date;
 

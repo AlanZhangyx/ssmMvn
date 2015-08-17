@@ -1,13 +1,11 @@
-package com.ddup.model;
+package com.ddup.core.model;
 
 import java.util.Date;
 
-public class Privilege {
+public class Role {
     private Integer id;
 
     private String name;
-
-    private String url;
 
     private Integer parentId;
 
@@ -31,14 +29,6 @@ public class Privilege {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public Integer getParentId() {
