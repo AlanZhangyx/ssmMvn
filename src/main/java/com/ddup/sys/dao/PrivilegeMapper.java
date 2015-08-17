@@ -1,6 +1,6 @@
-package com.ddup.core.dao;
+package com.ddup.sys.dao;
 
-import com.ddup.core.model.Privilege;
+import com.ddup.sys.model.Privilege;
 
 public interface PrivilegeMapper {
     int deleteByPrimaryKey(Integer id);

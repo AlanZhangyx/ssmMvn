@@ -1,6 +1,6 @@
-package com.ddup.core.dao;
+package com.ddup.sys.dao;
 
-import com.ddup.core.model.Role;
+import com.ddup.sys.model.Role;
 
 public interface RoleMapper {
     int deleteByPrimaryKey(Integer id);

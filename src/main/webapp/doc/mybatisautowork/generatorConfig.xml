@@ -30,7 +30,7 @@
         </javaTypeResolver>
         
         <!-- 生成模型的包名和位置,targetProject使用的是绝对路径 -->
-        <javaModelGenerator targetPackage="com.ddup.core.model" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
+        <javaModelGenerator targetPackage="com.ddup.sys.model" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
             <!-- 如果true，MBG会根据catalog和schema来生成子包。如果false就会直接用targetPackage属性。默认为false -->
             <property name="enableSubPackages" value="false"/>
             <!-- 数据库查询结果trim -->
@@ -38,21 +38,21 @@
         </javaModelGenerator>
         
         <!-- 生成映射文件的包名和位置 -->
-        <sqlMapGenerator targetPackage="com.ddup.core.dao.mapper" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
+        <sqlMapGenerator targetPackage="com.ddup.sys.dao.mapper" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
         
         <!-- 生成DAO的包名和位置,XMLMAPPER所有的方法都在XML中，接口调用依赖XML文件 -->
-        <javaClientGenerator targetPackage="com.ddup.core.dao" implementationPackage="com.ddup.core.dao.impl" type="XMLMAPPER" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
+        <javaClientGenerator targetPackage="com.ddup.sys.dao" implementationPackage="com.ddup.sys.dao.impl" type="XMLMAPPER" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         
         <!-- 要生成哪些表 全部为tableName="%" -->
         <!-- enableXXX:XXX代表多种SQL方法，该属性用来指定是否生成对应的XXX语句 -->
-        <table tableName="t_privilege" domainObjectName="Privilege" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        <table tableName="sys_privilege" domainObjectName="Privilege" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <!-- 列重命名<columnRenamingRule searchString="^CUST_" replaceString="" /> -->
         </table>
-        <table tableName="t_role" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="t_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="sys_role" domainObjectName="Role" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="sys_user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
     </context>
 </generatorConfiguration>
