@@ -11,6 +11,8 @@ public class Privilege {
 
     private Integer parentId;
 
+    private String icon;
+
     private String description;
 
     private Date createTime;
@@ -47,6 +49,14 @@ public class Privilege {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getDescription() {
