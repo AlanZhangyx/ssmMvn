@@ -5,22 +5,22 @@
      xmlns:jdbc="http://www.springframework.org/schema/jdbc"
      xmlns:context="http://www.springframework.org/schema/context"
      xsi:schemaLocation="
-	     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-	     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-	     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
-	     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+	     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
     
    	<!-- 声明使用注解的风格 -->
 	<context:annotation-config />
 	
-	<bean id="opsClient" class="com.boc.core.client.ops.trans.OpsClient"/>
 	<!-- 默认扫描的包路径 -->
-	<context:component-scan base-package="com.boc.modules" use-default-filters="false">
+	<context:component-scan base-package="com.ddup" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
 	</context:component-scan>
      
-   	<context:property-placeholder system-properties-mode="OVERRIDE" location="classpath:config/jdbc.properties"/>
+   	<context:property-placeholder system-properties-mode="OVERRIDE" location="classpath:jdbc.properties"/>
 
 	<!-- JNDI方式配置(部署环境使用) 
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" scope="singleton">
@@ -58,7 +58,7 @@
     
  	<!-- define the SqlSessionFactory -->
    	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-   		<property name="configLocation" value="classpath:config/mybatis-config.xml" />  
+   		<property name="configLocation" value="classpath:mybatis-config.xml" />  
         <property name="dataSource" ref="dataSource" />
    	</bean>
    

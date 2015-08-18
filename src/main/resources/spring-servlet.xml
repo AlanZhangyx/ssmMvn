@@ -8,7 +8,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
     <!-- 声明使用注解的风格 -->
     <context:annotation-config />
@@ -17,18 +17,15 @@
     <!-- 允许对静态资源文件的访问 -->
     <mvc:default-servlet-handler />
 
-    <!-- 默认扫描的包路径 -->
-    <context:component-scan base-package="com.boc.modules"
-        use-default-filters="false">
-        <context:include-filter type="annotation"
-            expression="org.springframework.stereotype.Controller" />
-    </context:component-scan>
+    <!-- 默认扫描的包路径
+    <context:component-scan base-package="com.boc.modules" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan> -->
 
     <!-- 静态资源的访问 -->
     <mvc:resources mapping="/css/**" location="/css/" />
     <mvc:resources mapping="/images/**" location="/images/" />
     <mvc:resources mapping="/js/**" location="/js/" />
-    <mvc:resources mapping="/widgets/**" location="/widgets/" />
 
     <!-- 模型试图前后缀 -->
     <bean
@@ -37,18 +34,15 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
-    <!-- 错误处理 -->
+    <!-- 错误处理
     <bean
         class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <!-- 定义默认的异常处理页面，当该异常类型的注册时使用 <property name="defaultErrorView" value="error"></property> -->
-        <!-- 定义异常处理页面用来获取异常信息的变量名，默认名为exception -->
         <property name="exceptionAttribute" value="ex"></property>
-        <!-- 定义需要特殊处理的异常，用类名或完全路径名作为key，异常也页名作为值 -->
         <property name="exceptionMappings">
             <props>
                 <prop key="com.boc.core.exception.MobileException">cardapply/mobile/commons/error</prop>
                 <prop key="com.boc.core.exception.PCException">cardapply/pc/commons/error</prop>
             </props>
         </property>
-    </bean>
+    </bean> -->
 </beans>

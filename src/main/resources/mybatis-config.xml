@@ -3,7 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties>
-        <property name="dialect" value="oracle" />
+        <property name="dialect" value="mysql" />
     </properties>
 
     <settings>
@@ -29,18 +29,16 @@
 
     <!-- 别名定义 -->
     <typeAliases>
-        <typeAlias alias="MainAppi" type="com.boc.modules.cardapply.model.MainAppi" />
-        <typeAlias alias="SuppAppi" type="com.boc.modules.cardapply.model.SuppAppi" />
-        <typeAlias alias="ApplyStepTrack" type="com.boc.modules.cardapply.model.ApplyStepTrack" />
-        <typeAlias alias="ShortMessage" type="com.boc.modules.cardapply.model.ShortMessage" />
+        <typeAlias alias="Privilege" type="com.ddup.sys.model.Privilege" />
+        <typeAlias alias="Role" type="com.ddup.sys.model.Role" />
+        <typeAlias alias="User" type="com.ddup.sys.model.User" />
     </typeAliases>
 
     <!-- 映射文件，存放sql语句的配置文件 -->
     <mappers>
-        <mapper resource="config/mybatis/boc/modules/cardapply/MainAppiSqlMap.xml" />
-        <mapper resource="config/mybatis/boc/modules/cardapply/SuppAppiSqlMap.xml" />
-        <mapper resource="config/mybatis/boc/modules/cardapply/ApplyStepTrackSqlMap.xml" />
-        <mapper resource="config/mybatis/boc/modules/cardapply/ShortMessageSqlMap.xml" />
+        <mapper resource="com/ddup/sys/dao/mapper/PrivilegeMapper.xml" />
+        <mapper resource="com/ddup/sys/dao/mapper/RoleMapper.xml" />
+        <mapper resource="com/ddup/sys/dao/mapper/UserMapper.xml" />
     </mappers>
 
 </configuration> 

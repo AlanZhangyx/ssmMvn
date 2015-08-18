@@ -39,10 +39,10 @@
 		   <param-value>true</param-value>
 	    </init-param>
     </filter>
-    <filter>
+    <!-- <filter>
         <filter-name>attack</filter-name>
         <filter-class>com.boc.core.web.filter.XssFilter</filter-class>
-    </filter>
+    </filter> -->
     
     <servlet>
         <servlet-name>springMVC</servlet-name>
