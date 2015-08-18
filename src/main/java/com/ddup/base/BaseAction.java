@@ -6,6 +6,12 @@ package com.ddup.base;
  * @date 2015年8月18日 下午8:03:58
  */
 public class BaseAction {
+    
+    /**
+     * 1 通用的jsp前缀
+     */
+    protected static final String PREFIX="/WEB-INF/jsp/";
+    
     protected String page;//当前第几页
     protected String rows;//总共需要几条记录
 
