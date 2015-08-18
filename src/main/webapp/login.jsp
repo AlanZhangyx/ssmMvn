@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script type="text/javascript" src="<%=request.getContextPath()%>/script/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/commons/jquery-1.9.1.min.js"></script>
 <title>登陆</title>
 <style type="text/css">
 body {
