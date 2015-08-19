@@ -149,86 +149,74 @@ a {
 </style>
 
 <script type="text/javascript">
-function login(){
-    var loginName= $("#loginName").val().trim();
-    var password=$("#password").val().trim();
-    if(loginName==""||password==""){
-        alert("请输入账号和密码");
-        return false;
-    }else{
-        $.post(
-            "<%=request.getContextPath()%>/admin_loginSubmit",
-           {
-             loginName : loginName,
-             password : password
-           }, function(data) {
-             if (data == undefined || data == "") {
-                 alert("账号或密码错误");
-             } else {
-                 location.href = data;
-             }
-           }
-         );
-     }
-}
+	function login(){
+	    var userName= $("#userName").val().trim();
+	    var password=$("#password").val().trim();
+	    if(userName==""||password==""){
+	        alert("请输入账号和密码");
+	        return false;
+	    }else{
+	        $("#form").submit();
+	    }
+	}
 
-       $(function(){
-           //得到焦点
-            $("#password").focus(function(){
-                $("#left_hand").animate({
-                    left: "150",
-                    top: " -38"
-                },{step: function(){
-                    if(parseInt($("#left_hand").css("left"))>140){
-                        $("#left_hand").attr("class","left_hand");
-                    }
-                }}, 2000);
-                $("#right_hand").animate({
-                    right: "-64",
-                    top: "-38px"
-                },{step: function(){
-                    if(parseInt($("#right_hand").css("right"))> -70){
-                        $("#right_hand").attr("class","right_hand");
-                    }
-                }}, 2000);
-            });
-            //失去焦点
-            $("#password").blur(function(){
-                $("#left_hand").attr("class","initial_left_hand");
-                $("#left_hand").attr("style","left:100px;top:-12px;");
-                $("#right_hand").attr("class","initial_right_hand");
-                $("#right_hand").attr("style","right:-112px;top:-12px");
-            });
+    $(function(){
+        //得到焦点
+        $("#password").focus(function(){
+            $("#left_hand").animate({
+                left: "150",
+                top: " -38"
+            },{step: function(){
+                if(parseInt($("#left_hand").css("left"))>140){
+                    $("#left_hand").attr("class","left_hand");
+                }
+            }}, 2000);
+            $("#right_hand").animate({
+                right: "-64",
+                top: "-38px"
+            },{step: function(){
+                if(parseInt($("#right_hand").css("right"))> -70){
+                    $("#right_hand").attr("class","right_hand");
+                }
+            }}, 2000);
+        });
+        //失去焦点
+        $("#password").blur(function(){
+            $("#left_hand").attr("class","initial_left_hand");
+            $("#left_hand").attr("style","left:100px;top:-12px;");
+            $("#right_hand").attr("class","initial_right_hand");
+            $("#right_hand").attr("style","right:-112px;top:-12px");
+        });
     });
 </script>
 </head>
 <body>
-    <DIV class="top_div"></DIV>
-    <DIV
-        style="background: rgb(255, 255, 255); margin: -100px auto auto; border: 1px solid rgb(231, 231, 231); border-image: none; width: 400px; height: 200px; text-align: center;">
-        <DIV style="width: 165px; height: 96px; position: absolute;">
-            <DIV class="tou"></DIV>
-            <DIV class="initial_left_hand" id="left_hand"></DIV>
-            <DIV class="initial_right_hand" id="right_hand"></DIV>
-        </DIV>
-        <P style="padding: 30px 0px 10px; position: relative;">
-            <SPAN class="u_logo"></SPAN> <INPUT class="ipt" type="text" id="loginName" name="loginName"
-                placeholder="请输入用户名" value="">
-        </P>
-        <P style="position: relative;">
-            <SPAN class="p_logo"></SPAN> <INPUT class="ipt" id="password" name="password"
-                type="password" placeholder="请输入密码" value="">
-        </P>
-        <DIV
-            style="height: 50px; line-height: 50px; margin-top: 30px; border-top-color: rgb(231, 231, 231); border-top-width: 1px; border-top-style: solid;">
-            <P style="margin: 0px 35px 20px 45px;">
-                <SPAN style="float: right;"> <A
-                    style="background: rgb(0, 142, 173); padding: 7px 10px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;"
-                    href="javascript:login();">登录</A>
-                </SPAN>
-            </P>
-        </DIV>
-    </DIV>
+    <div class="top_div"></div>
+    <div style="background: rgb(255, 255, 255); margin: -100px auto auto; border: 1px solid rgb(231, 231, 231); border-image: none; width: 400px; height: 200px; text-align: center;">
+        <form id="form" action="<%=request.getContextPath()%>/user/login" method="post">
+	        <div style="width: 165px; height: 96px; position: absolute;">
+	            <div class="tou"></div>
+	            <div class="initial_left_hand" id="left_hand"></div>
+	            <div class="initial_right_hand" id="right_hand"></div>
+	        </div>
+	        <p style="padding: 30px 0px 10px; position: relative;">
+	            <span class="u_logo"></span> <input class="ipt" type="text" id="userName" name="userName"
+	                placeholder="请输入用户名" value="">
+	        </p>
+	        <p style="position: relative;">
+	            <span class="p_logo"></span> <input class="ipt" id="password" name="password"
+	                type="password" placeholder="请输入密码" value="">
+	        </p>
+	        <div style="height: 50px; line-height: 50px; margin-top: 30px; border-top-color: rgb(231, 231, 231); border-top-width: 1px; border-top-style: solid;">
+	            <p style="margin: 0px 35px 20px 45px;">${errorMsg}
+	                <span style="float: right;"> <a
+	                    style="background: rgb(0, 142, 173); padding: 7px 10px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;"
+	                    href="javascript:login();">登录</a>
+	                </span>
+	            </p>
+	        </div>
+        </form>
+    </div>
     <div style="text-align: center;">
         <p>天天向上</p>
     </div>

@@ -1,8 +1,11 @@
 package com.ddup.sys.dao.impl;
 
-import org.mybatis.spring.support.SqlSessionDaoSupport;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
+import com.ddup.base.BaseDao;
 import com.ddup.sys.dao.UserMapper;
 import com.ddup.sys.model.User;
 
@@ -13,7 +16,7 @@ import com.ddup.sys.model.User;
  * @date 2015年8月18日
  */
 @Repository
-public class UserDaoImpl extends SqlSessionDaoSupport implements UserMapper {
+public class UserDaoImpl extends BaseDao implements UserMapper {
 
     /**
      * 命名空间
@@ -48,5 +51,20 @@ public class UserDaoImpl extends SqlSessionDaoSupport implements UserMapper {
     @Override
     public int updateByPrimaryKey(User record) {
         return getSqlSession().update(NAMESPACE+"updateByPrimaryKey", record);
+    }
+
+    @Override
+    public List<User> list(Map<String, Object> map) {
+        return getSqlSession().selectList(NAMESPACE+"list", map);
+    }
+
+    @Override
+    public List<User> listSelectedColumns(Map<String, Object> map) {
+        return getSqlSession().selectList(NAMESPACE+"listSelectedColumns", map);
+    }
+
+    @Override
+    public User getByUserNamePassword(User record) {
+        return getSqlSession().selectOne(NAMESPACE+"getByUserNamePassword", record);
     }
 }

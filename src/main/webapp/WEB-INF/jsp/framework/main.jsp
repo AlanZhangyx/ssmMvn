@@ -41,9 +41,11 @@
                 onClick: addTab
             }
         };
+        
+        var treeNode=${privileges};
 
         $(document).ready(function(){
-            $.fn.zTree.init($("#navigateTree"), setting);
+            $.fn.zTree.init($("#navigateTree"), setting, treeNode);
         });
     </script>
 </head>

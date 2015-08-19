@@ -1,8 +1,11 @@
 package com.ddup.sys.dao.impl;
 
-import org.mybatis.spring.support.SqlSessionDaoSupport;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
+import com.ddup.base.BaseDao;
 import com.ddup.sys.dao.PrivilegeMapper;
 import com.ddup.sys.model.Privilege;
 
@@ -13,7 +16,7 @@ import com.ddup.sys.model.Privilege;
  * @date 2015年8月18日
  */
 @Repository
-public class PrivilegeDaoImpl extends SqlSessionDaoSupport implements PrivilegeMapper{
+public class PrivilegeDaoImpl extends BaseDao implements PrivilegeMapper{
     
     /**
      * 命名空间
@@ -50,4 +53,14 @@ public class PrivilegeDaoImpl extends SqlSessionDaoSupport implements PrivilegeM
         return getSqlSession().update(NAMESPACE+"updateByPrimaryKey", record);
     }
 
+    @Override
+    public List<Privilege> list(Map<String, Object> map) {
+        return getSqlSession().selectList(NAMESPACE+"list", map);
+    }
+
+    @Override
+    public List<Map<String,Object>> listSelectedColumns(Map<String, Object> map) {
+        return getSqlSession().selectList(NAMESPACE+"listSelectedColumns", map);
+    }
+    
 }

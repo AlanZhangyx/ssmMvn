@@ -59,18 +59,14 @@
    	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
    		<property name="configLocation" value="classpath:mybatis-config.xml" />  
         <property name="dataSource" ref="dataSource" />
+        <!-- 自动配置别名
+        <property name="typeAliasesPackage" value="com.ddup.ddup" /> -->
    	</bean>
    
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">  
        	<constructor-arg index="0" ref="sqlSessionFactory" />
     </bean>
     
-   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<constructor-arg>
-			<ref bean="dataSource" />
-		</constructor-arg>
-	</bean>
-	
     <!-- 用注解来实现事务管理 -->   
    	<tx:annotation-driven transaction-manager="transactionManager"/>
 
