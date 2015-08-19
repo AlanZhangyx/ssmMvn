@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ddup.base.BaseAction;
-import com.ddup.sys.model.Privilege;
 import com.ddup.sys.service.PrivilegeService;
 import com.ddup.utils.ProcessUtil;
 

@@ -4,6 +4,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONArray;
+
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ddup.base.BaseAction;
 import com.ddup.sys.model.User;
+import com.ddup.sys.service.PrivilegeService;
 import com.ddup.sys.service.UserService;
 
 /**
@@ -21,9 +25,14 @@ import com.ddup.sys.service.UserService;
 @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
 @Controller("systemUser")
 public class UserAction extends BaseAction{
-    
+    /**
+     * 日志
+     */
+    private static final Logger LOGGER=Logger.getLogger(UserAction.class);
     @Resource
     private UserService userService;
+    @Resource
+    private PrivilegeService privilegeService;
     
     /**1
      * @Title: loginUI 
@@ -44,8 +53,8 @@ public class UserAction extends BaseAction{
      * @return
      * @throws
      */
-    @RequestMapping("/user/login")
-    public ModelAndView login(HttpServletRequest request,User record) {
+    @RequestMapping("/index")
+    public ModelAndView index(HttpServletRequest request,User record) {
         ModelAndView mav=new ModelAndView("/login");
         User user=userService.getByUserNamePassword(record);
         if(null==user){//没有就返回
@@ -55,6 +64,10 @@ public class UserAction extends BaseAction{
         //成功登陆
         HttpSession session=request.getSession();
         session.setAttribute("user", user);
+        //获取用户的菜单
+        JSONArray jsonArray=new JSONArray();
+        jsonArray.addAll(privilegeService.listPrivilegesByUserId(user.getId()));
+        mav.addObject("menu",jsonArray);
         mav.setViewName(JSP_PREFIX+"framework/main");
         return mav;
     }
@@ -64,7 +77,7 @@ public class UserAction extends BaseAction{
      * @Description: 到index页面
      * @return
      * @throws
-     */
+    @Deprecated
     @RequestMapping("/index")
     public String index(HttpServletRequest request){
         HttpSession session=request.getSession();
@@ -73,7 +86,7 @@ public class UserAction extends BaseAction{
             return "/login";
         }
         return JSP_PREFIX+"framework/main";
-    }
+    } */
     
     
 }

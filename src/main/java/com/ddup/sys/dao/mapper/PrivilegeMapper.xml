@@ -163,9 +163,9 @@
         </if>
 		<where>
 			<if test="userId != null">
-				and rp.role_id in select role_id from sys_user_role ur
+				and rp.role_id in (select role_id from sys_user_role ur
 				where ur.user_id
-				= #{userId}
+				= #{userId})
 			</if>
 			<if test="roleId != null">
                 and rp.role_id = #{roleId}

@@ -26,6 +26,14 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     private static final String MENU_JSON_COLUMNS="id,name,url,parent_id as parentId,icon";
 
     @Override
+    public List<Map<String, Object>> listPrivilegesByUserId(Integer userId) {
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("columns", MENU_JSON_COLUMNS);
+        map.put("userId", userId);
+        return privilegeMapper.listSelectedColumns(map);
+    }
+    
+    @Override
     public List<Map<String,Object>> listPrivilegesByRoldId(Integer roldId) {
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("columns", MENU_JSON_COLUMNS);

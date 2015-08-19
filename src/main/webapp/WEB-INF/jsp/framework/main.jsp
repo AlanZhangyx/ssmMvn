@@ -42,27 +42,25 @@
             }
         };
         
-        var treeNode=${privileges};
+        var treeNode=eval('(${menu})');
 
         $(document).ready(function(){
             $.fn.zTree.init($("#navigateTree"), setting, treeNode);
         });
     </script>
 </head>
-<body>
-<div class="easyui-layout" style="width:700px;height:350px;">
-    <div data-options="region:'north'" style="height:50px"></div>
-    <div data-options="region:'south',split:true" style="height:50px;"></div>
-    <div data-options="region:'west',split:true" title="West" style="width:100px;">
-        <div class="easyui-accordion" data-options="fit:true,border:false,title:'*导航菜单*'">
-            <ul id="navigateTree" class="ztree"></ul>
-        </div>
+<body class="easyui-layout">
+    <div data-options="region:'north',border:false" style="height:100px;background:#B3DFDA;padding:10px">天天向上</div>
+    <div data-options="region:'west',split:true,title:'导航菜单'" style="width:150px;padding:10px;">
+        <ul id="navigateTree" class="ztree"></ul>
     </div>
-    <div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+    <div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">
+版权所有
+    </div>
+    <div data-options="region:'center',title:'Center'">
         <div class="easyui-tabs" id="tabs" data-options="fit:true,border:false,plain:true">
-                    欢迎进入天天向上系统
+        
         </div>
     </div>
-</div>
 </body>
 </html>

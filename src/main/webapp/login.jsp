@@ -154,7 +154,6 @@ a {
 	    var password=$("#password").val().trim();
 	    if(userName==""||password==""){
 	        alert("请输入账号和密码");
-	        return false;
 	    }else{
 	        $("#form").submit();
 	    }
@@ -193,7 +192,7 @@ a {
 <body>
     <div class="top_div"></div>
     <div style="background: rgb(255, 255, 255); margin: -100px auto auto; border: 1px solid rgb(231, 231, 231); border-image: none; width: 400px; height: 200px; text-align: center;">
-        <form id="form" action="<%=request.getContextPath()%>/user/login" method="post">
+        <form id="form" action="<%=request.getContextPath()%>/index" method="post">
 	        <div style="width: 165px; height: 96px; position: absolute;">
 	            <div class="tou"></div>
 	            <div class="initial_left_hand" id="left_hand"></div>
@@ -208,7 +207,7 @@ a {
 	                type="password" placeholder="请输入密码" value="">
 	        </p>
 	        <div style="height: 50px; line-height: 50px; margin-top: 30px; border-top-color: rgb(231, 231, 231); border-top-width: 1px; border-top-style: solid;">
-	            <p style="margin: 0px 35px 20px 45px;">${errorMsg}
+	            <p style="margin: 0px 35px 20px 45px;"><span style="color:red">${errorMsg}</span>
 	                <span style="float: right;"> <a
 	                    style="background: rgb(0, 142, 173); padding: 7px 10px; border-radius: 4px; border: 1px solid rgb(26, 117, 152); border-image: none; color: rgb(255, 255, 255); font-weight: bold;"
 	                    href="javascript:login();">登录</a>
