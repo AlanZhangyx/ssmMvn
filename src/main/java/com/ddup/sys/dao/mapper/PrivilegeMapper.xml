@@ -173,7 +173,7 @@
 		<if test="roleId != null">
             inner join sys_role_privilege rp on s.id=rp.privilege_id
         </if>
-        <if test="fuzzyWord != null">
+        <if test="needPName != null">
             inner join sys_privilege rp on s.parent_id=rp.id
         </if>
 		<where>
@@ -187,9 +187,9 @@
                 and rp.role_id = #{roleId}
             </if>
             <if test="fuzzyWord != null">
-                and (name like "%"#{fuzzyWord}"%"
-                    or action_url like "%"#{fuzzyWord}"%"
-                    or description like "%"#{fuzzyWord}"%")
+                and (s.name like "%"#{fuzzyWord}"%"
+                    or s.action_url like "%"#{fuzzyWord}"%"
+                    or s.description like "%"#{fuzzyWord}"%")
             </if>
 		</where>
 	</select>

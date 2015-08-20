@@ -25,43 +25,16 @@ function fillGird(){
         columns:[[
             {field:'id',checkbox:true},
             {field:'name',title:'权限名',width:100},
-            {field:'actionUrl',title:'权限url',width:300},
-            {field:'parentId',title:'父权限',width:300},
-            {field:'type',title:'类型',width:50,
+            {field:'actionUrl',title:'权限url',width:200},
+            {field:'parentId',title:'父权限',width:100},
+            {field:'parentName',title:'父权限',width:100},
+            {field:'isMenu',title:'是否菜单',width:50,
                 formatter: function(value,row,index){
-                    switch(value){
-                        case "accounting":
-                            return "会计";
-                            break;
-                        case "computer":
-                            return "计算机";
-                            break;
-                        case "teacher":
-                            return "教师资格";
-                            break;
-                        case "exam":
-                            return "三级心里咨询师";
-                            break;
-                        case "examb":
-                            return "三级人力资源管理师";
-                            break;
-                        case "examc":
-                            return "三级秘书资格证";
-                            break;
-                        case "examd":
-                            return "高级育婴师";
-                            break;
-                        case "exame":
-                            return "公共营养师";
-                            break;
-                        case "examf":
-                            return "物流师";
-                            break;
-                        default:
-                            return "未分类";
-                    }
+                    if(value==1){return "是"}else{return "否"}
                 }
-            }
+            },
+            {field:'icon',title:'图标url',width:200},
+            {field:'updateTime',title:'更新时间',width:100}
         ]],
         toolbar:[{
             text:'增加',

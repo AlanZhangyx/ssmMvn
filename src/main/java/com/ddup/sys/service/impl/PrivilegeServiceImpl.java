@@ -26,7 +26,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
      */
     private static final String MENU_JSON_COLUMNS="id,name,action_url as actionUrl,parent_id as parentId,icon";
     private static final String COLUMNS="id,name,action_url,parent_id,icon";
-    private static final String COLUMNS1="id,name,action_url as actionUrl,parent_id as parentId,rp.name as parentName,isMenu,icon,description,createTime,updateTime";//多一个父Id
+    private static final String COLUMNS1="s.id,s.name,s.action_url as actionUrl,s.parent_id as parentId,rp.name as parentName,s.is_menu as isMenu,s.icon,s.description,s.create_time as createTime,s.update_time as updateTime";//多一个父Id
 
     @Override
     public List<Map<String, Object>> listPrivilegesByUserId(Integer userId) {
@@ -65,6 +65,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     public List<Map<String,Object>> listForCRUD(Map<String,Object> map) {
         //获取选中的
         map.put("columns", COLUMNS1);
+        map.put("needPName", 1);//需要parentName
         return privilegeMapper.listSelective(map);
     }
     

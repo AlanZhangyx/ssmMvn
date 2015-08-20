@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ddup.base.BaseAction;
 import com.ddup.base.ToJSPException;
-import com.ddup.sys.model.Privilege;
 import com.ddup.sys.service.PrivilegeService;
 import com.ddup.utils.ProcessUtil;
 import com.github.pagehelper.PageHelper;
@@ -72,7 +71,7 @@ public class PrivilegeAction extends BaseAction {
      * @return
      * @throws
      */
-    @RequestMapping(value="/list/json",produces="application/json;charset=UTF-8")
+    @RequestMapping(value="/list/json")
     @ResponseBody
     public JSONObject listJson(String fuzzyWord,int page,int rows){
         resultJson=new JSONObject();
@@ -84,7 +83,7 @@ public class PrivilegeAction extends BaseAction {
             PageHelper.startPage(page, rows);
             List<Map<String,Object>> list=privilegeService.listForCRUD(map);
             PageInfo<Map<String,Object>> p = new PageInfo<Map<String,Object>>(list);
-            resultJson.put("rows", list);
+            resultJson.put("rows", p.getList());
             resultJson.put("total", p.getTotal());
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("查询权限列表");
