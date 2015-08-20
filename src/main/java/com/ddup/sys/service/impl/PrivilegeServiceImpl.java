@@ -24,11 +24,13 @@ public class PrivilegeServiceImpl implements PrivilegeService {
      * 菜单json为目的的列名
      */
     private static final String MENU_JSON_COLUMNS="id,name,url,parent_id as parentId,icon";
+    private static final String COLUMNS="id,name,url,parent_id,icon";
 
     @Override
     public List<Map<String, Object>> listPrivilegesByUserId(Integer userId) {
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("columns", MENU_JSON_COLUMNS);
+        map.put("originalColumns", COLUMNS);
         map.put("userId", userId);
         return privilegeMapper.listSelectedColumns(map);
     }

@@ -53,8 +53,8 @@ public class UserAction extends BaseAction{
      * @return
      * @throws
      */
-    @RequestMapping("/index")
-    public ModelAndView index(HttpServletRequest request,User record) {
+    @RequestMapping("/user/login")
+    public ModelAndView login(HttpServletRequest request,User record) {
         ModelAndView mav=new ModelAndView("/login");
         User user=userService.getByUserNamePassword(record);
         if(null==user){//没有就返回
@@ -64,11 +64,7 @@ public class UserAction extends BaseAction{
         //成功登陆
         HttpSession session=request.getSession();
         session.setAttribute("user", user);
-        //获取用户的菜单
-        JSONArray jsonArray=new JSONArray();
-        jsonArray.addAll(privilegeService.listPrivilegesByUserId(user.getId()));
-        mav.addObject("menu",jsonArray);
-        mav.setViewName(JSP_PREFIX+"framework/main");
+        mav.setViewName("redirect:/index");
         return mav;
     }
     
@@ -77,16 +73,22 @@ public class UserAction extends BaseAction{
      * @Description: 到index页面
      * @return
      * @throws
-    @Deprecated
+     */
     @RequestMapping("/index")
-    public String index(HttpServletRequest request){
+    public ModelAndView index(HttpServletRequest request){
+        ModelAndView mav=new ModelAndView("/login");
         HttpSession session=request.getSession();
         User user=(User)session.getAttribute("user");
         if(null==user){//没有就返回
-            return "/login";
+            return mav;
         }
-        return JSP_PREFIX+"framework/main";
-    } */
+        //查询用户菜单
+        JSONArray jsonArray=new JSONArray();
+        jsonArray.addAll(privilegeService.listPrivilegesByUserId(user.getId()));
+        mav.addObject("menu",jsonArray);
+        mav.setViewName(JSP_PREFIX+"framework/main");
+        return mav;
+    }
     
     
 }

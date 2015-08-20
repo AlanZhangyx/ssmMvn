@@ -192,7 +192,7 @@ a {
 <body>
     <div class="top_div"></div>
     <div style="background: rgb(255, 255, 255); margin: -100px auto auto; border: 1px solid rgb(231, 231, 231); border-image: none; width: 400px; height: 200px; text-align: center;">
-        <form id="form" action="<%=request.getContextPath()%>/index" method="post">
+        <form id="form" action="<%=request.getContextPath()%>/user/login" method="post">
 	        <div style="width: 165px; height: 96px; position: absolute;">
 	            <div class="tou"></div>
 	            <div class="initial_left_hand" id="left_hand"></div>

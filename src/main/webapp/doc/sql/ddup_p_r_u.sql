@@ -34,7 +34,10 @@ CREATE TABLE `sys_privilege` (
 -- ----------------------------
 -- Records of sys_privilege
 -- ----------------------------
-INSERT INTO `sys_privilege` VALUES ('1', '权限管理', '/privilege/list', '0', '/icon', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('1', '系统管理', '/privilege/list', 0, '/js/widget/zTree3.5/img/diy/1_close.png', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('2', '用户管理', '/user/list', 0, '/js/widget/zTree3.5/img/diy/1_close.png', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('3', '角色管理', '/role/list', 0, '/js/widget/zTree3.5/img/diy/1_close.png', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('4', '权限管理', '/privilege/list', 0, '/js/widget/zTree3.5/img/diy/1_close.png', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 
 -- ----------------------------
 -- Table structure for sys_role
