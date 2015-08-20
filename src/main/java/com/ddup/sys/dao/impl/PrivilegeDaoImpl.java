@@ -54,13 +54,13 @@ public class PrivilegeDaoImpl extends BaseDao implements PrivilegeMapper{
     }
 
     @Override
-    public List<Privilege> list(Map<String, Object> map) {
+    public List<Privilege> list(Map<String,Object> map) {
         return getSqlSession().selectList(NAMESPACE+"list", map);
     }
 
     @Override
-    public List<Map<String,Object>> listSelectedColumns(Map<String, Object> map) {
-        return getSqlSession().selectList(NAMESPACE+"listSelectedColumns", map);
+    public List<Map<String, Object>> listSelective(Map<String, Object> map) {
+        return getSqlSession().selectList(NAMESPACE+"listSelective", map);
     }
     
 }

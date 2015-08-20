@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.ddup.sys.dao.PrivilegeMapper;
+import com.ddup.sys.model.Privilege;
 import com.ddup.sys.service.PrivilegeService;
 
 @Service
@@ -25,6 +26,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
      */
     private static final String MENU_JSON_COLUMNS="id,name,action_url as actionUrl,parent_id as parentId,icon";
     private static final String COLUMNS="id,name,action_url,parent_id,icon";
+    private static final String COLUMNS1="id,name,action_url as actionUrl,parent_id as parentId,rp.name as parentName,isMenu,icon,description,createTime,updateTime";//多一个父Id
 
     @Override
     public List<Map<String, Object>> listPrivilegesByUserId(Integer userId) {
@@ -32,16 +34,16 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         map.put("columns", MENU_JSON_COLUMNS);
         map.put("originalColumns", COLUMNS);
         map.put("userId", userId);
-        return privilegeMapper.listSelectedColumns(map);
+        return privilegeMapper.listSelective(map);
     }
     
     @Override
     public List<Map<String,Object>> listPrivilegesByRoldId(Integer roldId) {
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("columns", MENU_JSON_COLUMNS);
-        List<Map<String,Object>> listAll=privilegeMapper.listSelectedColumns(map);//获取所有
+        List<Map<String,Object>> listAll=privilegeMapper.listSelective(map);//获取所有
         map.put("roldId", roldId);
-        List<Map<String,Object>> listSelected=privilegeMapper.listSelectedColumns(map);//获取选中的
+        List<Map<String,Object>> listSelected=privilegeMapper.listSelective(map);//获取选中的
         
         //将选中的标识到全部中
         for (int i = 0; i < listSelected.size(); i++) {
@@ -58,5 +60,13 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         
         return listAll;
     }
+
+    @Override
+    public List<Map<String,Object>> listForCRUD(Map<String,Object> map) {
+        //获取选中的
+        map.put("columns", COLUMNS1);
+        return privilegeMapper.listSelective(map);
+    }
+    
 
 }

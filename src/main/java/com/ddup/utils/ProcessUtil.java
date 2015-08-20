@@ -49,4 +49,27 @@ public class ProcessUtil {
         return json;
     }
     
+    /**
+     * @Title: returnError 
+     * @Description: 错误返回
+     * @param errorMsg
+     * @return
+     * @throws
+     */
+    public static JSONObject returnError(JSONObject json,String errorMsg){
+        json.put("state", 500);
+        json.put("errorMsg", errorMsg);
+        return json;
+    }
+    
+    /**
+     * @Title: formatErrMsg 
+     * @Description: TODO
+     * @param errorMsg 
+     * @return
+     * @throws
+     */
+    public static String formatErrMsg(String errorMsg){
+        return errorMsg+"时系统出现位置异常！";
+    }
 }

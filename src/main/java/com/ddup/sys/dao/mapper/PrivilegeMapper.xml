@@ -165,13 +165,16 @@
 	</select>
 
 	<!-- 获取传入的一些列来list,userId是查询权限(菜单),roleId是分配角色的权限 -->
-	<select id="listSelectedColumns" parameterType="map" resultType="map">
+	<select id="listSelective" parameterType="map" resultType="map">
 		select ${columns} from sys_privilege s
 		<if test="userId != null">
 			inner join sys_role_privilege rp on s.id=rp.privilege_id
 		</if>
 		<if test="roleId != null">
             inner join sys_role_privilege rp on s.id=rp.privilege_id
+        </if>
+        <if test="fuzzyWord != null">
+            inner join sys_privilege rp on s.parent_id=rp.id
         </if>
 		<where>
 			<if test="userId != null">
@@ -182,6 +185,11 @@
 			</if>
 			<if test="roleId != null">
                 and rp.role_id = #{roleId}
+            </if>
+            <if test="fuzzyWord != null">
+                and (name like "%"#{fuzzyWord}"%"
+                    or action_url like "%"#{fuzzyWord}"%"
+                    or description like "%"#{fuzzyWord}"%")
             </if>
 		</where>
 	</select>

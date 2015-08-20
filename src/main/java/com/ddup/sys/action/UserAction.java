@@ -86,7 +86,7 @@ public class UserAction extends BaseAction{
         JSONArray jsonArray=new JSONArray();
         jsonArray.addAll(privilegeService.listPrivilegesByUserId(user.getId()));
         mav.addObject("menu",jsonArray);
-        mav.setViewName(JSP_PREFIX+"framework/main");
+        mav.setViewName(JSP_PREFIX+"/framework/main");
         return mav;
     }
     

@@ -3,6 +3,8 @@ package com.ddup.sys.service;
 import java.util.List;
 import java.util.Map;
 
+import com.ddup.sys.model.Privilege;
+
 /**
  * @Description: TODO
  * @author dznzyx
@@ -27,5 +29,13 @@ public interface PrivilegeService {
      * @throws
      */
     List<Map<String,Object>> listPrivilegesByRoldId(Integer roldId);
-
+    
+    /**3
+     * @Title: list 
+     * @Description: 
+     * @return
+     * @throws
+     */
+    List<Map<String,Object>> listForCRUD(Map<String,Object> map);
+    
 }
