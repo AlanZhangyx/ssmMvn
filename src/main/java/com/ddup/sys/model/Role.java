@@ -7,8 +7,6 @@ public class Role {
 
     private String name;
 
-    private Integer parentId;
-
     private String description;
 
     private Date createTime;
@@ -29,14 +27,6 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
     }
 
     public String getDescription() {

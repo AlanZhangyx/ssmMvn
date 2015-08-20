@@ -10,6 +10,8 @@ public class Privilege {
     private String url;
 
     private Integer parentId;
+    
+    private Boolean isMenu;
 
     private String icon;
 
@@ -49,6 +51,14 @@ public class Privilege {
 
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
+    }
+
+    public Boolean getIsMenu() {
+        return isMenu;
+    }
+
+    public void setIsMenu(Boolean isMenu) {
+        this.isMenu = isMenu;
     }
 
     public String getIcon() {

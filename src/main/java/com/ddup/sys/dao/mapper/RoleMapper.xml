@@ -4,13 +4,12 @@
 	<resultMap id="BaseResultMap" type="Role">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
-		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
 		<result column="description" property="description" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, name, parent_id, description, create_time, update_time
+		id, name, description, create_time, update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
@@ -26,12 +25,11 @@
 	</delete>
 	<insert id="insert" parameterType="com.ddup.sys.model.Role">
 		insert into sys_role (id,
-		name, parent_id,
+		name,
 		description, create_time, update_time
 		)
 		values
 		(#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
-		#{parentId,jdbcType=INTEGER},
 		#{description,jdbcType=VARCHAR},
 		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
 		)
@@ -44,9 +42,6 @@
 			</if>
 			<if test="name != null">
 				name,
-			</if>
-			<if test="parentId != null">
-				parent_id,
 			</if>
 			<if test="description != null">
 				description,
@@ -65,9 +60,6 @@
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
 			</if>
-			<if test="parentId != null">
-				#{parentId,jdbcType=INTEGER},
-			</if>
 			<if test="description != null">
 				#{description,jdbcType=VARCHAR},
 			</if>
@@ -85,9 +77,6 @@
 			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
 			</if>
-			<if test="parentId != null">
-				parent_id = #{parentId,jdbcType=INTEGER},
-			</if>
 			<if test="description != null">
 				description = #{description,jdbcType=VARCHAR},
 			</if>
@@ -103,8 +92,6 @@
 	<update id="updateByPrimaryKey" parameterType="com.ddup.sys.model.Role">
 		update sys_role
 		set name = #{name,jdbcType=VARCHAR},
-		parent_id =
-		#{parentId,jdbcType=INTEGER},
 		description =
 		#{description,jdbcType=VARCHAR},
 		create_time =

@@ -6,13 +6,14 @@
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="url" property="url" jdbcType="VARCHAR" />
 		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="is_menu" property="isMenu" jdbcType="BIT" />
 		<result column="icon" property="icon" jdbcType="VARCHAR" />
 		<result column="description" property="description" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, name, url, parent_id, icon, description, create_time,
+		id, name, url, parent_id,is_menu, icon, description, create_time,
 		update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
@@ -30,11 +31,12 @@
 	<insert id="insert" parameterType="com.ddup.sys.model.Privilege">
 		insert into sys_privilege (id,
 		name, url,
-		parent_id, icon, description,
+		parent_id, is_menu,icon, description,
 		create_time, update_time)
 		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
 		#{url,jdbcType=VARCHAR},
 		#{parentId,jdbcType=INTEGER},
+		#{isMenu,jdbcType=BIT},
 		#{icon,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
 		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
 	</insert>
@@ -52,6 +54,9 @@
 			</if>
 			<if test="parentId != null">
 				parent_id,
+			</if>
+			<if test="isMenu != null">
+				is_menu,
 			</if>
 			<if test="icon != null">
 				icon,
@@ -79,6 +84,9 @@
 			<if test="parentId != null">
 				#{parentId,jdbcType=INTEGER},
 			</if>
+			<if test="isMenu != null">
+				#{isMenu,jdbcType=BIT},
+			</if>
 			<if test="icon != null">
 				#{icon,jdbcType=VARCHAR},
 			</if>
@@ -105,6 +113,9 @@
 			<if test="parentId != null">
 				parent_id = #{parentId,jdbcType=INTEGER},
 			</if>
+			<if test="isMenu != null">
+				is_menu = #{isMenu,jdbcType=BIT},
+			</if>
 			<if test="icon != null">
 				icon = #{icon,jdbcType=VARCHAR},
 			</if>
@@ -127,6 +138,7 @@
 		url =
 		#{url,jdbcType=VARCHAR},
 		parent_id = #{parentId,jdbcType=INTEGER},
+		is_menu = #{isMenu,jdbcType=BIT},
 		icon
 		= #{icon,jdbcType=VARCHAR},
 		description =
@@ -163,6 +175,7 @@
         </if>
 		<where>
 			<if test="userId != null">
+			    and s.is_menu = 1
 				and rp.role_id in (select role_id from sys_user_role ur
 				where ur.user_id
 				= #{userId}) group by ${originalColumns}

@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : localhost1
 Source Server Version : 50168
 Source Host           : localhost:3306
 Source Database       : casual
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50168
 File Encoding         : 65001
 
-Date: 2015-08-20 00:01:48
+Date: 2015-08-20 12:28:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,20 +24,32 @@ CREATE TABLE `sys_privilege` (
   `name` varchar(50) NOT NULL COMMENT '权限描述',
   `url` varchar(500) DEFAULT '' COMMENT '权限url',
   `parent_id` int(11) DEFAULT '0' COMMENT '父权限',
+  `is_menu` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否是菜单，1是，0否',
   `icon` varchar(500) DEFAULT '' COMMENT '权限的图标',
   `description` varchar(100) DEFAULT '' COMMENT '权限描述',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_privilege
 -- ----------------------------
-INSERT INTO `sys_privilege` VALUES ('1', '系统管理', '/privilege/list', 0, '/js/widget/zTree3.5/img/diy/1_close.png', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('2', '用户管理', '/user/list', 0, '/js/widget/zTree3.5/img/diy/1_close.png', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('3', '角色管理', '/role/list', 0, '/js/widget/zTree3.5/img/diy/1_close.png', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('4', '权限管理', '/privilege/list', 0, '/js/widget/zTree3.5/img/diy/1_close.png', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('1', '系统管理', '', '0', '', '/js/widget/zTree3.5/img/diy/1_close.png', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('2', '用户管理', '/user/list', '1', '', '/js/widget/zTree3.5/img/diy/1_close.png', '用户列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('3', '角色管理', '/role/list', '1', '', '/js/widget/zTree3.5/img/diy/1_close.png', '角色列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('4', '权限管理', '/privilege/list', '1', '', '/js/widget/zTree3.5/img/diy/1_close.png', '权限列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('5', '新增', '/user/add', '2', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('6', '删除', '/user/delete', '2', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('7', '修改', '/user/update', '2', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+
+INSERT INTO `sys_privilege` VALUES ('8', '新增', '/role/add', '3', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('9', '删除', '/role/delete', '3', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('10', '修改', '/role/update', '3', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+
+INSERT INTO `sys_privilege` VALUES ('11', '新增', '/privilege/add', '4', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('12', '删除', '/privilege/delete', '4', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('13', '修改', '/privilege/update', '4', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -46,7 +58,6 @@ DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50) NOT NULL COMMENT '角色名',
-  `parent_id` int(11) DEFAULT '0' COMMENT '父角色',
   `description` varchar(100) DEFAULT '' COMMENT '角色描述',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
@@ -56,7 +67,7 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('1', '超级管理员', '0', '这是有最高权限的超级管理员', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_role` VALUES ('1', '超级管理员', '这是有最高权限的超级管理员', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 
 -- ----------------------------
 -- Table structure for sys_role_privilege
@@ -75,6 +86,18 @@ CREATE TABLE `sys_role_privilege` (
 -- Records of sys_role_privilege
 -- ----------------------------
 INSERT INTO `sys_role_privilege` VALUES ('1', '1');
+INSERT INTO `sys_role_privilege` VALUES ('1', '2');
+INSERT INTO `sys_role_privilege` VALUES ('1', '3');
+INSERT INTO `sys_role_privilege` VALUES ('1', '4');
+INSERT INTO `sys_role_privilege` VALUES ('1', '5');
+INSERT INTO `sys_role_privilege` VALUES ('1', '6');
+INSERT INTO `sys_role_privilege` VALUES ('1', '7');
+INSERT INTO `sys_role_privilege` VALUES ('1', '8');
+INSERT INTO `sys_role_privilege` VALUES ('1', '9');
+INSERT INTO `sys_role_privilege` VALUES ('1', '10');
+INSERT INTO `sys_role_privilege` VALUES ('1', '11');
+INSERT INTO `sys_role_privilege` VALUES ('1', '12');
+INSERT INTO `sys_role_privilege` VALUES ('1', '13');
 
 -- ----------------------------
 -- Table structure for sys_user
