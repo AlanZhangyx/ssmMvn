@@ -23,8 +23,8 @@ public class PrivilegeServiceImpl implements PrivilegeService {
     /**
      * 菜单json为目的的列名
      */
-    private static final String MENU_JSON_COLUMNS="id,name,url,parent_id as parentId,icon";
-    private static final String COLUMNS="id,name,url,parent_id,icon";
+    private static final String MENU_JSON_COLUMNS="id,name,action_url as actionUrl,parent_id as parentId,icon";
+    private static final String COLUMNS="id,name,action_url,parent_id,icon";
 
     @Override
     public List<Map<String, Object>> listPrivilegesByUserId(Integer userId) {

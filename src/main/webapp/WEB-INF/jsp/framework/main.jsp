@@ -17,7 +17,7 @@
         function addTab(event, treeId, treeNode){
         	if(treeNode.level!=0){<%-- 非根节点就打开一个tab --%>
         		var title=treeNode.name;
-                var url=treeNode.url;
+                var url=treeNode.actionUrl;
                 if ($('#tabs').tabs('exists', title)){
                     $('#tabs').tabs('select', title);
                 } else {
@@ -53,7 +53,7 @@
 </head>
 <body class="easyui-layout">
     <div data-options="region:'north',border:false" style="height:80px;background:#B3DFDA;padding:10px">天天向上</div>
-    <div data-options="region:'west',split:true,title:'导航菜单'" style="width:150px;padding:10px;">
+    <div data-options="region:'west',split:true,title:'导航菜单'" style="width:150px;">
         <ul id="navigateTree" class="ztree"></ul>
     </div>
     <div data-options="region:'south',border:false" style="height:50px;background:#A9FACD;padding:10px;">

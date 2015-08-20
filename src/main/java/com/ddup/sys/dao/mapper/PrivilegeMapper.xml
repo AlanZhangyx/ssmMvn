@@ -4,7 +4,7 @@
 	<resultMap id="BaseResultMap" type="Privilege">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
-		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="action_url" property="actionUrl" jdbcType="VARCHAR" />
 		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
 		<result column="is_menu" property="isMenu" jdbcType="BIT" />
 		<result column="icon" property="icon" jdbcType="VARCHAR" />
@@ -13,7 +13,7 @@
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, name, url, parent_id,is_menu, icon, description, create_time,
+		id, name, action_url, parent_id,is_menu, icon, description, create_time,
 		update_time
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
@@ -30,11 +30,11 @@
 	</delete>
 	<insert id="insert" parameterType="com.ddup.sys.model.Privilege">
 		insert into sys_privilege (id,
-		name, url,
+		name, action_url,
 		parent_id, is_menu,icon, description,
 		create_time, update_time)
 		values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},
-		#{url,jdbcType=VARCHAR},
+		#{actionUrl,jdbcType=VARCHAR},
 		#{parentId,jdbcType=INTEGER},
 		#{isMenu,jdbcType=BIT},
 		#{icon,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
@@ -49,8 +49,8 @@
 			<if test="name != null">
 				name,
 			</if>
-			<if test="url != null">
-				url,
+			<if test="actionUrl != null">
+				action_url,
 			</if>
 			<if test="parentId != null">
 				parent_id,
@@ -78,8 +78,8 @@
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
 			</if>
-			<if test="url != null">
-				#{url,jdbcType=VARCHAR},
+			<if test="actionUrl != null">
+				#{actionUrl,jdbcType=VARCHAR},
 			</if>
 			<if test="parentId != null">
 				#{parentId,jdbcType=INTEGER},
@@ -107,8 +107,8 @@
 			<if test="name != null">
 				name = #{name,jdbcType=VARCHAR},
 			</if>
-			<if test="url != null">
-				url = #{url,jdbcType=VARCHAR},
+			<if test="actionUrl != null">
+				action_url = #{actionUrl,jdbcType=VARCHAR},
 			</if>
 			<if test="parentId != null">
 				parent_id = #{parentId,jdbcType=INTEGER},
@@ -135,8 +135,8 @@
 		update
 		sys_privilege
 		set name = #{name,jdbcType=VARCHAR},
-		url =
-		#{url,jdbcType=VARCHAR},
+		action_url =
+		#{actionUrl,jdbcType=VARCHAR},
 		parent_id = #{parentId,jdbcType=INTEGER},
 		is_menu = #{isMenu,jdbcType=BIT},
 		icon
@@ -158,7 +158,7 @@
         <where>
             <if test="fuzzyWord!=null">
                 and (name like "%"#{fuzzyWord}"%"
-                    or url like "%"#{fuzzyWord}"%"
+                    or action_url like "%"#{fuzzyWord}"%"
                     or description like "%"#{fuzzyWord}"%")
             </if>
         </where>

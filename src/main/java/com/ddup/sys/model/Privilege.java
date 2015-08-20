@@ -7,7 +7,7 @@ public class Privilege {
 
     private String name;
 
-    private String url;
+    private String actionUrl;
 
     private Integer parentId;
     
@@ -37,12 +37,12 @@ public class Privilege {
         this.name = name;
     }
 
-    public String getUrl() {
-        return url;
+    public String getActionUrl() {
+        return actionUrl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setActionUrl(String actionUrl) {
+        this.actionUrl = actionUrl;
     }
 
     public Integer getParentId() {
