@@ -173,15 +173,17 @@
 		<if test="roleId != null">
             inner join sys_role_privilege rp on s.id=rp.privilege_id
         </if>
-        <if test="needPName != null">
-            inner join sys_privilege rp on s.parent_id=rp.id
+        <if test="extraPName != null">
+            left join sys_privilege rp on s.parent_id=rp.id
         </if>
 		<where>
 			<if test="userId != null">
-			    and s.is_menu = 1
 				and rp.role_id in (select role_id from sys_user_role ur
 				where ur.user_id
-				= #{userId}) group by ${originalColumns}
+				= #{userId}) group by ${columns_2}
+			</if>
+			<if test="extraMenu != null">
+			    and s.is_menu = 1
 			</if>
 			<if test="roleId != null">
                 and rp.role_id = #{roleId}

@@ -58,6 +58,15 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     
+    <!--　该servlet为tomcat,jetty等容器提供,WebLogic等名字不同，自查　-->
+    <!-- 不拦截静态文件 -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/js/*</url-pattern>
+        <url-pattern>/css/*</url-pattern>
+        <url-pattern>/images/*</url-pattern>
+    </servlet-mapping>
+    
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>

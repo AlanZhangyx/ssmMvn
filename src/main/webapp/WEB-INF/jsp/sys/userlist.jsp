@@ -5,14 +5,17 @@
 <%@ include file="/include.script.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>用户列表</title>
+<style type="text/css">
+    body{margin:0}
+</style>
 <script type="text/javascript">
 function fillGird(){
     $('#mainGrid').datagrid({
         url:baseUrl+"/privilege/list/json",
         queryParams: {},
-        width:'100%',
-        height:'100%',
-        title:"权限管理",
+        width:'98%',
+        height:'600',
+        title:"",
         pageSize:20,
         pageList:[10,20],
         striped:true,
@@ -25,7 +28,7 @@ function fillGird(){
         columns:[[
             {field:'id',checkbox:true},
             {field:'name',title:'权限名',width:100},
-            {field:'actionUrl',title:'权限url',width:200},
+            {field:'actionUrl',title:'权限url',width:100},
             {field:'parentId',title:'父权限',width:100},
             {field:'parentName',title:'父权限',width:100},
             {field:'isMenu',title:'是否菜单',width:50,

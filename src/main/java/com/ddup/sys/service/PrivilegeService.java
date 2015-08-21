@@ -3,8 +3,6 @@ package com.ddup.sys.service;
 import java.util.List;
 import java.util.Map;
 
-import com.ddup.sys.model.Privilege;
-
 /**
  * @Description: TODO
  * @author dznzyx
@@ -13,15 +11,24 @@ import com.ddup.sys.model.Privilege;
 public interface PrivilegeService {
     
     /**1
-     * @Title: listPrivilegesByUserId 
-     * @Description: 获取用户的菜单
+     * @Title: listPrivilegesByUserId
+     * @Description: 获取用户的权限
      * @param userId
      * @return
      * @throws
      */
     List<Map<String,Object>> listPrivilegesByUserId(Integer userId);
+    
+    /**
+     * @Title: listMenusByUserId
+     * @Description: 获取用户的权限-菜单
+     * @param userId
+     * @return
+     * @throws
+     */
+    List<Map<String,Object>> listMenusByUserId(Integer userId);
 
-    /**2
+    /**
      * @Title: listPrivilegesByRoldId 
      * @Description: 获取所有权限，并checked输入roleId的权限
      * @param roldId
@@ -30,7 +37,7 @@ public interface PrivilegeService {
      */
     List<Map<String,Object>> listPrivilegesByRoldId(Integer roldId);
     
-    /**3
+    /**
      * @Title: list 
      * @Description: 
      * @return

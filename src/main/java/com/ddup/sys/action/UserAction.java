@@ -53,7 +53,7 @@ public class UserAction extends BaseAction{
      * @return
      * @throws
      */
-    @RequestMapping("/user/login")
+    @RequestMapping("/sys/login")
     public ModelAndView login(HttpServletRequest request,User record) {
         ModelAndView mav=new ModelAndView("/login");
         User user=userService.getByUserNamePassword(record);
@@ -84,7 +84,7 @@ public class UserAction extends BaseAction{
         }
         //查询用户菜单
         JSONArray jsonArray=new JSONArray();
-        jsonArray.addAll(privilegeService.listPrivilegesByUserId(user.getId()));
+        jsonArray.addAll(privilegeService.listMenusByUserId(user.getId()));
         mav.addObject("menu",jsonArray);
         mav.setViewName(JSP_PREFIX+"/framework/main");
         return mav;

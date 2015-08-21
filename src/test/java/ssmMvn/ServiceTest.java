@@ -14,8 +14,7 @@ import com.ddup.sys.action.PrivilegeAction;
 import com.ddup.sys.dao.PrivilegeMapper;
 import com.ddup.sys.service.PrivilegeService;
 
-
-public class ActionTest {
+public class ServiceTest {
 
     ApplicationContext context=null;
     PrivilegeMapper privilegeDao=null;
@@ -46,6 +45,6 @@ public class ActionTest {
     
     @Test
     public void mapperTest(){
-    } 
-
+    }
+    
 }

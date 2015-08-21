@@ -81,9 +81,14 @@ public class PrivilegeAction extends BaseAction {
             map.put("fuzzyWord", fuzzyWord);
             //分页查询
             PageHelper.startPage(page, rows);
-            List<Map<String,Object>> list=privilegeService.listForCRUD(map);
-            PageInfo<Map<String,Object>> p = new PageInfo<Map<String,Object>>(list);
-            resultJson.put("rows", p.getList());
+            List<Map<String,Object>> list=privilegeService.listForCRUD(map);//分页list是Page<E>类型
+            PageInfo<Map<String,Object>> p = new PageInfo<Map<String,Object>>(list);//取出分页统计信息statistic
+            
+            //将list(Page<E>)转为他的父类ArrayList,
+            ProcessUtil.formatPage2ArrayList(list);
+            
+            //结果返回
+            resultJson.put("rows", list);
             resultJson.put("total", p.getTotal());
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("查询权限列表");
