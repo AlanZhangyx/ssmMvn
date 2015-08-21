@@ -29,7 +29,6 @@ function fillGird(){
             {field:'id',checkbox:true},
             {field:'name',title:'权限名',width:100},
             {field:'actionUrl',title:'权限url',width:100},
-            {field:'parentId',title:'父权限',width:100},
             {field:'parentName',title:'父权限',width:100},
             {field:'isMenu',title:'是否菜单',width:50,
                 formatter: function(value,row,index){
@@ -210,6 +209,54 @@ $(function(){
 </script>
 </head>
 <body>
-<div class="easyui-datagrid" id="mainGrid"></div>
+    <div class="easyui-datagrid" id="mainGrid"></div>
+    
+    <!-- 新增/修改页面 -->
+    <div id="dlg_CU" class="easyui-dialog" title="增加/修改" style="width:700px;height:500px;padding:10px" 
+    data-options="iconCls:'icon-save',onResize:function(){$(this).dialog('center');}">
+    <form id="form_CU" class="easyui-form" method="post">
+        <input type="hidden" name="id" id="id"/>
+        <table>
+            <tr>
+                <td>权限名:</td>
+                <td>
+                    <input type="text" name="name" id="name" />
+                </td>
+            </tr>
+            <tr>
+                <td>父权限：</td>
+                <td>
+                    <select name="parentId" id="parentId">
+                       <option value="0">请选择..</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>随身:</td>
+                <td>
+                   <select name="type" id="type">
+                       <option value="">请选择..</option>
+                   </select>
+                </td>
+            </tr>
+            <tr>
+               <td>题目：</td>
+               <td>
+                   <textarea name="title" id="title" cols="50" rows="3"></textarea>
+               </td>
+            </tr>
+            <tr>
+               <td>答案：</td>
+               <td>
+                   <textarea name="content" id="content" cols="50" rows="5"></textarea>
+               </td>
+            </tr>
+        </table>
+    </form>
+    <div style="text-align:center;padding:5px">
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="dlg_saveOrUpdate()">提交</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a>
+    </div>
+</div>
 </body>
 </html>

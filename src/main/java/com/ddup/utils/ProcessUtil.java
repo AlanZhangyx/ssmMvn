@@ -80,7 +80,7 @@ public class ProcessUtil {
      * @throws
      */
     public static String formatErrMsg(String errorMsg){
-        return errorMsg+"时系统出现位置异常！";
+        return errorMsg+"时系统出现未知异常！";
     }
 
     /**

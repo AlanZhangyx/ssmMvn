@@ -73,23 +73,29 @@ public class PrivilegeAction extends BaseAction {
      */
     @RequestMapping(value="/list/json")
     @ResponseBody
-    public JSONObject listJson(String fuzzyWord,int page,int rows){
+    public JSONObject listJson(String fuzzyWord,Integer page,Integer rows,
+            Integer roldId//选择角色的权限
+            ){
         resultJson=new JSONObject();
         try {
             //查询条件
             Map<String,Object> map=new HashMap<String,Object>();
             map.put("fuzzyWord", fuzzyWord);
-            //分页查询
-            PageHelper.startPage(page, rows);
-            List<Map<String,Object>> list=privilegeService.listForCRUD(map);//分页list是Page<E>类型
-            PageInfo<Map<String,Object>> p = new PageInfo<Map<String,Object>>(list);//取出分页统计信息statistic
-            
-            //将list(Page<E>)转为他的父类ArrayList,
-            ProcessUtil.formatPage2ArrayList(list);
-            
-            //结果返回
-            resultJson.put("rows", list);
-            resultJson.put("total", p.getTotal());
+            List<Map<String,Object>> list=null;//结果list
+            //查询数据库
+            if(null!=roldId){//角色的权限
+                list=privilegeService.listPrivilegesByRoldId(roldId);
+            }else if (null==page||null==rows) {//全量查询
+                list=privilegeService.listForCRUD(map);//分页list是Page<E>类型
+            }else{//分页查询
+                PageHelper.startPage(page, rows);
+                list=privilegeService.listForCRUD(map);//分页list是Page<E>类型
+                PageInfo<Map<String,Object>> p = new PageInfo<Map<String,Object>>(list);//取出分页统计信息statistic
+                resultJson.put("total", p.getTotal());
+            }
+            //结果处理
+            ProcessUtil.formatPage2ArrayList(list);//将list(Page<E>)转为他的父类ArrayList(不是Page也无所谓),并格式化时间
+            resultJson.put("rows", list);//结果返回
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("查询权限列表");
             LOGGER.error(errorMsg, e);
@@ -98,26 +104,4 @@ public class PrivilegeAction extends BaseAction {
         return ProcessUtil.returnCorrect(resultJson);
     }
     
-    /**3
-     * @Title: listPrivilegesByRoldId 
-     * @Description: 获取所有权限，并为所有已经分配给roleId的权限加上checked:true
-     * @param roldId
-     * @return
-     * @throws
-     */
-    @RequestMapping(value="/listPrivilegesByRoldId",produces="application/json;charset=UTF-8")
-    @ResponseBody
-    public JSONObject listPrivilegesByRoldId(@RequestParam("roldId") Integer roldId){
-        resultJson=new JSONObject();
-        try {
-            //查询条件
-            List<Map<String,Object>> list=privilegeService.listPrivilegesByRoldId(roldId);
-            resultJson.put("list", list);
-        } catch (Exception e) {
-            String errorMsg=ProcessUtil.formatErrMsg("获取角色的权限");
-            LOGGER.error(errorMsg, e);
-            return ProcessUtil.returnError(500, errorMsg);
-        }
-        return ProcessUtil.returnCorrect(resultJson);
-    }
 }

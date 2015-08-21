@@ -26,7 +26,7 @@ import com.ddup.utils.ProcessUtil;
  *              1 有：放行
  *              2 没有：返回{state:403,errorMsg:访问被拒绝，您没有权限}
  *      2 否(普通请求)：
- *          1 在未登录前，任何访问url都跳转到login页面
+ *          1 在未登录前，任何访问url都跳转到havenotlogin页面,再尤其跳转到login页面(解决iframe跳转问题的方式)
  *          2 登录成功后，检查用户是否有访问的url权限
  *              1 有：放行
  *              2 没有：跳转到非法请求页面
