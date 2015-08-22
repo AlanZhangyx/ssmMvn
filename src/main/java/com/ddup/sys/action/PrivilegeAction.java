@@ -12,11 +12,11 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ddup.base.BaseAction;
 import com.ddup.base.ToJSPException;
+import com.ddup.sys.model.Privilege;
 import com.ddup.sys.service.PrivilegeService;
 import com.ddup.utils.ProcessUtil;
 import com.github.pagehelper.PageHelper;
@@ -98,6 +98,60 @@ public class PrivilegeAction extends BaseAction {
             resultJson.put("rows", list);//结果返回
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("查询权限列表");
+            LOGGER.error(errorMsg, e);
+            return ProcessUtil.returnError(500, errorMsg);
+        }
+        return ProcessUtil.returnCorrect(resultJson);
+    }
+    
+    /**3
+     * @Title: getJson
+     * @Description: 返回用于CU的json数据
+     * @return
+     * @throws
+     */
+    @RequestMapping(value="/get/json")
+    @ResponseBody
+    public JSONObject getJson(Integer id,Boolean needPList
+            ){
+        resultJson=new JSONObject();
+        try {
+            Privilege record=privilegeService.selectByPrimaryKey(id);
+            if(needPList){//如果需要父权限列表
+                Integer pId=record.getParentId();
+                List<Map<String, Object>> pList=privilegeService.listForCRUD(new HashMap<String,Object>());
+                for (int i = 0; i < pList.size(); i++) {
+                    Map<String,Object> item=pList.get(i);
+                    if(pId==(Integer)item.get("id")){
+                        item.put("checked", true);
+                        pList.set(i, item);
+                        break;
+                    } 
+                }
+                //将pList放入放回结果
+                resultJson.put("pList", pList);
+            }
+            resultJson.put("record", record);//结果返回
+        } catch (Exception e) {
+            String errorMsg=ProcessUtil.formatErrMsg("查询单个权限");
+            LOGGER.error(errorMsg, e);
+            return ProcessUtil.returnError(500, errorMsg);
+        }
+        return ProcessUtil.returnCorrect(resultJson);
+    }
+    
+    /**
+     * @Title: addOne
+     * @Description: 用于增加一条记录
+     * @return
+     * @throws
+     */
+    public JSONObject addOne(Privilege record){
+        resultJson=new JSONObject();
+        try {
+            privilegeService.insertSelective(record);
+        } catch (Exception e) {
+            String errorMsg=ProcessUtil.formatErrMsg("增加一个权限");
             LOGGER.error(errorMsg, e);
             return ProcessUtil.returnError(500, errorMsg);
         }

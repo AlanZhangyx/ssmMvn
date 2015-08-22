@@ -56,9 +56,9 @@ INSERT INTO `sys_privilege` VALUES ('14', '查询JSON列表', '/ssm/user/list/js
 INSERT INTO `sys_privilege` VALUES ('15', '查询JSON列表', '/ssm/role/list/json', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_JSON列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 INSERT INTO `sys_privilege` VALUES ('16', '查询JSON列表', '/ssm/privilege/list/json', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_JSON列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 
-INSERT INTO `sys_privilege` VALUES ('17', '查询单个JSON', '/ssm/user/list/json', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_单个JSON', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('18', '查询单个JSON', '/ssm/role/list/json', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_单个JSON', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('19', '查询单个JSON', '/ssm/privilege/list/json', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_单个JSON', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('17', '查询单个JSON', '/ssm/user/get/json', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_单个JSON', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('18', '查询单个JSON', '/ssm/role/get/json', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_单个JSON', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('19', '查询单个JSON', '/ssm/privilege/get/json', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_单个JSON', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 
 
 -- ----------------------------

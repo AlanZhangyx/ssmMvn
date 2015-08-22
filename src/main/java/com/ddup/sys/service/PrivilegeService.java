@@ -3,6 +3,8 @@ package com.ddup.sys.service;
 import java.util.List;
 import java.util.Map;
 
+import com.ddup.sys.model.Privilege;
+
 /**
  * @Description: TODO
  * @author dznzyx
@@ -44,5 +46,19 @@ public interface PrivilegeService {
      * @throws
      */
     List<Map<String,Object>> listForCRUD(Map<String,Object> map);
+    
+    /**
+     * @Title: selectByPrimaryKey
+     * @Description 
+     * @param id
+     * @return
+     */
+    Privilege selectByPrimaryKey(Integer id);
+    
+    int deleteByPrimaryKey(Integer id);
+
+    int insertSelective(Privilege record);
+
+    int updateByPrimaryKeySelective(Privilege record);
     
 }

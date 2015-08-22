@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.ddup.sys.dao.PrivilegeMapper;
+import com.ddup.sys.model.Privilege;
 import com.ddup.sys.service.PrivilegeService;
 
 @Service
@@ -88,6 +89,26 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         map.put(COLUMNS_KEY1, COLUMNS2);
         map.put("extraPName", 1);//需要parentName
         return privilegeMapper.listSelective(map);
+    }
+
+    @Override
+    public Privilege selectByPrimaryKey(Integer id) {
+        return privilegeMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int deleteByPrimaryKey(Integer id) {
+        return privilegeMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int insertSelective(Privilege record) {
+        return privilegeMapper.insertSelective(record);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(Privilege record) {
+        return privilegeMapper.updateByPrimaryKeySelective(record);
     }
 
 }
