@@ -55,7 +55,7 @@ public interface PrivilegeService {
      */
     Privilege selectByPrimaryKey(Integer id);
     
-    int deleteByPrimaryKey(Integer id);
+    void deleteByPrimaryKeys(Integer... ids);
 
     int insertSelective(Privilege record);
 

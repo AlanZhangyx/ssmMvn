@@ -61,7 +61,7 @@ public class PrivilegeAction extends BaseAction {
             LOGGER.error(errorMsg, e);
             throw new ToJSPException(errorMsg);
         }
-        return JSP_PREFIX+"/sys/userlist";
+        return JSP_PREFIX+"/sys/privilegelist";
     }
     
     
@@ -146,12 +146,59 @@ public class PrivilegeAction extends BaseAction {
      * @return
      * @throws
      */
+    @RequestMapping(value="/add")
+    @ResponseBody
     public JSONObject addOne(Privilege record){
         resultJson=new JSONObject();
         try {
             privilegeService.insertSelective(record);
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("增加一个权限");
+            LOGGER.error(errorMsg, e);
+            return ProcessUtil.returnError(500, errorMsg);
+        }
+        return ProcessUtil.returnCorrect(resultJson);
+    }
+    
+    /**
+     * @Title: delete
+     * @Description: 
+     * @return
+     * @throws
+     * 测试：service方法加了事务，那么它调用mapper应该会exception，那么就会Rollback
+     * 先在界面选择3条数据，然后手动从数据库删除其中1条，
+     * 然后界面发送删除请求，看看是否回滚
+     */
+    @RequestMapping(value="/delete")
+    @ResponseBody
+    public JSONObject delete(Integer... ids){
+        resultJson=new JSONObject();
+        try {
+            if (ids.length>0) {
+                privilegeService.deleteByPrimaryKeys(ids);
+            }
+        } catch (Exception e) {
+            String errorMsg=ProcessUtil.formatErrMsg("删除一个权限");
+            LOGGER.error(errorMsg, e);
+            return ProcessUtil.returnError(500, errorMsg);
+        }
+        return ProcessUtil.returnCorrect(resultJson);
+    }
+
+    /**
+     * @Title: update
+     * @Description: 
+     * @return
+     * @throws
+     */
+    @RequestMapping(value="/update")
+    @ResponseBody
+    public JSONObject update(Privilege record){
+        resultJson=new JSONObject();
+        try {
+            privilegeService.updateByPrimaryKeySelective(record);
+        } catch (Exception e) {
+            String errorMsg=ProcessUtil.formatErrMsg("修改一个权限");
             LOGGER.error(errorMsg, e);
             return ProcessUtil.returnError(500, errorMsg);
         }

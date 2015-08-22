@@ -14,8 +14,9 @@ function fillGird(){
         url:baseUrl+"/privilege/list/json",
         queryParams: {},
         width:'98%',
-        height:'600',
+        height:'100%',
         title:"",
+        fit:true,
         pageSize:20,
         pageList:[10,20],
         striped:true,
@@ -212,7 +213,7 @@ $(function(){
     <div class="easyui-datagrid" id="mainGrid"></div>
     
     <!-- 新增/修改页面 -->
-    <div id="dlg_CU" class="easyui-dialog" title="增加/修改" style="width:700px;height:500px;padding:10px" 
+    <div id="dlg_CU" class="easyui-dialog" title="增加/修改" style="width:80%;height:350px;max-width:700px;padding:10px" 
     data-options="iconCls:'icon-save',onResize:function(){$(this).dialog('center');}">
     <form id="form_CU" class="easyui-form" method="post">
         <input type="hidden" name="id" id="id"/>

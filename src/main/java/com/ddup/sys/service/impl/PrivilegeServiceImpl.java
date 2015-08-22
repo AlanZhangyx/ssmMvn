@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ddup.sys.dao.PrivilegeMapper;
 import com.ddup.sys.model.Privilege;
@@ -96,9 +97,12 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         return privilegeMapper.selectByPrimaryKey(id);
     }
 
+    @Transactional
     @Override
-    public int deleteByPrimaryKey(Integer id) {
-        return privilegeMapper.deleteByPrimaryKey(id);
+    public void deleteByPrimaryKeys(Integer... ids) {
+        for (Integer id : ids) {
+            privilegeMapper.deleteByPrimaryKey(id);
+        }
     }
 
     @Override
