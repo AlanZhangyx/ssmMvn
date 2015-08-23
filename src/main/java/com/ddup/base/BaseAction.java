@@ -12,4 +12,18 @@ public class BaseAction {
      */
     protected static final String JSP_PREFIX="/WEB-INF/jsp";
     
+    /**
+     * Privilege前缀
+     */
+    protected static final String JSP_PREFIX_PRIVILEGE="/WEB-INF/jsp/sys/privilege";
+    /**
+     * Role前缀
+     */
+    protected static final String JSP_PREFIX_ROLE="/WEB-INF/jsp/sys/role";
+    /**
+     * USER前缀
+     */
+    protected static final String JSP_PREFIX_USER="/WEB-INF/jsp/sys/user";
+    
+    
 }

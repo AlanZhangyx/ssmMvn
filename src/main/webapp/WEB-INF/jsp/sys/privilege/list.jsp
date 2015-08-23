@@ -11,7 +11,7 @@
 <script type="text/javascript">
 function fillGird(){
     $('#mainGrid').datagrid({
-        url:baseUrl+"/privilege/list/json",
+        url:baseUrl+"/privilege/get/jsonlist",
         queryParams: {},
         width:'98%',
         height:'100%',
@@ -43,8 +43,15 @@ function fillGird(){
             text:'增加',
             iconCls:'icon-add',
             handler:function(){
-                clearForm();//先清空可能有的数据
-                $('#dlg_save').dialog('open');
+                $('#dd').dialog({
+                	title:'天',
+                	width:400,
+                	height:200,
+                	close:false,
+                	cache:false,
+                	href:"privilegeadd.jsp",
+                	modal:true
+                });
             }
         },{
             text:'修改',
@@ -212,6 +219,7 @@ $(function(){
 <body>
     <div class="easyui-datagrid" id="mainGrid"></div>
     
+    <div id="dd"></div>
     <!-- 新增/修改页面 -->
     <div id="dlg_CU" class="easyui-dialog" title="增加/修改" style="width:80%;height:350px;max-width:700px;padding:10px" 
     data-options="iconCls:'icon-save',onResize:function(){$(this).dialog('center');}">

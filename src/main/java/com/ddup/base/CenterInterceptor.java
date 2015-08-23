@@ -97,6 +97,12 @@ public class CenterInterceptor extends HandlerInterceptorAdapter {
      * @throws
      */
     private boolean hasPrivilege(Integer id, String requestURI) {
+        //查询的权限以get开头，只在数据库中分配一次获取(get)权限
+        int getIndex=requestURI.indexOf("/get/");
+        if (getIndex>0) {
+            requestURI=requestURI.substring(0, getIndex+4);
+        }
+        //检查
         List<Map<String, Object>> pList=privilegeService.listPrivilegesByUserId(id);
         for (int i = 0; i < pList.size(); i++) {
             Map<String, Object> pMap=pList.get(i);

@@ -1,5 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/widget/easyUI1.4.3/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/widget/easyUI1.4.3/themes/bootstrap/easyui.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/widget/easyUI1.4.3/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/js/widget/zTree3.5/zTreeStyle.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/commons/jquery-1.9.1.min.js"></script>

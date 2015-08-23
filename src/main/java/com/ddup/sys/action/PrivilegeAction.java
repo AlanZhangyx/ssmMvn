@@ -46,7 +46,7 @@ public class PrivilegeAction extends BaseAction {
   
     
     /*********************Business Process***************************/
-    /**1
+    /**
      * @throws ToJSPException
      * @Title: list 
      * @Description: 跳转到list页面
@@ -61,19 +61,19 @@ public class PrivilegeAction extends BaseAction {
             LOGGER.error(errorMsg, e);
             throw new ToJSPException(errorMsg);
         }
-        return JSP_PREFIX+"/sys/privilegelist";
+        return JSP_PREFIX_PRIVILEGE+"/list";
     }
     
     
-    /**2
+    /**
      * @Title: listJson
      * @Description: 返回用于CRUD的json数据
      * @return
      * @throws
      */
-    @RequestMapping(value="/list/json")
+    @RequestMapping(value="/get/jsonlist")
     @ResponseBody
-    public JSONObject listJson(String fuzzyWord,Integer page,Integer rows,
+    public JSONObject jsonList(String fuzzyWord,Integer page,Integer rows,
             Integer roldId//选择角色的权限
             ){
         resultJson=new JSONObject();
@@ -104,7 +104,7 @@ public class PrivilegeAction extends BaseAction {
         return ProcessUtil.returnCorrect(resultJson);
     }
     
-    /**3
+    /**
      * @Title: getJson
      * @Description: 返回用于CU的json数据
      * @return
@@ -112,7 +112,7 @@ public class PrivilegeAction extends BaseAction {
      */
     @RequestMapping(value="/get/json")
     @ResponseBody
-    public JSONObject getJson(Integer id,Boolean needPList
+    public JSONObject json(Integer id,Boolean needPList
             ){
         resultJson=new JSONObject();
         try {
@@ -141,6 +141,25 @@ public class PrivilegeAction extends BaseAction {
     }
     
     /**
+     * @throws ToJSPException
+     * @Title: addUI 
+     * @Description: 跳转到add页面
+     * @return
+     * @throws
+     */
+    @RequestMapping("/get/add")
+    public String addUI() throws ToJSPException{
+        try {
+        } catch (Exception e) {
+            String errorMsg=ProcessUtil.formatErrMsg("跳转到权限增加页面");
+            LOGGER.error(errorMsg, e);
+            throw new ToJSPException(errorMsg);
+        }
+        return JSP_PREFIX_PRIVILEGE+"/add";
+    } 
+    
+    
+    /**
      * @Title: addOne
      * @Description: 用于增加一条记录
      * @return
@@ -148,7 +167,7 @@ public class PrivilegeAction extends BaseAction {
      */
     @RequestMapping(value="/add")
     @ResponseBody
-    public JSONObject addOne(Privilege record){
+    public JSONObject add(Privilege record){
         resultJson=new JSONObject();
         try {
             privilegeService.insertSelective(record);
@@ -184,6 +203,24 @@ public class PrivilegeAction extends BaseAction {
         }
         return ProcessUtil.returnCorrect(resultJson);
     }
+    
+    /**
+     * @throws ToJSPException
+     * @Title: updateUI 
+     * @Description: 跳转到update页面
+     * @return
+     * @throws
+     */
+    @RequestMapping("/get/update")
+    public String updateUI() throws ToJSPException{
+        try {
+        } catch (Exception e) {
+            String errorMsg=ProcessUtil.formatErrMsg("跳转到权限修改页面");
+            LOGGER.error(errorMsg, e);
+            throw new ToJSPException(errorMsg);
+        }
+        return JSP_PREFIX_PRIVILEGE+"/update";
+    } 
 
     /**
      * @Title: update
