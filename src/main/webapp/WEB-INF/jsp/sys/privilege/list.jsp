@@ -40,16 +40,16 @@ function fillGird(){
             {field:'updateTime',title:'更新时间',width:100}
         ]],
         toolbar:[{
-            text:'增加',
+            text:'新增',
             iconCls:'icon-add',
             handler:function(){
-                $('#dd').dialog({
-                	title:'天',
-                	width:400,
-                	height:200,
+                $('#div_cu').dialog({
+                	title:"新增",
+                	height:"50%",
+                	width:"50%",
                 	close:false,
                 	cache:false,
-                	href:"privilegeadd.jsp",
+                	href:baseUrl+"/privilege/get/add",
                 	modal:true
                 });
             }
@@ -69,10 +69,9 @@ function fillGird(){
                 if(id){
                     $.ajax({
                         type : "POST",
-                        url : baseUrl+"/title_getOne",
+                        url : baseUrl+"/privilege/get/update",
                         data:{id:id},
                         success : function(data) {
-                            //clearForm();//先清空可能有的数据
                             $("#id").val(data.id);
                             $("#type").combobox("setValue",data.type);
                             $("#title").val(data.title);
@@ -101,10 +100,10 @@ function fillGird(){
                         if(ids.length>0){
                             $.ajax({
                                 type : "POST",
-                                url : baseUrl+"/title_delete",
+                                url : baseUrl+"/privilege/delete",
                                 data:{ids:ids},
                                 success : function(data) {
-                                    if(data.state==1){
+                                    if(data.state==200){
                                         $.messager.alert("消息提示", "成功！");
                                         $('#mainGrid').datagrid("reload");
                                     }else{
@@ -150,7 +149,7 @@ function dlg_saveOrUpdate(){
                     content:content
                 },
                 success : function(data) {
-                    if(data.state==1){
+                    if(data.state==200){
                         $.messager.alert("消息提示", "成功！");
                         $('#dlg_save').dialog('close');
                         $('#mainGrid').datagrid("reload");
@@ -218,54 +217,6 @@ $(function(){
 </head>
 <body>
     <div class="easyui-datagrid" id="mainGrid"></div>
-    
-    <div id="dd"></div>
-    <!-- 新增/修改页面 -->
-    <div id="dlg_CU" class="easyui-dialog" title="增加/修改" style="width:80%;height:350px;max-width:700px;padding:10px" 
-    data-options="iconCls:'icon-save',onResize:function(){$(this).dialog('center');}">
-    <form id="form_CU" class="easyui-form" method="post">
-        <input type="hidden" name="id" id="id"/>
-        <table>
-            <tr>
-                <td>权限名:</td>
-                <td>
-                    <input type="text" name="name" id="name" />
-                </td>
-            </tr>
-            <tr>
-                <td>父权限：</td>
-                <td>
-                    <select name="parentId" id="parentId">
-                       <option value="0">请选择..</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>随身:</td>
-                <td>
-                   <select name="type" id="type">
-                       <option value="">请选择..</option>
-                   </select>
-                </td>
-            </tr>
-            <tr>
-               <td>题目：</td>
-               <td>
-                   <textarea name="title" id="title" cols="50" rows="3"></textarea>
-               </td>
-            </tr>
-            <tr>
-               <td>答案：</td>
-               <td>
-                   <textarea name="content" id="content" cols="50" rows="5"></textarea>
-               </td>
-            </tr>
-        </table>
-    </form>
-    <div style="text-align:center;padding:5px">
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="dlg_saveOrUpdate()">提交</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a>
-    </div>
-</div>
+    <div id="div_cu"></div>
 </body>
 </html>
