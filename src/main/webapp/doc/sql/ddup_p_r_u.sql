@@ -21,7 +21,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `sys_privilege`;
 CREATE TABLE `sys_privilege` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `name` varchar(50) NOT NULL COMMENT '权限描述',
+  `name` varchar(50) NOT NULL COMMENT '权限名',
   `action_url` varchar(500) DEFAULT '' COMMENT '权限url',
   `parent_id` int(11) DEFAULT '0' COMMENT '父权限',
   `is_menu` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否是菜单，1是，0否',
@@ -29,7 +29,8 @@ CREATE TABLE `sys_privilege` (
   `description` varchar(100) DEFAULT '' COMMENT '权限描述',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -40,20 +41,20 @@ INSERT INTO `sys_privilege` VALUES ('2', '用户管理', '/ssm/user/list', '1', 
 INSERT INTO `sys_privilege` VALUES ('3', '角色管理', '/ssm/role/list', '1', '', '/ssm/js/widget/zTree3.5/img/diy/1_close.png', '角色列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 INSERT INTO `sys_privilege` VALUES ('4', '权限管理', '/ssm/privilege/list', '1', '', '/ssm/js/widget/zTree3.5/img/diy/1_close.png', '权限列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 
-INSERT INTO `sys_privilege` VALUES ('5', '查询', '/ssm/user/get', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_查询', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('6', '新增', '/ssm/user/add', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('7', '删除', '/ssm/user/delete', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('8', '修改', '/ssm/user/update', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('5', '用户_查询', '/ssm/user/get', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_查询', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('6', '用户_新增', '/ssm/user/add', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('7', '用户_删除', '/ssm/user/delete', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('8', '用户_修改', '/ssm/user/update', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 
-INSERT INTO `sys_privilege` VALUES ('9', '查询', '/ssm/role/get', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_查询', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('10', '新增', '/ssm/role/add', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('11', '删除', '/ssm/role/delete', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('12', '修改', '/ssm/role/update', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('9', '角色_查询', '/ssm/role/get', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_查询', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('10', '角色_新增', '/ssm/role/add', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('11', '角色_删除', '/ssm/role/delete', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('12', '角色_修改', '/ssm/role/update', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 
-INSERT INTO `sys_privilege` VALUES ('13', '查询', '/ssm/privilege/get', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_查询', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('14', '新增', '/ssm/privilege/add', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('15', '删除', '/ssm/privilege/delete', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('16', '修改', '/ssm/privilege/update', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('13', '权限_查询', '/ssm/privilege/get', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_查询', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('14', '权限_新增', '/ssm/privilege/add', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('15', '权限_删除', '/ssm/privilege/delete', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('16', '权限_修改', '/ssm/privilege/update', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 
 
 -- ----------------------------
@@ -66,7 +67,8 @@ CREATE TABLE `sys_role` (
   `description` varchar(100) DEFAULT '' COMMENT '角色描述',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `update_time` datetime NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -106,9 +108,6 @@ INSERT INTO `sys_role_privilege` VALUES ('1', '13');
 INSERT INTO `sys_role_privilege` VALUES ('1', '14');
 INSERT INTO `sys_role_privilege` VALUES ('1', '15');
 INSERT INTO `sys_role_privilege` VALUES ('1', '16');
-INSERT INTO `sys_role_privilege` VALUES ('1', '17');
-INSERT INTO `sys_role_privilege` VALUES ('1', '18');
-INSERT INTO `sys_role_privilege` VALUES ('1', '19');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -124,7 +123,8 @@ CREATE TABLE `sys_user` (
   `create_time` datetime NOT NULL,
   `update_time` datetime NOT NULL COMMENT '更新时间',
   `login_count` bigint(20) NOT NULL COMMENT '登陆次数',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY (`user_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------

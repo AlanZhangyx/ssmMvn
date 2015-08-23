@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ddup.base.BaseAction;
@@ -31,10 +32,8 @@ import com.github.pagehelper.PageInfo;
 @Controller
 public class PrivilegeAction extends BaseAction {
     
-    /**
-     * 日志
-     */
-    private static final Logger LOGGER=Logger.getLogger(PrivilegeAction.class);
+    private static final String JSP_PREFIX_PRIVILEGE="/WEB-INF/jsp/sys/privilege";//Privilege前缀
+    private static final Logger LOGGER=Logger.getLogger(PrivilegeAction.class);//日志
     
     @Resource
     private PrivilegeService privilegeService;
@@ -241,5 +240,20 @@ public class PrivilegeAction extends BaseAction {
         }
         return ProcessUtil.returnCorrect(resultJson);
     }
+    
+    /**
+     * @Title: check
+     * @Description: 
+     * @return
+     * @throws
+     */
+    @RequestMapping(value="/check")
+    @ResponseBody
+    public boolean check(@RequestParam String name){
+        Privilege record=new Privilege();
+        record.setName(name);
+        return privilegeService.checkUnique(record);
+    }
+    
     
 }

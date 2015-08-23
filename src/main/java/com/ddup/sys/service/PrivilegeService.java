@@ -60,5 +60,11 @@ public interface PrivilegeService {
     int insertSelective(Privilege record);
 
     int updateByPrimaryKeySelective(Privilege record);
+
+    /**
+     * @param record
+     * @return 是唯一返回true
+     */
+    boolean checkUnique(Privilege record);
     
 }

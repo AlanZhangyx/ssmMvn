@@ -1,6 +1,43 @@
 <%@ page pageEncoding="UTF-8"%>
+<%-- <%@include file="/include.script.jsp" %> --%>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/additional-methods.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/messages_zh.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("#form").validate({
+        rules:{
+        	name:{
+                required:true,
+                remote:{
+                    url:"${pageContext.request.contextPath}/privilege/check",
+                    type:"post"
+                }
+            },
+            parentId:{
+                required:true
+            },
+            actionUrl:{
+            	url:true
+            },
+            icon:{
+            	url:true
+            },
+            description:{
+            	maxlength:100
+            }
+        }, messages: {
+            name:{
+                remote:"此权限名已存在,请重新输入!"
+            }
+        } ,submitHandler:function(form){
+        	
+        }
+    });
+});
+</script>
 <!-- 新增页面 -->
-<form id="form" class="easyui-form" method="post">
+<form id="form" class="easyui-form" method="post" action="${pageContext.request.contextPath}/privilege/add">
     <table>
         <tr>
             <td>权限名:</td>
@@ -43,8 +80,8 @@
            </td>
         </tr>
     </table>
+    <div style="text-align:center;padding:5px">
+        <input type="submit" value="确定"/>
+        <input type="reset" value="重置"/>
+	</div>
 </form>
-<div style="text-align:center;padding:5px">
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="dlg_saveOrUpdate()">提交</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()">重置</a>
-</div>

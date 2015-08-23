@@ -30,6 +30,10 @@ import com.ddup.utils.ProcessUtil;
  *          2 登录成功后，检查用户是否有访问的url权限
  *              1 有：放行
  *              2 没有：跳转到非法请求页面
+ *              
+ * 例外注意：
+ * 1 路径中有"/get/",只会截取包括"get"的之前的路径去校验，如privilege/get/aaaa/bbb 校验:privilege/get
+ * 2 专有路径之check:路径中有"/check/"直接放行，这是为了校验的请求
  *          
  * @author dznzyx
  * @date 2015年8月21日 下午12:08:03
@@ -97,12 +101,18 @@ public class CenterInterceptor extends HandlerInterceptorAdapter {
      * @throws
      */
     private boolean hasPrivilege(Integer id, String requestURI) {
+        //专有路径无需校验:check
+        if(requestURI.indexOf("/check")>-1){
+           return true; 
+        }
+        
         //查询的权限以get开头，只在数据库中分配一次获取(get)权限
         int getIndex=requestURI.indexOf("/get/");
-        if (getIndex>0) {
+        if (getIndex>-1) {
             requestURI=requestURI.substring(0, getIndex+4);
         }
-        //检查
+        
+        //正常主体检查
         List<Map<String, Object>> pList=privilegeService.listPrivilegesByUserId(id);
         for (int i = 0; i < pList.size(); i++) {
             Map<String, Object> pMap=pList.get(i);

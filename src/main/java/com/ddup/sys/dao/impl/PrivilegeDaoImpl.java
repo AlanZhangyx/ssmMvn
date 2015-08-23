@@ -62,5 +62,10 @@ public class PrivilegeDaoImpl extends BaseDao implements PrivilegeMapper{
     public List<Map<String, Object>> listSelective(Map<String, Object> map) {
         return getSqlSession().selectList(NAMESPACE+"listSelective", map);
     }
+
+    @Override
+    public int countSelectedProperty(Privilege record) {
+        return getSqlSession().selectOne(NAMESPACE+"countSelectedProperty", record);
+    }
     
 }

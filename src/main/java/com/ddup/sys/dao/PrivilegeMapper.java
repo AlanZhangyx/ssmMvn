@@ -22,4 +22,6 @@ public interface PrivilegeMapper {
     List<Privilege> list(Map<String,Object> map);
     
     List<Map<String,Object>> listSelective(Map<String,Object> map);
+    
+    int countSelectedProperty(Privilege record);
 }

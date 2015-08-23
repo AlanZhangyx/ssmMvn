@@ -184,5 +184,16 @@
             </if>
 		</where>
 	</select>
+	
+	<!-- 根据传入某个参数，来计数 -->
+	<select id="countSelectedProperty" parameterType="Privilege" resultType="java.lang.Integer">
+	   select count(*) from sys_privilege p 
+	   <where>
+	       <if test="name != null">
+	           and p.name = #{name,jdbcType=VARCHAR}
+	       </if>
+	   </where>
+	</select>
+	
 
 </mapper>

@@ -115,4 +115,9 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         return privilegeMapper.updateByPrimaryKeySelective(record);
     }
 
+    @Override
+    public boolean checkUnique(Privilege record) {
+        return privilegeMapper.countSelectedProperty(record)<1;
+    }
+
 }
