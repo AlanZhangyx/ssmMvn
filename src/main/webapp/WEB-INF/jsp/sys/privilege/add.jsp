@@ -4,6 +4,30 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/additional-methods.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/messages_zh.js"></script>
 <script type="text/javascript">
+<%-- Ztree --%>
+var setting = {
+	check:{
+		enable:true,
+		chkStyle:"radio",
+		radioType:"all"
+	},
+    data: {
+        simpleData: {
+            enable: true,
+            idKey: "id",
+            pIdKey: "parentId",
+            rootPId: 0
+        }
+    }, callback: {
+        onClick: function(event,treeId,treeNode){
+        	$("#parentId").val(treeNode.id);
+        	$("#parentName").val(treeNode.name);
+        }
+    }
+};
+
+var treeNode=eval('(${list})');
+
 $(function(){
     $("#form").validate({
         rules:{
@@ -15,13 +39,14 @@ $(function(){
                 }
             },
             parentId:{
-                required:true
+                required:true,
+                maxlength:50
             },
             actionUrl:{
-            	url:true
+            	maxlength:500
             },
             icon:{
-            	url:true
+            	maxlength:500
             },
             description:{
             	maxlength:100
@@ -34,10 +59,16 @@ $(function(){
         	
         }
     });
+    
+    //选择父权限
+    $("#pickParent").click(function(){
+    	$.fn.zTree.init($("#privilegeTree"), setting, treeNode);
+    });
+    
 });
 </script>
 <!-- 新增页面 -->
-<form id="form" class="easyui-form" method="post" action="${pageContext.request.contextPath}/privilege/add">
+<form id="form" method="post" action="${pageContext.request.contextPath}/privilege/add">
     <table>
         <tr>
             <td>权限名:</td>
@@ -48,8 +79,10 @@ $(function(){
         <tr>
             <td>父权限：</td>
             <td>
-                <input type="text" name="parentId" id="parentId" readonly="readonly" />
+                <input type="text" name="parentName" id="parentName" readonly="readonly" />
+                <input type="hidden" name="parentId" id="parentId" />
                 <input type="button" id="pickParent" value="选择" />
+                <ul id="privilegeTree" class="ztree"></ul>
             </td>
         </tr>
         <tr>

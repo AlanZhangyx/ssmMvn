@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.log4j.Logger;
@@ -14,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ddup.base.BaseAction;
 import com.ddup.base.ToJSPException;
 import com.ddup.sys.model.Privilege;
+import com.ddup.sys.model.User;
 import com.ddup.sys.service.PrivilegeService;
 import com.ddup.utils.ProcessUtil;
 import com.github.pagehelper.PageHelper;
@@ -147,14 +151,18 @@ public class PrivilegeAction extends BaseAction {
      * @throws
      */
     @RequestMapping("/get/add")
-    public String addUI() throws ToJSPException{
+    public ModelAndView addUI(HttpServletRequest request) throws ToJSPException{
+        ModelAndView mav=new ModelAndView(JSP_PREFIX_PRIVILEGE+"/add");
         try {
+            JSONArray jsonArray=new JSONArray();
+            jsonArray.addAll(privilegeService.listForCRUD(new HashMap<String,Object>()));
+            mav.addObject("list",jsonArray);
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("跳转到权限增加页面");
             LOGGER.error(errorMsg, e);
             throw new ToJSPException(errorMsg);
         }
-        return JSP_PREFIX_PRIVILEGE+"/add";
+        return mav;
     } 
     
     
