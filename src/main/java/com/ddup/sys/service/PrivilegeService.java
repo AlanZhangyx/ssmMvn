@@ -12,59 +12,17 @@ import com.ddup.sys.model.Privilege;
  */
 public interface PrivilegeService {
     
-    /**1
-     * @Title: listPrivilegesByUserId
-     * @Description: 获取用户的权限
-     * @param userId
-     * @return
-     * @throws
-     */
-    List<Map<String,Object>> listPrivilegesByUserId(Integer userId);
-    
-    /**
-     * @Title: listMenusByUserId
-     * @Description: 获取用户的权限-菜单
-     * @param userId
-     * @return
-     * @throws
-     */
-    List<Map<String,Object>> listMenusByUserId(Integer userId);
-
-    /**
-     * @Title: listPrivilegesByRoldId 
-     * @Description: 获取所有权限，并checked输入roleId的权限
-     * @param roldId
-     * @return
-     * @throws
-     */
-    List<Map<String,Object>> listPrivilegesByRoldId(Integer roldId);
-    
-    /**
-     * @Title: list 
-     * @Description: 
-     * @return
-     * @throws
-     */
-    List<Map<String,Object>> listForCRUD(Map<String,Object> map);
-    
-    /**
-     * @Title: selectByPrimaryKey
-     * @Description 
-     * @param id
-     * @return
-     */
-    Privilege selectByPrimaryKey(Integer id);
-    
-    void deleteByPrimaryKeys(Integer... ids);
-
     int insertSelective(Privilege record);
-
+    void deleteByPrimaryKeys(Integer... ids);
     int updateByPrimaryKeySelective(Privilege record);
-
-    /**
-     * @param record
-     * @return 是唯一返回true
-     */
-    boolean checkUnique(Privilege record);
+    Privilege selectByPrimaryKey(Integer id);
+    boolean checkUnique(Privilege record);//唯一返回true
+    
+    List<Map<String,Object>> listForCRUD(Map<String,Object> map);//专为CRUD列表时服务
+    List<Map<String,Object>> listPrivilegesByUserId(Integer userId);//用户的权限列表
+    List<Map<String,Object>> listMenusByUserId(Integer userId);//用户的(权限菜单)权限列表
+    List<Map<String,Object>> listPrivilegesByRoldId(Integer roldId);//角色的权限列表，checked角色所属
+    List<Map<String,Object>> listForZtree();//权限列表，给ZTREE用，字段少
+    
     
 }

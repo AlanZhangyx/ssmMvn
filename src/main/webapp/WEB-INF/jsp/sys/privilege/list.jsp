@@ -11,7 +11,7 @@
 <script type="text/javascript">
 function fillGird(){
     $('#mainGrid').datagrid({
-        url:baseUrl+"/privilege/get/jsonlist",
+        url:baseUrl+"/privilege/query/jsonlist",
         queryParams: {},
         width:'98%',
         height:'100%',
@@ -49,7 +49,7 @@ function fillGird(){
                 	width:"50%",
                 	close:false,
                 	cache:false,
-                	href:baseUrl+"/privilege/get/add",
+                	href:baseUrl+"/privilege/query/addUI",
                 	modal:true
                 });
             }
@@ -73,7 +73,7 @@ function fillGird(){
                         width:"50%",
                         close:false,
                         cache:false,
-                        href:baseUrl+"/privilege/get/update?id="+id,
+                        href:baseUrl+"/privilege/query/updateUI?id="+id,
                         modal:true
                     });
                 }

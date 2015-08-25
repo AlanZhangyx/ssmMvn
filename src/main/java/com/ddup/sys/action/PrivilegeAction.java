@@ -49,13 +49,10 @@ public class PrivilegeAction extends BaseAction {
     
     /*********************Business Process***************************/
     /**
-     * @throws ToJSPException
-     * @Title: list 
-     * @Description: 跳转到list页面
-     * @return
-     * @throws
+     * 1 代表此权限
+     * 跳转到list页面
      */
-    @RequestMapping("/list")
+    @RequestMapping("/query")
     public String list() throws ToJSPException{
         try {
         } catch (Exception e) {
@@ -68,12 +65,10 @@ public class PrivilegeAction extends BaseAction {
     
     
     /**
-     * @Title: listJson
-     * @Description: 返回用于CRUD的json数据
-     * @return
-     * @throws
+     * 2 列表页面数据填充
+     * 返回用于CRUD的json数据
      */
-    @RequestMapping(value="/get/jsonlist")
+    @RequestMapping(value="/query/jsonlist")
     @ResponseBody
     public JSONObject jsonList(String fuzzyWord,Integer page,Integer rows,
             Integer roldId//选择角色的权限
@@ -106,56 +101,16 @@ public class PrivilegeAction extends BaseAction {
         return ProcessUtil.returnCorrect(resultJson);
     }
     
-    /**
-     * @Title: getJson
-     * @Description: 返回用于CU的json数据
-     * @return
-     * @throws
-     */
-    @RequestMapping(value="/get/json")
-    @ResponseBody
-    @Deprecated//目前并未用到
-    public JSONObject json(Integer id,Boolean needPList
-            ){
-        resultJson=new JSONObject();
-        try {
-            Privilege record=privilegeService.selectByPrimaryKey(id);
-            if(needPList){//如果需要父权限列表
-                Integer pId=record.getParentId();
-                List<Map<String, Object>> pList=privilegeService.listForCRUD(new HashMap<String,Object>());
-                for (int i = 0; i < pList.size(); i++) {
-                    Map<String,Object> item=pList.get(i);
-                    if(pId==(Integer)item.get("id")){
-                        item.put("checked", true);
-                        pList.set(i, item);
-                        break;
-                    } 
-                }
-                //将pList放入放回结果
-                resultJson.put("pList", pList);
-            }
-            resultJson.put("record", record);//结果返回
-        } catch (Exception e) {
-            String errorMsg=ProcessUtil.formatErrMsg("查询单个权限");
-            LOGGER.error(errorMsg, e);
-            return ProcessUtil.returnError(500, errorMsg);
-        }
-        return ProcessUtil.returnCorrect(resultJson);
-    }
     
     /**
-     * @throws ToJSPException
-     * @Title: addUI 
-     * @Description: 跳转到add页面
-     * @return
-     * @throws
+     * 3.1 跳转到add页面
      */
-    @RequestMapping("/get/add")
+    @RequestMapping("/query/addUI")
     public ModelAndView addUI(HttpServletRequest request) throws ToJSPException{
         ModelAndView mav=new ModelAndView(JSP_PREFIX_PRIVILEGE+"/add");
         try {
             JSONArray jsonArray=new JSONArray();
-            jsonArray.addAll(privilegeService.listForCRUD(new HashMap<String,Object>()));
+            jsonArray.addAll(privilegeService.listForZtree());
             mav.addObject("list",jsonArray);
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("跳转到权限增加页面");
@@ -167,10 +122,7 @@ public class PrivilegeAction extends BaseAction {
     
     
     /**
-     * @Title: addOne
-     * @Description: 用于增加一条记录
-     * @return
-     * @throws
+     * 3.2 用于增加一条记录
      */
     @RequestMapping(value="/add")
     @ResponseBody
@@ -187,10 +139,7 @@ public class PrivilegeAction extends BaseAction {
     }
     
     /**
-     * @Title: delete
-     * @Description: 
-     * @return
-     * @throws
+     * 4 delete
      * 测试：service方法加了事务，那么它调用mapper应该会exception，那么就会Rollback
      * 先在界面选择3条数据，然后手动从数据库删除其中1条，
      * 然后界面发送删除请求，看看是否回滚
@@ -212,23 +161,20 @@ public class PrivilegeAction extends BaseAction {
     }
     
     /**
-     * @throws ToJSPException
-     * @Title: updateUI 
-     * @Description: 跳转到update页面
-     * @return
-     * @throws
+     * 5.1 跳转到update页面
      */
-    @RequestMapping("/get/update")
+    @RequestMapping("/query/updateUI")
     public ModelAndView updateUI(Integer id) throws ToJSPException{
         ModelAndView mav=new ModelAndView(JSP_PREFIX_PRIVILEGE+"/update");
         try {
             //权限
             Privilege record=privilegeService.selectByPrimaryKey(id);
             //查询出权限列表
-            List<Map<String, Object>> pList=privilegeService.listForCRUD(new HashMap<String,Object>());
+            List<Map<String, Object>> pList=privilegeService.listForZtree();
             //如果有父权限的话，在权限列表中标记中并给其加上选中标记
             Integer pId=record.getParentId();//父权限ID
             if (pId!=0) {
+                //check标记
                 for (int i = 0; i < pList.size(); i++) {
                     Map<String,Object> item=pList.get(i);
                     if(pId==(Integer)item.get("id")){
@@ -237,9 +183,13 @@ public class PrivilegeAction extends BaseAction {
                         break;
                     } 
                 }
+                //设置父权限Name
+                mav.addObject("parentName", privilegeService.selectByPrimaryKey(pId).getName());
             }
             //将pList放入放回结果
-            mav.addObject("pList", pList);
+            JSONArray jsonArray=new JSONArray();
+            jsonArray.addAll(pList);
+            mav.addObject("pList", jsonArray);
             mav.addObject("privilege", record);//结果返回
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("跳转到权限修改页面");
@@ -250,10 +200,7 @@ public class PrivilegeAction extends BaseAction {
     } 
 
     /**
-     * @Title: update
-     * @Description: 
-     * @return
-     * @throws
+     * 5.2 update
      */
     @RequestMapping(value="/update")
     @ResponseBody
@@ -270,14 +217,17 @@ public class PrivilegeAction extends BaseAction {
     }
     
     /**
-     * @Title: check
-     * @Description: 
-     * @return
-     * @throws
+     * 6 唯一性检查
      */
-    @RequestMapping(value="/check")
+    @RequestMapping(value="/query/check")
     @ResponseBody
-    public boolean check(@RequestParam String name){
+    public boolean check(@RequestParam String name,Integer id){
+        if (null!=id && 0!=id) {//修改的情况
+            String dbName=privilegeService.selectByPrimaryKey(id).getName();
+            if(name.equals(dbName)){
+                return true;
+            }
+        }
         Privilege record=new Privilege();
         record.setName(name);
         return privilegeService.checkUnique(record);

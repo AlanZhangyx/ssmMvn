@@ -36,7 +36,7 @@ $(function(){
         	name:{
                 required:true,
                 remote:{
-                    url:"${pageContext.request.contextPath}/privilege/check",
+                    url:"${pageContext.request.contextPath}/privilege/query/check",
                     type:"post"
                 }
             },
@@ -91,7 +91,7 @@ $(function(){
         <tr>
             <td>父权限：</td>
             <td>
-                <input type="text" path="parentName" id="parentName" readonly="readonly" />
+                <input type="text" id="parentName" readonly="readonly" value="${parentName}" />
                 <sp:input type="hidden" path="parentId" id="parentId" />
                 <input type="button" id="pickParent" value="选择" />
                 <ul id="privilegeTree" class="ztree"></ul>
@@ -127,6 +127,5 @@ $(function(){
     </table>
     <div style="text-align:center;padding:5px">
         <input type="submit" value="确定"/>
-        <input type="reset" value="重置"/>
 	</div>
 </sp:form>

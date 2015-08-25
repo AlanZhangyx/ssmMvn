@@ -19,9 +19,10 @@ public interface PrivilegeMapper {
 
     int updateByPrimaryKey(Privilege record);
     
-    List<Privilege> list(Map<String,Object> map);
-    
-    List<Map<String,Object>> listSelective(Map<String,Object> map);
-    
     int countSelectedProperty(Privilege record);
+    
+    List<Privilege> listModels(Privilege record);
+    List<Privilege> listModels(Map<String,Object> map);
+    List<Map<String,Object>> listMaps(Privilege record);
+    List<Map<String,Object>> listMaps(Map<String,Object> map);
 }
