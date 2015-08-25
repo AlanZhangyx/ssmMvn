@@ -160,6 +160,14 @@ a {
 	}
 
     $(function(){
+    	$(window).keydown(function(event){
+    	    switch(event.keyCode) {
+    	        case 13:
+    	            $("#form").submit();
+    	            break;
+    	    }
+    	});
+    	
         //得到焦点
         $("#password").focus(function(){
             $("#left_hand").animate({

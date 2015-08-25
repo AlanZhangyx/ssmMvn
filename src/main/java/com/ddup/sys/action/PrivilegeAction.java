@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ddup.base.BaseAction;
 import com.ddup.base.ToJSPException;
 import com.ddup.sys.model.Privilege;
-import com.ddup.sys.model.User;
 import com.ddup.sys.service.PrivilegeService;
 import com.ddup.utils.ProcessUtil;
 import com.github.pagehelper.PageHelper;
@@ -115,6 +114,7 @@ public class PrivilegeAction extends BaseAction {
      */
     @RequestMapping(value="/get/json")
     @ResponseBody
+    @Deprecated//目前并未用到
     public JSONObject json(Integer id,Boolean needPList
             ){
         resultJson=new JSONObject();
@@ -219,14 +219,34 @@ public class PrivilegeAction extends BaseAction {
      * @throws
      */
     @RequestMapping("/get/update")
-    public String updateUI() throws ToJSPException{
+    public ModelAndView updateUI(Integer id) throws ToJSPException{
+        ModelAndView mav=new ModelAndView(JSP_PREFIX_PRIVILEGE+"/update");
         try {
+            //权限
+            Privilege record=privilegeService.selectByPrimaryKey(id);
+            //查询出权限列表
+            List<Map<String, Object>> pList=privilegeService.listForCRUD(new HashMap<String,Object>());
+            //如果有父权限的话，在权限列表中标记中并给其加上选中标记
+            Integer pId=record.getParentId();//父权限ID
+            if (pId!=0) {
+                for (int i = 0; i < pList.size(); i++) {
+                    Map<String,Object> item=pList.get(i);
+                    if(pId==(Integer)item.get("id")){
+                        item.put("checked", true);
+                        pList.set(i, item);
+                        break;
+                    } 
+                }
+            }
+            //将pList放入放回结果
+            mav.addObject("pList", pList);
+            mav.addObject("privilege", record);//结果返回
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("跳转到权限修改页面");
             LOGGER.error(errorMsg, e);
             throw new ToJSPException(errorMsg);
         }
-        return JSP_PREFIX_PRIVILEGE+"/update";
+        return mav;
     } 
 
     /**

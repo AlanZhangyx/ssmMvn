@@ -1,4 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="sp" uri="http://www.springframework.org/tags/form" %>
 <%-- <%@include file="/include.script.jsp" %> --%>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/jquery.form.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/jquery.validate.min.js"></script>
@@ -27,7 +28,7 @@ var setting = {
     }
 };
 
-var treeNode=eval('(${list})');
+var treeNode=eval('(${pList})');
 
 $(function(){
     $("#form").validate({
@@ -78,19 +79,20 @@ $(function(){
 });
 </script>
 <!-- 新增页面 -->
-<form id="form" method="post" action="${pageContext.request.contextPath}/privilege/add">
+<sp:form id="form" method="post" commandName="privilege" action="${pageContext.request.contextPath}/privilege/update">
     <table>
         <tr>
             <td>权限名:</td>
             <td>
-                <input type="text" name="name" id="name" />
+                <sp:input type="hidden" path="id" id="id" />
+                <sp:input type="text" path="name" id="name" />
             </td>
         </tr>
         <tr>
             <td>父权限：</td>
             <td>
-                <input type="text" name="parentName" id="parentName" readonly="readonly" />
-                <input type="hidden" name="parentId" id="parentId" />
+                <input type="text" path="parentName" id="parentName" readonly="readonly" />
+                <sp:input type="hidden" path="parentId" id="parentId" />
                 <input type="button" id="pickParent" value="选择" />
                 <ul id="privilegeTree" class="ztree"></ul>
             </td>
@@ -98,28 +100,28 @@ $(function(){
         <tr>
             <td>权限URL:</td>
             <td>
-               <input type="text" name="actionUrl" id="actionUrl" />
+               <sp:input type="text" path="actionUrl" id="actionUrl" />
             </td>
         </tr>
         <tr>
            <td>是否是菜单：</td>
            <td>
-               <select name="isMenu" id="isMenu">
-                   <option value="0">否</option>
-                   <option value="1">是</option>
-               </select>
+               <sp:select path="isMenu" id="isMenu">
+                   <sp:option value="0">否</sp:option>
+                   <sp:option value="1">是</sp:option>
+               </sp:select>
            </td>
         </tr>
         <tr>
             <td>图标URL:</td>
             <td>
-               <input type="text" name="icon" id="icon" />
+               <sp:input type="text" path="icon" id="icon" />
             </td>
         </tr>
         <tr>
            <td>权限描述：</td>
            <td>
-               <textarea name="description" id="description" cols="50" rows="5"></textarea>
+               <sp:textarea path="description" id="description" cols="50" rows="5"></sp:textarea>
            </td>
         </tr>
     </table>
@@ -127,4 +129,4 @@ $(function(){
         <input type="submit" value="确定"/>
         <input type="reset" value="重置"/>
 	</div>
-</form>
+</sp:form>

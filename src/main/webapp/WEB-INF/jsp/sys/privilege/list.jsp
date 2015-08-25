@@ -67,17 +67,14 @@ function fillGird(){
                 }
                 var id= rows[0].id;
                 if(id){
-                    $.ajax({
-                        type : "POST",
-                        url : baseUrl+"/privilege/get/update",
-                        data:{id:id},
-                        success : function(data) {
-                            $("#id").val(data.id);
-                            $("#type").combobox("setValue",data.type);
-                            $("#title").val(data.title);
-                            $("#content").val(data.content);
-                            $('#dlg_save').dialog('open');
-                        }
+                	$('#div_cu').dialog({
+                        title:"修改",
+                        height:"50%",
+                        width:"50%",
+                        close:false,
+                        cache:false,
+                        href:baseUrl+"/privilege/get/update?id="+id,
+                        modal:true
                     });
                 }
             }
