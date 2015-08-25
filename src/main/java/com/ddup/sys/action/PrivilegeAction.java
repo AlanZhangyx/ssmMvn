@@ -35,7 +35,7 @@ import com.github.pagehelper.PageInfo;
 @Controller
 public class PrivilegeAction extends BaseAction {
     
-    private static final String JSP_PREFIX_PRIVILEGE="/WEB-INF/jsp/sys/privilege";//Privilege前缀
+    private static final String JSP_PREFIX="/WEB-INF/jsp/sys/privilege";//Privilege前缀
     private static final Logger LOGGER=Logger.getLogger(PrivilegeAction.class);//日志
     
     @Resource
@@ -60,7 +60,7 @@ public class PrivilegeAction extends BaseAction {
             LOGGER.error(errorMsg, e);
             throw new ToJSPException(errorMsg);
         }
-        return JSP_PREFIX_PRIVILEGE+"/list";
+        return JSP_PREFIX+"/list";
     }
     
     
@@ -107,7 +107,7 @@ public class PrivilegeAction extends BaseAction {
      */
     @RequestMapping("/query/addUI")
     public ModelAndView addUI(HttpServletRequest request) throws ToJSPException{
-        ModelAndView mav=new ModelAndView(JSP_PREFIX_PRIVILEGE+"/add");
+        ModelAndView mav=new ModelAndView(JSP_PREFIX+"/add");
         try {
             JSONArray jsonArray=new JSONArray();
             jsonArray.addAll(privilegeService.listForZtree());
@@ -165,7 +165,7 @@ public class PrivilegeAction extends BaseAction {
      */
     @RequestMapping("/query/updateUI")
     public ModelAndView updateUI(Integer id) throws ToJSPException{
-        ModelAndView mav=new ModelAndView(JSP_PREFIX_PRIVILEGE+"/update");
+        ModelAndView mav=new ModelAndView(JSP_PREFIX+"/update");
         try {
             //权限
             Privilege record=privilegeService.selectByPrimaryKey(id);
@@ -232,6 +232,5 @@ public class PrivilegeAction extends BaseAction {
         record.setName(name);
         return privilegeService.checkUnique(record);
     }
-    
     
 }
