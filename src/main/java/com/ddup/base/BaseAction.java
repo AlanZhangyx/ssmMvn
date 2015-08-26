@@ -2,7 +2,7 @@ package com.ddup.base;
 
 /**
  * @Description: 父Action，用来设置一些Action的通用信息
- * @author dznzyx
+ * @author zyx
  * @date 2015年8月18日 下午8:03:58
  */
 public class BaseAction {

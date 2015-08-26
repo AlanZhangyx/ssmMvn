@@ -31,7 +31,7 @@
        	            enable: true,
        	            idKey: "id",
        	            pIdKey: "parentId",
-       	            rootPId: 0
+       	            rootPId: null
        	        }
        	    }, callback: {
                 onClick: addTab

@@ -7,7 +7,7 @@ import com.ddup.sys.model.Privilege;
 
 /**
  * @Description: TODO
- * @author dznzyx
+ * @author zyx
  * @date 2015年8月19日 下午5:11:15
  */
 public interface PrivilegeService {

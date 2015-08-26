@@ -8,7 +8,7 @@ import org.apache.ibatis.plugin.*;
 
 /**
  * @Description: 数据库分页拦截器
- * @author dznzyx
+ * @author zyx
  * @date 2015年8月19日 上午11:59:47
  * 
  * 使用了第三方的mybatis分页插件，自定义的先不用了

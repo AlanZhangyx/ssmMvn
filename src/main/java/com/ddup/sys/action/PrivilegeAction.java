@@ -140,6 +140,8 @@ public class PrivilegeAction extends BaseAction {
     
     /**
      * 4 delete
+     * 如果有子权限，会一并删除其子权限cascade
+     * 
      * 测试：service方法加了事务，那么它调用mapper应该会exception，那么就会Rollback
      * 先在界面选择3条数据，然后手动从数据库删除其中1条，
      * 然后界面发送删除请求，看看是否回滚
@@ -153,7 +155,7 @@ public class PrivilegeAction extends BaseAction {
                 privilegeService.deleteByPrimaryKeys(ids);
             }
         } catch (Exception e) {
-            String errorMsg=ProcessUtil.formatErrMsg("删除一个权限");
+            String errorMsg=ProcessUtil.formatErrMsg("删除权限");
             LOGGER.error(errorMsg, e);
             return ProcessUtil.returnError(500, errorMsg);
         }

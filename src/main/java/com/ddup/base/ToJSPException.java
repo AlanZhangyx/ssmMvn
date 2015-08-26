@@ -2,7 +2,7 @@ package com.ddup.base;
 
 /**
  * @Description: 这个错误用来被拦截跳转到JSP页面
- * @author dznzyx
+ * @author zyx
  * @date 2015年8月20日 下午2:49:47
  */
 public class ToJSPException extends Exception {

@@ -19,7 +19,7 @@ import com.ddup.sys.service.UserService;
 
 /**
  * @Description: 用户相关的操作
- * @author dznzyx
+ * @author zyx
  * @date 2015年8月18日 下午8:10:58
  */
 @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })

@@ -30,7 +30,7 @@ import com.github.pagehelper.PageInfo;
 
 /**
  * @Description: 角色相关操作
- * @author dznzyx
+ * @author zyx
  * @date 2015年8月20日 下午2:53:42
  */
 @RequestMapping(value="/role",method = { RequestMethod.GET, RequestMethod.POST })
@@ -128,10 +128,10 @@ public class RoleAction extends BaseAction {
      */
     @RequestMapping(value="/add")
     @ResponseBody
-    public JSONObject add(Role record){
+    public JSONObject add(Role record,Integer... pIds){
         resultJson=new JSONObject();
         try {
-            roleService.insertSelective(record);
+            roleService.insert(record,pIds);
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("增加一个角色");
             LOGGER.error(errorMsg, e);
@@ -155,7 +155,7 @@ public class RoleAction extends BaseAction {
                 roleService.deleteByPrimaryKeys(ids);
             }
         } catch (Exception e) {
-            String errorMsg=ProcessUtil.formatErrMsg("删除一个角色");
+            String errorMsg=ProcessUtil.formatErrMsg("删除角色");
             LOGGER.error(errorMsg, e);
             return ProcessUtil.returnError(500, errorMsg);
         }
@@ -170,29 +170,14 @@ public class RoleAction extends BaseAction {
         ModelAndView mav=new ModelAndView(JSP_PREFIX+"/update");
         try {
             //角色
-            Privilege record=roleService.selectByPrimaryKey(id);
-            //查询出角色列表
-            List<Map<String, Object>> pList=roleService.listForZtree();
-            //如果有父角色的话，在角色列表中标记中并给其加上选中标记
-            Integer pId=record.getParentId();//父角色ID
-            if (pId!=0) {
-                //check标记
-                for (int i = 0; i < pList.size(); i++) {
-                    Map<String,Object> item=pList.get(i);
-                    if(pId==(Integer)item.get("id")){
-                        item.put("checked", true);
-                        pList.set(i, item);
-                        break;
-                    } 
-                }
-                //设置父角色Name
-                mav.addObject("parentName", roleService.selectByPrimaryKey(pId).getName());
-            }
+            Role record=roleService.selectByPrimaryKey(id);
+            //查询出角色的权限列表
+            List<Map<String, Object>> pList=privilegeService.listPrivilegesByRoldId(id);
             //将pList放入放回结果
             JSONArray jsonArray=new JSONArray();
             jsonArray.addAll(pList);
             mav.addObject("pList", jsonArray);
-            mav.addObject("privilege", record);//结果返回
+            mav.addObject("role", record);//结果返回
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("跳转到角色修改页面");
             LOGGER.error(errorMsg, e);
@@ -206,10 +191,10 @@ public class RoleAction extends BaseAction {
      */
     @RequestMapping(value="/update")
     @ResponseBody
-    public JSONObject update(Privilege record){
+    public JSONObject update(Role record,Integer... pIds){
         resultJson=new JSONObject();
         try {
-            roleService.updateByPrimaryKeySelective(record);
+            roleService.updateByPrimaryKeySelective(record,pIds);
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("修改一个角色");
             LOGGER.error(errorMsg, e);
@@ -230,7 +215,7 @@ public class RoleAction extends BaseAction {
                 return true;
             }
         }
-        Privilege record=new Privilege();
+        Role record=new Role();
         record.setName(name);
         return roleService.checkUnique(record);
     }

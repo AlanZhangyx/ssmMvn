@@ -47,12 +47,8 @@
 			<if test="description != null">
 				description,
 			</if>
-			<if test="createTime != null">
 				create_time,
-			</if>
-			<if test="updateTime != null">
-				update_time,
-			</if>
+				update_time
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -64,12 +60,8 @@
 			<if test="description != null">
 				#{description,jdbcType=VARCHAR},
 			</if>
-			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updateTime != null">
-				#{updateTime,jdbcType=TIMESTAMP},
-			</if>
+				NOW(),
+                NOW()
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.ddup.sys.model.Role">
@@ -81,12 +73,7 @@
 			<if test="description != null">
 				description = #{description,jdbcType=VARCHAR},
 			</if>
-			<if test="createTime != null">
-				create_time = #{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updateTime != null">
-				update_time = #{updateTime,jdbcType=TIMESTAMP},
-			</if>
+			    update_time = NOW()
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
@@ -132,4 +119,27 @@
 
 		</where>
 	</select>
+	
+	<!-- 在关联表sys_role_privilege中插入关系 -->
+	<insert id="insertRolePrivilege" parameterType="map">
+	    insert into sys_role_privilege(role_id,privilege_id) values 
+	    <foreach collection="pIds" item="privilegeId" separator=",">
+	    (#{roleId},#{privilegeId})
+	    </foreach>
+	</insert>
+	
+	<!-- 删除角色数组有cascade -->
+	<delete id="deleteByPrimaryKeys" parameterType="map">
+        delete from sys_role where id in 
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id,jdbcType=INTEGER}
+        </foreach>
+    </delete>
+    
+    <!-- 单独删除关系表 -->
+    <delete id="deleteRolePrivilege" parameterType="java.lang.Integer">
+        delete from sys_role_privilege where role_id = #{id,jdbcType=INTEGER}
+    </delete>
+	
+	
 </mapper>

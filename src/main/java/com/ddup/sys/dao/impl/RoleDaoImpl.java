@@ -63,4 +63,20 @@ public class RoleDaoImpl extends BaseDao implements RoleMapper {
         return getSqlSession().selectList(NAMESPACE+"listSelectedColumns", map);
     }
 
+    @Override
+    public int insertRolePrivilege(Map<String, Object> map) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    
+    @Override
+    public int deleteByPrimaryKeys(Map<String, Object> map) {
+        return getSqlSession().delete(NAMESPACE+"deleteByPrimaryKeys", map);
+    }
+    
+    @Override
+    public int deleteRolePrivilege(Integer id) {
+        return getSqlSession().delete(NAMESPACE+"deleteRolePrivilege", id);
+    }
+
 }

@@ -2,7 +2,7 @@ package com.ddup.base;
 
 /**
  * @Description: 用来被拦截，从而知道要给客户端返回一个JSON类型的错误信息
- * @author dznzyx
+ * @author zyx
  * @date 2015年8月20日 下午2:51:09
  */
 public class ToJSONException extends Exception {

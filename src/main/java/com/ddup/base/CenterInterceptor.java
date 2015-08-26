@@ -34,7 +34,7 @@ import com.ddup.utils.ProcessUtil;
  * 例外注意：
  * 1 路径中有"/query",只会截取包括"query"的之前的路径去校验，如privilege/query/aaaa/bbb 校验:privilege/query
  *          
- * @author dznzyx
+ * @author zyx
  * @date 2015年8月21日 下午12:08:03
  */
 public class CenterInterceptor extends HandlerInterceptorAdapter {

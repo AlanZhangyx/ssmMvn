@@ -41,7 +41,7 @@
 		#{icon,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
 		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
 	</insert>
-	<insert id="insertSelective" parameterType="com.ddup.sys.model.Privilege">
+	<insert id="insertSelective" parameterType="com.ddup.sys.model.Privilege" keyProperty="id">
 		insert into sys_privilege
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
