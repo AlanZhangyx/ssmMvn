@@ -140,6 +140,43 @@
     <delete id="deleteRolePrivilege" parameterType="java.lang.Integer">
         delete from sys_role_privilege where role_id = #{id,jdbcType=INTEGER}
     </delete>
+    
+    <select id="listModelsByMap" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from sys_role 
+        <where>
+            <if test="fuzzyWord!=null">
+                and (name like "%"#{fuzzyWord}"%"
+                    or description like "%"#{fuzzyWord}"%")
+            </if>
+        </where>
+    </select>
+    
+    <select id="listMapsByMap" parameterType="map" resultType="map">
+        select ${columns_select} from sys_role r
+        <where>
+            <if test="userId != null">
+                and r.id in (select role_id from sys_user_role ur
+                where ur.user_id
+                = #{userId})
+            </if>
+            <if test="fuzzyWord!=null">
+                and (r.name like "%"#{fuzzyWord}"%"
+                    or r.description like "%"#{fuzzyWord}"%")
+            </if>
+        </where>
+    </select>
 	
+	
+	   <!-- 根据传入某个参数，来计数 -->
+    <select id="countSelectedProperty" parameterType="Role" resultType="java.lang.Integer">
+       select count(*) from sys_role r 
+       <where>
+           <if test="name != null">
+               and r.name = #{name,jdbcType=VARCHAR}
+           </if>
+       </where>
+    </select>
 	
 </mapper>

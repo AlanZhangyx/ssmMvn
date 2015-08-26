@@ -142,6 +142,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
         
         return listAll;
     }
+    
     @Override
     public List<Map<String, Object>> listForZtree() {
         Map<String,Object> map=new HashMap<String,Object>();

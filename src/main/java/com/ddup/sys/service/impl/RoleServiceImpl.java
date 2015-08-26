@@ -22,7 +22,22 @@ import com.ddup.sys.service.RoleService;
 public class RoleServiceImpl implements RoleService {
     @Resource
     private RoleMapper roleMapper;
-
+    
+    /*** 定义需要动态查询的列的key和value ****/
+    /** key **/
+    //列名原始：是放在第一个select部分的
+    private static final String COLUMNS_KEY1="columns_select";
+    
+    
+    /** value **/
+    private static final String COLUMNS1="id,name";
+    private static final String COLUMNS2="id,name,description,create_time as createTime,update_time as updateTime";
+    
+    /*********************** PROCESS ***********************/
+    
+    /**
+     * 增加
+     */
     @Transactional
     @Override
     public int insert(Role record, Integer... pIds) {
@@ -36,6 +51,9 @@ public class RoleServiceImpl implements RoleService {
         return effectCount;
     }
 
+    /**
+     * 删除
+     */
     @Override
     public void deleteByPrimaryKeys(Integer... ids) {
         if (ids.length>0) {
@@ -45,6 +63,10 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
+    /**
+     * 修改
+     */
+    @Transactional
     @Override
     public int updateByPrimaryKeySelective(Role record, Integer... pIds) {
         int effectCount=roleMapper.updateByPrimaryKeySelective(record);
@@ -60,34 +82,52 @@ public class RoleServiceImpl implements RoleService {
         return effectCount;
     }
 
+    /**
+     * 单个查询
+     */
     @Override
     public Role selectByPrimaryKey(Integer id) {
-        // TODO Auto-generated method stub
-        return null;
+        return roleMapper.selectByPrimaryKey(id);
     }
 
+    /**
+     * 唯一性查询
+     */
     @Override
     public boolean checkUnique(Role record) {
-        // TODO Auto-generated method stub
-        return false;
+        return roleMapper.countSelectedProperty(record)<1;
     }
+    
+    /**************************各种列表********************/
 
+    /**
+     * 专为CRUD列表时服务
+     */
     @Override
-    public List<Map<String, Object>> listForCRUD(Map<String, Object> map) {
-        // TODO Auto-generated method stub
-        return null;
+    public List<Map<String,Object>> listForCRUD(Map<String, Object> map) {
+        map.put(COLUMNS_KEY1, COLUMNS2);
+        return roleMapper.listMaps(map);
     }
 
+    /**
+     * 角色列表，给用户管理时ZTREE用，字段少
+     */
     @Override
     public List<Map<String, Object>> listForZtree() {
-        // TODO Auto-generated method stub
-        return null;
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put(COLUMNS_KEY1, COLUMNS1);
+        return roleMapper.listMaps(map);
     }
 
+    /**
+     * 用户的角色列表
+     */
     @Override
     public List<Map<String, Object>> listRolesByUserId(Integer userId) {
-        // TODO Auto-generated method stub
-        return null;
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put(COLUMNS_KEY1, COLUMNS1);
+        map.put("userId", userId);
+        return roleMapper.listMaps(map);
     }
 
 }

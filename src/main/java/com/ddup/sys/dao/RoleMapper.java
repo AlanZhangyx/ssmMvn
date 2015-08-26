@@ -6,26 +6,23 @@ import java.util.Map;
 import com.ddup.sys.model.Role;
 
 public interface RoleMapper {
-    int deleteByPrimaryKey(Integer id);
-
-    int deleteByPrimaryKeys(Map<String, Object> map);
-    
-    int deleteRolePrivilege(Integer id);
     
     int insert(Role record);
-
     int insertSelective(Role record);
-
-    Role selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Role record);
-
-    int updateByPrimaryKey(Role record);
-    
-    List<Role> list(Map<String,Object> map);
-    
-    List<Role> listSelectedColumns(Map<String,Object> map);
-    
     int insertRolePrivilege(Map<String,Object> map);//在关联表sys_role_privilege中插入关系
     
+    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKeys(Map<String, Object> map);
+    int deleteRolePrivilege(Integer id);
+
+    int updateByPrimaryKeySelective(Role record);
+    int updateByPrimaryKey(Role record);
+    
+    int countSelectedProperty(Role record);
+    Role selectByPrimaryKey(Integer id);
+    
+    List<Role> listModels(Role record);
+    List<Role> listModels(Map<String,Object> map);
+    List<Map<String,Object>> listMaps(Role record);
+    List<Map<String,Object>> listMaps(Map<String,Object> map);
 }

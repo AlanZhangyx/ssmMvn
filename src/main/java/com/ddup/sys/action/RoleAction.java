@@ -20,7 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ddup.base.BaseAction;
 import com.ddup.base.ToJSPException;
-import com.ddup.sys.model.Privilege;
 import com.ddup.sys.model.Role;
 import com.ddup.sys.service.PrivilegeService;
 import com.ddup.sys.service.RoleService;
@@ -74,8 +73,7 @@ public class RoleAction extends BaseAction {
      */
     @RequestMapping(value="/query/jsonlist")
     @ResponseBody
-    public JSONObject jsonList(String fuzzyWord,Integer page,Integer rows,
-            Integer roldId//选择角色的角色
+    public JSONObject jsonList(String fuzzyWord,Integer page,Integer rows
             ){
         resultJson=new JSONObject();
         try {

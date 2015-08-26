@@ -70,8 +70,7 @@ public class PrivilegeAction extends BaseAction {
      */
     @RequestMapping(value="/query/jsonlist")
     @ResponseBody
-    public JSONObject jsonList(String fuzzyWord,Integer page,Integer rows,
-            Integer roldId//选择角色的权限
+    public JSONObject jsonList(String fuzzyWord,Integer page,Integer rows
             ){
         resultJson=new JSONObject();
         try {
@@ -80,9 +79,7 @@ public class PrivilegeAction extends BaseAction {
             map.put("fuzzyWord", fuzzyWord);
             List<Map<String,Object>> list=null;//结果list
             //查询数据库
-            if(null!=roldId){//角色的权限
-                list=privilegeService.listPrivilegesByRoldId(roldId);
-            }else if (null==page||null==rows) {//全量查询
+            if (null==page||null==rows) {//全量查询
                 list=privilegeService.listForCRUD(map);//分页list是Page<E>类型
             }else{//分页查询
                 PageHelper.startPage(page, rows);
