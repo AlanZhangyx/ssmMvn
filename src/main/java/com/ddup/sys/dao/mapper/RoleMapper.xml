@@ -121,10 +121,10 @@
 	</select>
 	
 	<!-- 在关联表sys_role_privilege中插入关系 -->
-	<insert id="insertRolePrivilege" parameterType="map">
+	<insert id="insertRolePrivilege" parameterType="java.util.List">
 	    insert into sys_role_privilege(role_id,privilege_id) values 
-	    <foreach collection="pIds" item="privilegeId" separator=",">
-	    (#{roleId},#{privilegeId})
+	    <foreach collection="list" item="item" separator=",">
+	       (#{item.roleId},#{item.pId})
 	    </foreach>
 	</insert>
 	

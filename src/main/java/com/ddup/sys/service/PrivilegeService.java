@@ -21,7 +21,7 @@ public interface PrivilegeService {
     List<Map<String,Object>> listForCRUD(Map<String,Object> map);//专为CRUD列表时服务
     List<Map<String,Object>> listPrivilegesByUserId(Integer userId);//用户的权限列表
     List<Map<String,Object>> listMenusByUserId(Integer userId);//用户的(权限菜单)权限列表
-    List<Map<String,Object>> listPrivilegesByRoldId(Integer roldId);//角色的权限列表，checked角色所属
+    Map<String,Object> listPrivilegesByRoldId(Integer roldId);//角色的权限列表，checked角色所属
     List<Map<String,Object>> listForZtree();//权限列表，给ZTREE用，字段少
     
     

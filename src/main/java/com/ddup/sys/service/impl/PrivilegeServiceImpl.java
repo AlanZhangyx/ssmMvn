@@ -120,16 +120,22 @@ public class PrivilegeServiceImpl implements PrivilegeService {
      * 角色的权限列表，checked角色所
      */
     @Override
-    public List<Map<String,Object>> listPrivilegesByRoldId(Integer roldId) {
+    public Map<String,Object> listPrivilegesByRoldId(Integer roldId) {
         Map<String,Object> map=new HashMap<String,Object>();
         map.put(COLUMNS_KEY1, COLUMNS3);
         List<Map<String,Object>> listAll=privilegeMapper.listMaps(map);//获取所有
         map.put("roldId", roldId);
         List<Map<String,Object>> listSelected=privilegeMapper.listMaps(map);//获取选中的
         
+        //需要得到选中权限的ids和names
+        String pIds="";
+        String pNames="";
+        
         //将选中的标识到全部中
         for (int i = 0; i < listSelected.size(); i++) {
             Map<String,Object> checked=listSelected.get(i);
+            pIds+=(String)checked.get("id");
+            pNames+=(String)checked.get("name");
             for (int j = 0; j < listAll.size(); j++) {
                 Map<String,Object> item=listAll.get(j);
                 if((Integer)checked.get("id")==(Integer)item.get("id")){
@@ -140,7 +146,12 @@ public class PrivilegeServiceImpl implements PrivilegeService {
             }
         }
         
-        return listAll;
+        //构造返回结果
+        map.clear();
+        map.put("listAllWithChkSign", listAll);
+        map.put("pIds", pIds);
+        map.put("pNames", pNames);
+        return map;
     }
     
     @Override

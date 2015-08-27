@@ -1,17 +1,18 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="sp" uri="http://www.springframework.org/tags/form" %>
-<%-- <%@include file="/include.script.jsp" %> --%>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/jquery.form.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/additional-methods.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/messages_zh.js"></script>
 <script type="text/javascript">
 <%-- Ztree --%>
+var treeObj=null;
+var treeNode=eval('(${list})');
 var setting = {
 	check:{
 		enable:true,
-		chkStyle:"radio",
-		radioType:"all"
+		chkStyle:"checkbox",
+		radioType:"level"
 	},
     data: {
         simpleData: {
@@ -21,14 +22,19 @@ var setting = {
             rootPId: null
         }
     }, callback: {
-        onClick: function(event,treeId,treeNode){
-        	$("#parentId").val(treeNode.id);
-        	$("#parentName").val(treeNode.name);
+    	onCheck: function(event,treeId,treeNode){
+    		var nodes = treeObj.getCheckedNodes(true);
+    		var pIds="";
+    		var pNames="";
+    		for (var i = 0; i < nodes.length; i++) {
+                pIds+=nodes[i].id+",";
+                pNames+=nodes[i].name+",";
+            }
+    		$("#pIds").val(pIds);
+    		$("#pNames").val(pNames);
         }
     }
 };
-
-var treeNode=eval('(${pList})');
 
 $(function(){
     $("#form").validate({
@@ -36,25 +42,16 @@ $(function(){
         	name:{
                 required:true,
                 remote:{
-                    url:"${pageContext.request.contextPath}/privilege/query/check",
+                    url:"${pageContext.request.contextPath}/role/query/check",
                     type:"post"
                 }
-            },
-            parentId:{
-                maxlength:50
-            },
-            actionUrl:{
-            	maxlength:500
-            },
-            icon:{
-            	maxlength:500
             },
             description:{
             	maxlength:100
             }
         }, messages: {
             name:{
-                remote:"此权限名已存在,请重新输入!"
+                remote:"此角色名已存在,请重新输入!"
             }
         }, submitHandler:function(form){
         	$(form).ajaxSubmit({
@@ -64,7 +61,7 @@ $(function(){
                 		$.messager.alert("消息提示", "成功！");
                         $('#div_cu').dialog('close');
                 	}else{
-                		$.messager.alert("消息提示", "失败！"+data.state.errorMsg);
+                		$.messager.alert("消息提示", "失败！"+data.errorMsg);
                 	}
                 }
             });
@@ -72,54 +69,33 @@ $(function(){
     });
     
     //选择父权限
-    $("#pickParent").click(function(){
-    	$.fn.zTree.init($("#privilegeTree"), setting, treeNode);
+    $("#pickPrivilege").click(function(){
+    	treeObj=$.fn.zTree.init($("#roleTree"), setting, treeNode);
     });
     
 });
 </script>
 <!-- 新增页面 -->
-<sp:form id="form" method="post" commandName="privilege" action="${pageContext.request.contextPath}/privilege/update">
+<sp:form id="form" method="post" commandName="role" action="${pageContext.request.contextPath}/role/update">
     <table>
         <tr>
-            <td>权限名:</td>
+            <td>角色名:</td>
             <td>
                 <sp:input type="hidden" path="id" id="id" />
                 <sp:input type="text" path="name" id="name" />
             </td>
         </tr>
         <tr>
-            <td>父权限：</td>
+            <td>分配权限：</td>
             <td>
-                <input type="text" id="parentName" readonly="readonly" value="${parentName}" />
-                <sp:input type="hidden" path="parentId" id="parentId" />
-                <input type="button" id="pickParent" value="选择" />
-                <ul id="privilegeTree" class="ztree"></ul>
+                <input type="text" id="pNames" readonly="readonly" value="${pNames}" />
+                <input type="hidden" id="pIds" value="${pIds}" />
+                <input type="button" id="pickPrivilege" value="选择" />
+                <ul id="roleTree" class="ztree"></ul>
             </td>
         </tr>
         <tr>
-            <td>权限URL:</td>
-            <td>
-               <sp:input type="text" path="actionUrl" id="actionUrl" />
-            </td>
-        </tr>
-        <tr>
-           <td>是否是菜单：</td>
-           <td>
-               <sp:select path="isMenu" id="isMenu">
-                   <sp:option value="0">否</sp:option>
-                   <sp:option value="1">是</sp:option>
-               </sp:select>
-           </td>
-        </tr>
-        <tr>
-            <td>图标URL:</td>
-            <td>
-               <sp:input type="text" path="icon" id="icon" />
-            </td>
-        </tr>
-        <tr>
-           <td>权限描述：</td>
+           <td>角色描述：</td>
            <td>
                <sp:textarea path="description" id="description" cols="50" rows="5"></sp:textarea>
            </td>
@@ -127,5 +103,6 @@ $(function(){
     </table>
     <div style="text-align:center;padding:5px">
         <input type="submit" value="确定"/>
+        <input type="reset" value="重置"/>
 	</div>
 </sp:form>

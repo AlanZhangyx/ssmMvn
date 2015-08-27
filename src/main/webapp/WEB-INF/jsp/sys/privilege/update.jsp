@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="sp" uri="http://www.springframework.org/tags/form" %>
-<%-- <%@include file="/include.script.jsp" %> --%>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/jquery.form.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/additional-methods.min.js"></script>
@@ -24,6 +23,9 @@ var setting = {
         onClick: function(event,treeId,treeNode){
         	$("#parentId").val(treeNode.id);
         	$("#parentName").val(treeNode.name);
+        },onCheck: function(event,treeId,treeNode){
+            $("#parentId").val(treeNode.id);
+            $("#parentName").val(treeNode.name);
         }
     }
 };
@@ -64,7 +66,7 @@ $(function(){
                 		$.messager.alert("消息提示", "成功！");
                         $('#div_cu').dialog('close');
                 	}else{
-                		$.messager.alert("消息提示", "失败！"+data.state.errorMsg);
+                		$.messager.alert("消息提示", "失败！"+data.errorMsg);
                 	}
                 }
             });

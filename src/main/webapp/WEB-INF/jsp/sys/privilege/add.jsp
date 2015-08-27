@@ -23,6 +23,9 @@ var setting = {
         onClick: function(event,treeId,treeNode){
         	$("#parentId").val(treeNode.id);
         	$("#parentName").val(treeNode.name);
+        },onCheck: function(event,treeId,treeNode){
+        	$("#parentId").val(treeNode.id);
+            $("#parentName").val(treeNode.name);
         }
     }
 };
@@ -63,7 +66,7 @@ $(function(){
                 		$.messager.alert("消息提示", "成功！");
                         $('#div_cu').dialog('close');
                 	}else{
-                		$.messager.alert("消息提示", "失败！"+data.state.errorMsg);
+                		$.messager.alert("消息提示", "失败！"+data.errorMsg);
                 	}
                 }
             });

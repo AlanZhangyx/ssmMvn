@@ -9,7 +9,7 @@ public interface RoleMapper {
     
     int insert(Role record);
     int insertSelective(Role record);
-    int insertRolePrivilege(Map<String,Object> map);//在关联表sys_role_privilege中插入关系
+    int insertRolePrivilege(List<Map<String, Object>> list);//在关联表sys_role_privilege中插入关系
     
     int deleteByPrimaryKey(Integer id);
     int deleteByPrimaryKeys(Map<String, Object> map);

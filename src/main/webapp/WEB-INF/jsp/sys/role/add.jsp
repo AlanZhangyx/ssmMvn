@@ -1,16 +1,16 @@
 <%@ page pageEncoding="UTF-8"%>
-<%-- <%@include file="/include.script.jsp" %> --%>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/jquery.form.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/jquery.validate.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/additional-methods.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/validate/messages_zh.js"></script>
 <script type="text/javascript">
 <%-- Ztree --%>
+var treeObj=null;
+var treeNode=eval('(${list})');
 var setting = {
 	check:{
 		enable:true,
-		chkStyle:"radio",
-		radioType:"all"
+		radioType:"level"
 	},
     data: {
         simpleData: {
@@ -20,15 +20,19 @@ var setting = {
             rootPId: null
         }
     }, callback: {
-        onClick: function(event,treeId,treeNode){
-        	
-        	$("#parentId").val(treeNode.id);
-        	$("#parentName").val(treeNode.name);
+    	onCheck: function(event,treeId,treeNode){
+    		var nodes = treeObj.getCheckedNodes(true);
+    		var pIds="";
+    		var pNames="";
+    		for (var i = 0; i < nodes.length; i++) {
+                pIds+=nodes[i].id+",";
+                pNames+=nodes[i].name+",";
+			}
+    		$("#pIds").val(pIds);
+    		$("#pNames").val(pNames);
         }
     }
 };
-
-var treeNode=eval('(${list})');
 
 $(function(){
     $("#form").validate({
@@ -40,21 +44,12 @@ $(function(){
                     type:"post"
                 }
             },
-            parentId:{
-                maxlength:50
-            },
-            actionUrl:{
-            	maxlength:500
-            },
-            icon:{
-            	maxlength:500
-            },
             description:{
             	maxlength:100
             }
         }, messages: {
             name:{
-                remote:"此权限名已存在,请重新输入!"
+                remote:"此角色名已存在,请重新输入!"
             }
         }, submitHandler:function(form){
         	$(form).ajaxSubmit({
@@ -64,16 +59,16 @@ $(function(){
                 		$.messager.alert("消息提示", "成功！");
                         $('#div_cu').dialog('close');
                 	}else{
-                		$.messager.alert("消息提示", "失败！"+data.state.errorMsg);
+                		$.messager.alert("消息提示", "失败！"+data.errorMsg);
                 	}
-                }
+                }                                                                                                                                                       
             });
         }
     });
     
     //选择父权限
     $("#pickPrivilege").click(function(){
-    	$.fn.zTree.init($("#roleTree"), setting, treeNode);
+    	treeObj=$.fn.zTree.init($("#roleTree"), setting, treeNode);
     });
     
 });
@@ -90,7 +85,7 @@ $(function(){
         <tr>
             <td>分配权限：</td>
             <td>
-                <input type="text" id="pNames" readonly="readonly" />
+                <textarea name="pNames" id="pNames" readonly="readonly"></textarea>
                 <input type="hidden" name="pIds" id="pIds" />
                 <input type="button" id="pickPrivilege" value="选择" />
                 <ul id="roleTree" class="ztree"></ul>

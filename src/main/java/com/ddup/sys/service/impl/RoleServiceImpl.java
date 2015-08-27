@@ -1,5 +1,6 @@
 package com.ddup.sys.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,10 +44,15 @@ public class RoleServiceImpl implements RoleService {
     public int insert(Role record, Integer... pIds) {
         int effectCount=roleMapper.insertSelective(record);
         if (pIds.length>0) {
-            Map<String, Object> map=new HashMap<String, Object>();
-            map.put("roleId", record.getId());
-            map.put("pIds", pIds);
-            roleMapper.insertRolePrivilege(map);
+            Integer id=record.getId();
+            List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
+            for (Integer pId:pIds) {
+                Map<String, Object> map=new HashMap<String, Object>();
+                map.put("roleId", id);
+                map.put("pId", pId);
+                list.add(map);
+            }
+            roleMapper.insertRolePrivilege(list);
         }
         return effectCount;
     }
@@ -74,10 +80,15 @@ public class RoleServiceImpl implements RoleService {
             //先清空原记录
             roleMapper.deleteRolePrivilege(record.getId());
             //再插入现在关系
-            Map<String, Object> map=new HashMap<String, Object>();
-            map.put("roleId", record.getId());
-            map.put("pIds", pIds);
-            roleMapper.insertRolePrivilege(map);
+            Integer id=record.getId();
+            List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
+            for (Integer pId:pIds) {
+                Map<String, Object> map=new HashMap<String, Object>();
+                map.put("roleId", id);
+                map.put("pId", pId);
+                list.add(map);
+            }
+            roleMapper.insertRolePrivilege(list);
         }
         return effectCount;
     }

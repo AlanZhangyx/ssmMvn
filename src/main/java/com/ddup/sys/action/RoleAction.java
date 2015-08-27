@@ -169,12 +169,19 @@ public class RoleAction extends BaseAction {
         try {
             //角色
             Role record=roleService.selectByPrimaryKey(id);
+            Map<String,Object> resultMap=privilegeService.listPrivilegesByRoldId(id);
             //查询出角色的权限列表
-            List<Map<String, Object>> pList=privilegeService.listPrivilegesByRoldId(id);
+            @SuppressWarnings("unchecked")
+            List<Map<String, Object>> pList=(List<Map<String, Object>>)resultMap.get("listAllWithChkSign");
+            
+            
             //将pList放入放回结果
             JSONArray jsonArray=new JSONArray();
             jsonArray.addAll(pList);
-            mav.addObject("pList", jsonArray);
+            
+            mav.addObject("pIds", resultMap.get("pIds"));
+            mav.addObject("pNames", resultMap.get("pNames"));
+            mav.addObject("list", jsonArray);
             mav.addObject("role", record);//结果返回
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("跳转到角色修改页面");
