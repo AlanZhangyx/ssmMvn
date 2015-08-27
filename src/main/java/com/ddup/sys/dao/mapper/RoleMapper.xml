@@ -24,7 +24,7 @@
 		sys_role
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.ddup.sys.model.Role">
+	<insert id="insert" parameterType="com.ddup.sys.model.Role" keyProperty="id">
 		insert into sys_role (id,
 		name,
 		description, create_time, update_time
@@ -35,12 +35,9 @@
 		#{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
 		)
 	</insert>
-	<insert id="insertSelective" parameterType="com.ddup.sys.model.Role">
+	<insert id="insertSelective" parameterType="com.ddup.sys.model.Role" keyProperty="id">
 		insert into sys_role
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
 			<if test="name != null">
 				name,
 			</if>
@@ -51,9 +48,6 @@
 				update_time
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
 			<if test="name != null">
 				#{name,jdbcType=VARCHAR},
 			</if>
@@ -121,10 +115,10 @@
 	</select>
 	
 	<!-- 在关联表sys_role_privilege中插入关系 -->
-	<insert id="insertRolePrivilege" parameterType="java.util.List">
+	<insert id="insertRolePrivilege" parameterType="java.util.Map">
 	    insert into sys_role_privilege(role_id,privilege_id) values 
-	    <foreach collection="list" item="item" separator=",">
-	       (#{item.roleId},#{item.pId})
+	    <foreach collection="pIds" item="pId" separator=",">
+	       (#{roleId},#{pId})
 	    </foreach>
 	</insert>
 	
@@ -168,8 +162,7 @@
         </where>
     </select>
 	
-	
-	   <!-- 根据传入某个参数，来计数 -->
+	<!-- 根据传入某个参数，来计数 -->
     <select id="countSelectedProperty" parameterType="Role" resultType="java.lang.Integer">
        select count(*) from sys_role r 
        <where>
@@ -178,5 +171,17 @@
            </if>
        </where>
     </select>
-	
+    
+    <!-- 获取关联表sys_role_privilege中的记录 -->
+    <select id="listRPMapsByMap" parameterType="map" resultType="map">
+        select role_id as roleId,privilege_id as privilegeId from sys_role_privilege 
+        <where>
+            <if test="roleId != null">
+                and role_id = #{roleId}
+            </if>
+            <if test="privilegeId != null">
+                and privilege_id = #{privilegeId}
+            </if>
+        </where>
+    </select>
 </mapper>

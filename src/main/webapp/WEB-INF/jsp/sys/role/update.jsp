@@ -30,8 +30,8 @@ var setting = {
                 pIds+=nodes[i].id+",";
                 pNames+=nodes[i].name+",";
             }
-    		$("#pIds").val(pIds);
-    		$("#pNames").val(pNames);
+    		$("#pIds").val(pIds.substring(0,pIds.length-1));
+            $("#pNames").val(pNames.substring(0,pNames.length-1));
         }
     }
 };
@@ -43,7 +43,8 @@ $(function(){
                 required:true,
                 remote:{
                     url:"${pageContext.request.contextPath}/role/query/check",
-                    type:"post"
+                    type:"post",
+                    data:{id:$("#id").val()}
                 }
             },
             description:{
@@ -88,8 +89,8 @@ $(function(){
         <tr>
             <td>分配权限：</td>
             <td>
-                <input type="text" id="pNames" readonly="readonly" value="${pNames}" />
-                <input type="hidden" id="pIds" value="${pIds}" />
+                <textarea id="pNames" readonly="readonly">${pNames}</textarea>
+                <input type="hidden" name="pIds" id="pIds" value="${pIds}" />
                 <input type="button" id="pickPrivilege" value="选择" />
                 <ul id="roleTree" class="ztree"></ul>
             </td>
@@ -103,6 +104,5 @@ $(function(){
     </table>
     <div style="text-align:center;padding:5px">
         <input type="submit" value="确定"/>
-        <input type="reset" value="重置"/>
 	</div>
 </sp:form>

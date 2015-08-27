@@ -68,12 +68,12 @@ public class CenterInterceptor extends HandlerInterceptorAdapter {
         if (null!=XMLHttpRequest && "XMLHttpRequest".equals(XMLHttpRequest)) {
             //没有登陆
             if(null==user){
-                ProcessUtil.responseJson(response,"{'state':403,'errorMsg':'访问被拒绝，请先登录'}");
+                ProcessUtil.responseJson(response,"{\"state\":403,\"errorMsg\":\"访问被拒绝，请先登录\"}");
                 return false;
             }
             //登陆了但没权限
             if(!hasPrivilege(user.getId(),requestURI)){
-                ProcessUtil.responseJson(response,"{'state':403,'errorMsg':'访问被拒绝，您没有权限'}");
+                ProcessUtil.responseJson(response,"{\"state\":403,\"errorMsg\":\"访问被拒绝，您没有权限\"}");
                 return false;
             }
         }else{//2 普通请求

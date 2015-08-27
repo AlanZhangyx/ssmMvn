@@ -32,8 +32,8 @@ public class RoleDaoImpl extends BaseDao implements RoleMapper {
         return getSqlSession().insert(NAMESPACE+"insertSelective", record);
     }
     @Override
-    public int insertRolePrivilege(List<Map<String, Object>> list) {
-        return getSqlSession().insert(NAMESPACE+"insertRolePrivilege", list);
+    public int insertRolePrivilege(Map<String, Object> map) {
+        return getSqlSession().insert(NAMESPACE+"insertRolePrivilege", map);
     }
     
     @Override
@@ -82,6 +82,10 @@ public class RoleDaoImpl extends BaseDao implements RoleMapper {
     @Override
     public List<Map<String, Object>> listMaps(Map<String, Object> map) {
         return getSqlSession().selectList(NAMESPACE+"listMapsByMap", map);
+    }
+    @Override
+    public List<Map<String, Object>> listRPMapsByMap(Map<String, Object> map) {
+        return getSqlSession().selectList(NAMESPACE+"listRPMapsByMap", map);
     }
 
 }

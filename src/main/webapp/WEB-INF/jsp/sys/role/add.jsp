@@ -28,8 +28,8 @@ var setting = {
                 pIds+=nodes[i].id+",";
                 pNames+=nodes[i].name+",";
 			}
-    		$("#pIds").val(pIds);
-    		$("#pNames").val(pNames);
+    		$("#pIds").val(pIds.substring(0,pIds.length-1));
+    		$("#pNames").val(pNames.substring(0,pNames.length-1));
         }
     }
 };

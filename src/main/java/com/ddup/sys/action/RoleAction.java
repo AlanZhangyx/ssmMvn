@@ -169,7 +169,7 @@ public class RoleAction extends BaseAction {
         try {
             //角色
             Role record=roleService.selectByPrimaryKey(id);
-            Map<String,Object> resultMap=privilegeService.listPrivilegesByRoldId(id);
+            Map<String,Object> resultMap=privilegeService.listPrivilegesByRoleId(id);
             //查询出角色的权限列表
             @SuppressWarnings("unchecked")
             List<Map<String, Object>> pList=(List<Map<String, Object>>)resultMap.get("listAllWithChkSign");

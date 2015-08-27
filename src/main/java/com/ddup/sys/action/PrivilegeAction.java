@@ -172,7 +172,7 @@ public class PrivilegeAction extends BaseAction {
             List<Map<String, Object>> pList=privilegeService.listForZtree();
             //如果有父权限的话，在权限列表中标记中并给其加上选中标记
             Integer pId=record.getParentId();//父权限ID
-            if (pId!=0) {
+            if (null!=pId) {
                 //check标记
                 for (int i = 0; i < pList.size(); i++) {
                     Map<String,Object> item=pList.get(i);

@@ -39,7 +39,8 @@ $(function(){
                 required:true,
                 remote:{
                     url:"${pageContext.request.contextPath}/privilege/query/check",
-                    type:"post"
+                    type:"post",
+                    data:{id:$("#id").val()}
                 }
             },
             parentId:{

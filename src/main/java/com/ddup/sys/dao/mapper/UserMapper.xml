@@ -30,7 +30,7 @@
 		sys_user
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.ddup.sys.model.User">
+	<insert id="insert" parameterType="com.ddup.sys.model.User" keyProperty="id">
 		insert into sys_user (id,
 		user_name, real_name,
 		password, mobile_no, email,
@@ -47,7 +47,7 @@
 		#{loginCount,jdbcType=BIGINT}
 		)
 	</insert>
-	<insert id="insertSelective" parameterType="com.ddup.sys.model.User">
+	<insert id="insertSelective" parameterType="com.ddup.sys.model.User" keyProperty="id">
 		insert into sys_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">

@@ -123,7 +123,7 @@ public class ProcessUtil {
     public static void responseJson(HttpServletResponse response,
             String jsonRefuseMsg) throws IOException {
         PrintWriter writer=response.getWriter();
-        response.setHeader("ContentType", "application/json");
+        response.setContentType("application/json;charset=UTF-8");
         writer.write(jsonRefuseMsg);
         writer.flush();
         writer.close();
