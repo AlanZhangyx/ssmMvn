@@ -1,6 +1,5 @@
 package com.ddup.sys.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +34,7 @@ public class RoleServiceImpl implements RoleService {
     
     /** value **/
     private static final String COLUMNS1="id,name";
-    private static final String COLUMNS2="id,name,description,create_time as createTime,update_time as updateTime";
+    //private static final String COLUMNS2="id,name,description,create_time as createTime,update_time as updateTime";
     
     /*********************** PROCESS ***********************/
     
@@ -111,28 +110,8 @@ public class RoleServiceImpl implements RoleService {
      * 专为CRUD列表时服务
      */
     @Override
-    public List<Map<String,Object>> listForCRUD(Map<String, Object> map) {
-        map.put(COLUMNS_KEY1, COLUMNS2);
-        //下面这三个查询，可以考虑缓存问题来提高效率
-        List<Map<String,Object>> roleList=roleMapper.listMaps(map);//获取所有角色列表
-        List<Map<String, Object>> privilegeList=privilegeService.listIdsAndNames();//所有权限
-        List<Map<String, Object>> rpList=roleMapper.listRPMapsByMap(map);//所有角色和权限的关联关系
-        
-        
-        for (int i = 0; i < roleList.size(); i++) {
-            //用角色Id在关联表中找出对应记录,并记录其id值为list
-            Map<String, Object> item=roleList.get(i);
-            Integer roleId=(Integer)item.get("id");
-            List<Integer> rpPIdList=new ArrayList<Integer>();
-            for (int j = 0; j < rpList.size(); j++) {
-                Map<String, Object> rpItem=rpList.get(j);
-                Integer rpItemRoleId=(Integer)rpItem.get("roleId");
-                if (roleId.equals(rpItemRoleId)) {
-                    rpPIdList.add((Integer)rpItem.get("privilegeId"));
-                }
-            }
-            //将rpPIdList
-        }
+    public List<Role> listForCRUD(Map<String, Object> map) {
+        return roleMapper.listModels(map);
     }
 
     /**

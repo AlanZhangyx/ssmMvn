@@ -1,6 +1,7 @@
 package com.ddup.sys.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private Integer id;
@@ -20,6 +21,8 @@ public class User {
     private Date updateTime;
 
     private Long loginCount;
+    
+    private List<Role> roleList;
 
     public Integer getId() {
         return id;
@@ -91,5 +94,13 @@ public class User {
 
     public void setLoginCount(Long loginCount) {
         this.loginCount = loginCount;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 }

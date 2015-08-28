@@ -80,19 +80,20 @@ public class RoleAction extends BaseAction {
             //查询条件
             Map<String,Object> map=new HashMap<String,Object>();
             map.put("fuzzyWord", fuzzyWord);
-            List<Map<String,Object>> list=null;//结果list
+            List<Role> list=null;//结果list
             //查询数据库
             if (null==page||null==rows) {//全量查询
                 list=roleService.listForCRUD(map);//分页list是Page<E>类型
             }else{//分页查询
                 PageHelper.startPage(page, rows);
                 list=roleService.listForCRUD(map);//分页list是Page<E>类型
-                PageInfo<Map<String,Object>> p = new PageInfo<Map<String,Object>>(list);//取出分页统计信息statistic
+                PageInfo<Role> p = new PageInfo<Role>(list);//取出分页统计信息statistic
                 resultJson.put("total", p.getTotal());
             }
             //结果处理
-            ProcessUtil.formatPage2ArrayList(list);//将list(Page<E>)转为他的父类ArrayList(不是Page也无所谓),并格式化时间
-            resultJson.put("rows", list);//结果返回
+            List<Map<String, Object>> resultList=ProcessUtil.formatRoleList2ArrayList(list);
+            
+            resultJson.put("rows", resultList);//结果返回
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("查询角色列表");
             LOGGER.error(errorMsg, e);

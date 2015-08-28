@@ -1,6 +1,7 @@
 package com.ddup.sys.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Role {
     private Integer id;
@@ -12,6 +13,8 @@ public class Role {
     private Date createTime;
 
     private Date updateTime;
+    
+    private List<Privilege> privilegeList;
 
     public Integer getId() {
         return id;
@@ -51,5 +54,13 @@ public class Role {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public List<Privilege> getPrivilegeList() {
+        return privilegeList;
+    }
+
+    public void setPrivilegeList(List<Privilege> privilegeList) {
+        this.privilegeList = privilegeList;
     }
 }

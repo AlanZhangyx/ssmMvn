@@ -3,14 +3,22 @@
 <mapper namespace="com.ddup.sys.model.Role">
     <!-- <cache/> -->
 	<resultMap id="BaseResultMap" type="Role">
-		<id column="id" property="id" jdbcType="INTEGER" />
+	    <id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="description" property="description" jdbcType="VARCHAR" />
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
 	<resultMap id="detailRoleResult" type="Role">
-	
+	    <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<collection property="privilegeList" ofType="Privilege" columnPrefix="p_" >
+		    <id property="id" column="id"/>
+		    <result property="name" column="name"/>
+		</collection>
 	</resultMap>
 	
 	<sql id="Base_Column_List">
@@ -139,10 +147,18 @@
         delete from sys_role_privilege where role_id = #{id,jdbcType=INTEGER}
     </delete>
     
-    <select id="listModelsByMap" parameterType="map" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from sys_role 
+    <select id="listModelsByMap" parameterType="map" resultMap="detailRoleResult">
+        select 
+            r.id as id,
+            r.name as name,
+            r.description as description,
+            r.create_time as create_time,
+            r.update_time as update_time,
+            p.id as p_id,
+            p.name as p_name
+        from sys_role r 
+            left join sys_role_privilege rp on r.id = rp.role_id 
+            left join sys_privilege p on rp.privilege_id = p.id
         <where>
             <if test="fuzzyWord!=null">
                 and (name like "%"#{fuzzyWord}"%"

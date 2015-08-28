@@ -20,7 +20,7 @@ public interface RoleService {
     Role selectByPrimaryKey(Integer id);
     boolean checkUnique(Role record);//唯一返回true
     
-    List<Map<String,Object>> listForCRUD(Map<String,Object> map);//专为CRUD列表时服务
+    List<Role> listForCRUD(Map<String,Object> map);//专为CRUD列表时服务
     List<Map<String,Object>> listForZtree();//角色列表，给用户管理时ZTREE用，字段少
     List<Map<String,Object>> listRolesByUserId(Integer userId);//用户的角色列表
 }

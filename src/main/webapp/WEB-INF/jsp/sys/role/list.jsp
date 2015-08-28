@@ -29,6 +29,7 @@ function fillGird(){
         columns:[[
             {field:'id',checkbox:true},
             {field:'name',title:'角色名',width:100},
+            {field:'pNames',title:'拥有权限',width:200},
             {field:'description',title:'角色描述',width:200},
             {field:'updateTime',title:'更新时间',width:100}
         ]],

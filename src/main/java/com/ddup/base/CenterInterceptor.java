@@ -72,7 +72,7 @@ public class CenterInterceptor extends HandlerInterceptorAdapter {
                 return false;
             }
             //登陆了但没权限
-            if(!hasPrivilege(user.getId(),requestURI)){
+            if(!hasPrivilege(session, user.getId(),requestURI)){
                 ProcessUtil.responseJson(response,"{\"state\":403,\"errorMsg\":\"访问被拒绝，您没有权限\"}");
                 return false;
             }
@@ -83,7 +83,7 @@ public class CenterInterceptor extends HandlerInterceptorAdapter {
                 return false;
             }
             //登陆了但没权限
-            if(!hasPrivilege(user.getId(),requestURI)){
+            if(!hasPrivilege(session, user.getId(), requestURI)){
                 request.getRequestDispatcher("/WEB-INF/jsp/error/403.jsp").forward(request, response);
                 return false;
             }
@@ -99,7 +99,8 @@ public class CenterInterceptor extends HandlerInterceptorAdapter {
      * @return 有返回true，否则false
      * @throws
      */
-    private boolean hasPrivilege(Integer id, String requestURI) {
+    @SuppressWarnings("unchecked")
+    private boolean hasPrivilege(HttpSession session, Integer id, String requestURI) {
         //查询的权限以query开头，只在数据库中分配一次获取(query)权限
         int getIndex=requestURI.indexOf("/query");
         if (getIndex>-1) {
@@ -107,7 +108,12 @@ public class CenterInterceptor extends HandlerInterceptorAdapter {
         }
         
         //主体检查
-        List<Map<String, Object>> pList=privilegeService.listPrivilegesByUserId(id);
+        
+        List<Map<String, Object>> pList=null;//session中没有pList再查询并放入session
+        if (null==(pList=(List<Map<String, Object>>)session.getAttribute("pList"))) {
+            pList=privilegeService.listPrivilegesByUserId(id);
+            session.setAttribute("pList", pList);
+        }
         for (int i = 0; i < pList.size(); i++) {
             Map<String, Object> pMap=pList.get(i);
             if(pMap.get("actionUrl").equals(requestURI)){
