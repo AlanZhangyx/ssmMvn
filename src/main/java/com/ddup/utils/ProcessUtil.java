@@ -19,6 +19,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.ddup.sys.model.Privilege;
 import com.ddup.sys.model.Role;
+import com.ddup.sys.model.User;
 
 /**
  * @Description: TODO
@@ -159,6 +160,53 @@ public class ProcessUtil {
                 
                 //清除privilegeList列
                 tempMap.remove("privilegeList");
+            }
+            
+            //返回
+            resultList.add(tempMap);
+        }
+        return resultList;
+    }
+    
+    /**
+     * @Title: formatRoleList2ArrayList 
+     * @Description: 将list(Page<E>)转为他的父类ArrayList
+     * @param list
+     * @throws
+     */
+    public static List<Map<String, Object>> formatUserList2ArrayList(List<User> list) {
+        //返回的结果
+        List<Map<String,Object>> resultList=new ArrayList<Map<String,Object>>();
+        DateFormat sd= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//格式化时间
+        
+        Map<String,Object> tempMap=null;
+        for (int i = 0; i < list.size(); i++) {
+            User item=list.get(i);//源Model
+            tempMap=new HashMap<String,Object>(0);//目标Map
+            beanToMap(item, tempMap);//转Map
+            //对可能有的时间进行格式化
+            if(tempMap.containsKey("createTime")){
+                tempMap.put("createTime",sd.format(tempMap.get("createTime")));
+            }
+            if(tempMap.containsKey("updateTime")){
+                tempMap.put("updateTime",sd.format(tempMap.get("updateTime")));
+            }
+            
+            //对权限进行字符串化处理
+            if(tempMap.containsKey("roleList")){
+                @SuppressWarnings("unchecked")
+                List<Role> pList=(List<Role>)tempMap.get("roleList");
+                String rIds="";
+                String rNames="";
+                for (int j = 0; j < pList.size(); j++) {
+                    rIds+=pList.get(j).getId()+",";
+                    rNames+=pList.get(j).getName()+",";
+                }
+                tempMap.put("pIds",rIds.substring(0, rIds.length()-1));
+                tempMap.put("pNames",rNames.substring(0, rNames.length()-1));
+                
+                //清除privilegeList列
+                tempMap.remove("roleList");
             }
             
             //返回

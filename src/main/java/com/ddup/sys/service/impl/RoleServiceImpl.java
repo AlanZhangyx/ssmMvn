@@ -135,11 +135,38 @@ public class RoleServiceImpl implements RoleService {
      * 用户的角色列表
      */
     @Override
-    public List<Map<String, Object>> listRolesByUserId(Integer userId) {
+    public Map<String, Object> listRolesByUserId(Integer userId) {
         Map<String,Object> map=new HashMap<String,Object>();
         map.put(COLUMNS_KEY1, COLUMNS1);
+        List<Map<String,Object>> listAll=roleMapper.listMaps(map);//获取所有
         map.put("userId", userId);
-        return roleMapper.listMaps(map);
+        List<Map<String,Object>> listSelected=roleMapper.listMaps(map);//获取选中的
+        
+        //需要得到选中role的ids和names
+        String rIds="";
+        String rNames="";
+        
+        //将选中的标识到全部中
+        for (int i = 0; i < listSelected.size(); i++) {
+            Map<String,Object> checked=listSelected.get(i);
+            rIds+=checked.get("id")+",";
+            rNames+=checked.get("name")+",";
+            for (int j = 0; j < listAll.size(); j++) {
+                Map<String ,Object> item=listAll.get(j);
+                if((Integer)checked.get("id")==(Integer)item.get("id")){
+                    item.put("checked", true);
+                    listAll.set(j, item);
+                    break;
+                }
+            }
+        }
+        
+        //构造返回结果
+        map.clear();
+        map.put("listAllWithChkSign", listAll);
+        map.put("rIds", rIds.substring(0, rIds.length()-1));
+        map.put("rNames", rNames.substring(0, rNames.length()-1));
+        return map;
     }
 
 }

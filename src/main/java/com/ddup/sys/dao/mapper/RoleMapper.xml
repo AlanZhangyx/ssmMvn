@@ -95,37 +95,6 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 
-	<!-- 返回resultMap的list -->
-	<select id="list" parameterType="map" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from sys_role
-		<where>
-			<if test="fuzzyWord!=null">
-				and (name like "%"#{fuzzyWord}"%"
-				or description like
-				"%"#{fuzzyWord}"%")
-			</if>
-		</where>
-	</select>
-
-	<!-- 获取传入的一些列来list -->
-	<select id="listSelectedColumns" parameterType="map" resultType="map">
-		select ${columns} from sys_role s
-		<if test="userId!=null">
-			inner join sys_role_privilege rp on s.id=rp.privilege_id
-		</if>
-
-		<where>
-			<if test="userId!=null">
-				and rp.role_id in select role_id from sys_user_role ur
-				where ur.user_id
-				= #{userId}
-			</if>
-
-		</where>
-	</select>
-	
 	<!-- 在关联表sys_role_privilege中插入关系 -->
 	<insert id="insertRolePrivilege" parameterType="java.util.Map">
 	    insert into sys_role_privilege(role_id,privilege_id) values 

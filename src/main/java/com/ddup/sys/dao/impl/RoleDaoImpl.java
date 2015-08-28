@@ -23,6 +23,9 @@ public class RoleDaoImpl extends BaseDao implements RoleMapper {
      */
     private static final String NAMESPACE="com.ddup.sys.model.Role.";
     
+    
+    /*** 增加 ***/
+    
     @Override
     public int insert(Role record) {
         return getSqlSession().insert(NAMESPACE+"insert", record);
@@ -35,6 +38,9 @@ public class RoleDaoImpl extends BaseDao implements RoleMapper {
     public int insertRolePrivilege(Map<String, Object> map) {
         return getSqlSession().insert(NAMESPACE+"insertRolePrivilege", map);
     }
+    
+    
+    /*** 删除 ***/
     
     @Override
     public int deleteByPrimaryKey(Integer id) {
@@ -49,6 +55,9 @@ public class RoleDaoImpl extends BaseDao implements RoleMapper {
         return getSqlSession().delete(NAMESPACE+"deleteRolePrivilege", id);
     }
     
+    
+    /*** 修改 ***/
+    
     @Override
     public int updateByPrimaryKeySelective(Role record) {
         return getSqlSession().update(NAMESPACE+"updateByPrimaryKeySelective", record);
@@ -58,6 +67,9 @@ public class RoleDaoImpl extends BaseDao implements RoleMapper {
         return getSqlSession().update(NAMESPACE+"updateByPrimaryKey", record);
     }
 
+    
+    /*** 单个查询 ***/
+    
     @Override
     public Role selectByPrimaryKey(Integer id) {
         return getSqlSession().selectOne(NAMESPACE+"selectByPrimaryKey", id);
@@ -66,6 +78,13 @@ public class RoleDaoImpl extends BaseDao implements RoleMapper {
     public int countSelectedProperty(Role record) {
         return getSqlSession().selectOne(NAMESPACE+"countSelectedProperty", record);
     }
+    @Override
+    public Integer listModelsCount(Map<String, Object> map) {
+        return getSqlSession().selectOne(NAMESPACE+"listModelsByMap_count", map);
+    }
+    
+    
+    /*** 列表查询 ***/
     
     @Override
     public List<Role> listModels(Role record) {
@@ -83,13 +102,4 @@ public class RoleDaoImpl extends BaseDao implements RoleMapper {
     public List<Map<String, Object>> listMaps(Map<String, Object> map) {
         return getSqlSession().selectList(NAMESPACE+"listMapsByMap", map);
     }
-    @Override
-    public List<Map<String, Object>> listRPMapsByMap(Map<String, Object> map) {
-        return getSqlSession().selectList(NAMESPACE+"listRPMapsByMap", map);
-    }
-    @Override
-    public Integer listModelsCount(Map<String, Object> map) {
-        return getSqlSession().selectOne(NAMESPACE+"listModelsByMap_count", map);
-    }
-
 }

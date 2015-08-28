@@ -6,21 +6,29 @@ import java.util.Map;
 import com.ddup.sys.model.User;
 
 public interface UserMapper {
-    int deleteByPrimaryKey(Integer id);
 
     int insert(User record);
-
     int insertSelective(User record);
-
-    User selectByPrimaryKey(Integer id);
+    int insertUserRole(Map<String, Object> map);//在关联表sys_user_role中插入关系
+    
+    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKeys(Map<String, Object> map);
+    int deleteUserRole(Integer id);
 
     int updateByPrimaryKeySelective(User record);
-
     int updateByPrimaryKey(User record);
     
-    List<User> list(Map<String,Object> map);
-    
-    List<User> listSelectedColumns(Map<String,Object> map);
-    
+    int countSelectedProperty(User record);
+    User selectByPrimaryKey(Integer id);
     User getByUserNamePassword(User record);
+    
+    @Deprecated//并未实现，需要时自己实现并去掉@
+    List<User> listModels(User record);
+    List<User> listModels(Map<String,Object> map);
+    @Deprecated//并未实现，需要时自己实现并去掉@
+    List<Map<String,Object>> listMaps(User record);
+    @Deprecated//并未实现，需要时自己实现并去掉@
+    List<Map<String,Object>> listMaps(Map<String,Object> map);
+    
+    Integer listModelsCount(Map<String,Object> map);
 }

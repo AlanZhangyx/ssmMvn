@@ -13,6 +13,21 @@
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 		<result column="login_count" property="loginCount" jdbcType="BIGINT" />
 	</resultMap>
+    <resultMap id="detailUserResult" type="User">
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="real_name" property="realName" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="mobile_no" property="mobileNo" jdbcType="CHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="login_count" property="loginCount" jdbcType="BIGINT" />
+        <collection property="roleList" ofType="Role" columnPrefix="r_" >
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+        </collection>
+    </resultMap>
 	<sql id="Base_Column_List">
 		id, user_name, real_name, password, mobile_no, email,
 		create_time,
@@ -50,9 +65,6 @@
 	<insert id="insertSelective" parameterType="com.ddup.sys.model.User" keyProperty="id">
 		insert into sys_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
 			<if test="userName != null">
 				user_name,
 			</if>
@@ -68,20 +80,13 @@
 			<if test="email != null">
 				email,
 			</if>
-			<if test="createTime != null">
-				create_time,
-			</if>
-			<if test="updateTime != null">
-				update_time,
-			</if>
+			    create_time,
+                update_time,
 			<if test="loginCount != null">
 				login_count,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
 			<if test="userName != null">
 				#{userName,jdbcType=VARCHAR},
 			</if>
@@ -97,12 +102,8 @@
 			<if test="email != null">
 				#{email,jdbcType=VARCHAR},
 			</if>
-			<if test="createTime != null">
-				#{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updateTime != null">
-				#{updateTime,jdbcType=TIMESTAMP},
-			</if>
+			    NOW(),
+                NOW(),
 			<if test="loginCount != null">
 				#{loginCount,jdbcType=BIGINT},
 			</if>
@@ -126,12 +127,7 @@
 			<if test="email != null">
 				email = #{email,jdbcType=VARCHAR},
 			</if>
-			<if test="createTime != null">
-				create_time = #{createTime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="updateTime != null">
-				update_time = #{updateTime,jdbcType=TIMESTAMP},
-			</if>
+				update_time = NOW(),
 			<if test="loginCount != null">
 				login_count = #{loginCount,jdbcType=BIGINT},
 			</if>
@@ -163,5 +159,81 @@
 		<include refid="Base_Column_List" />
 		from sys_user where user_name=#{userName} and password=#{password}
 	</select>
-
+	
+    <!-- 在关联表sys_user_role中插入关系 -->
+    <insert id="insertUserRole" parameterType="java.util.Map">
+        insert into sys_user_role(user_id,role_id) values 
+        <foreach collection="rIds" item="rId" separator=",">
+           (#{userId},#{rId})
+        </foreach>
+    </insert>
+    
+    <!-- 删除角色数组有cascade -->
+    <delete id="deleteByPrimaryKeys" parameterType="map">
+        delete from sys_user where id in 
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id,jdbcType=INTEGER}
+        </foreach>
+    </delete>
+    
+    <!-- 单独删除关系表 -->
+    <delete id="deleteUserRole" parameterType="java.lang.Integer">
+        delete from sys_user_role where user_id = #{id,jdbcType=INTEGER}
+    </delete>
+    
+    <!-- 由于使用了Mybatis的集合嵌套结果Nested Results for Collection只能手写分页 -->
+    <select id="listModelsByMap" parameterType="map" resultMap="detailUserResult">
+        select 
+            u.id as id,
+            u.user_name as user_name,
+            u.real_name as real_name,
+            u.mobile_no as mobile_no,
+            u.email as email,
+            u.create_time as create_time,
+            u.update_time as update_time,
+            u.login_count as login_count,
+            r.id as r_id,
+            r.name as r_name
+        from 
+            (
+                (
+                select * from sys_user 
+                    <where>
+                        <if test="fuzzyWord!=null">
+                            and (userName like "%"#{fuzzyWord}"%"
+                                or realName like "%"#{fuzzyWord}"%"
+                                or mobileNo like "%"#{fuzzyWord}"%"
+                                or email like "%"#{fuzzyWord}"%")
+                        </if>
+                    </where>
+                    <if test="offset != null and limit != null">
+                        limit #{offset},#{limit}
+                    </if>
+                ) u
+                left join sys_user_role ur on u.id = ur.user_id 
+                left join sys_role r on ur.role_id = r.id
+            )
+    </select>
+    <!-- 上面主语句(r)的总数 -->
+    <select id="listModelsByMap_count" parameterType="map" resultType="java.lang.Integer">
+         select count(*) from sys_user 
+         <where>
+             <if test="fuzzyWord!=null">
+                 and (userName like "%"#{fuzzyWord}"%"
+                     or realName like "%"#{fuzzyWord}"%"
+                     or mobileNo like "%"#{fuzzyWord}"%"
+                     or email like "%"#{fuzzyWord}"%")
+             </if>
+         </where>
+    </select>
+    
+    <!-- 根据传入某个参数，来计数 -->
+    <select id="countSelectedProperty" parameterType="User" resultType="java.lang.Integer">
+       select count(*) from sys_user u 
+       <where>
+           <if test="userName != null">
+               and u.user_name = #{userName,jdbcType=VARCHAR}
+           </if>
+       </where>
+    </select>
 </mapper>

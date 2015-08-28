@@ -27,6 +27,4 @@ public interface RoleMapper {
     List<Map<String,Object>> listMaps(Map<String,Object> map);
     
     Integer listModelsCount(Map<String,Object> map);
-    
-    List<Map<String,Object>> listRPMapsByMap(Map<String,Object> map);
 }
