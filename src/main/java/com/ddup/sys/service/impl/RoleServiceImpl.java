@@ -113,6 +113,13 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> listForCRUD(Map<String, Object> map) {
         return roleMapper.listModels(map);
     }
+    /**
+     * 计数
+     */
+    @Override
+    public Integer listForCRUDCount(Map<String, Object> map) {
+        return roleMapper.listModelsCount(map);
+    }
 
     /**
      * 角色列表，给用户管理时ZTREE用，字段少

@@ -87,5 +87,9 @@ public class RoleDaoImpl extends BaseDao implements RoleMapper {
     public List<Map<String, Object>> listRPMapsByMap(Map<String, Object> map) {
         return getSqlSession().selectList(NAMESPACE+"listRPMapsByMap", map);
     }
+    @Override
+    public Integer listModelsCount(Map<String, Object> map) {
+        return getSqlSession().selectOne(NAMESPACE+"listModelsByMap_count", map);
+    }
 
 }

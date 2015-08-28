@@ -24,8 +24,6 @@ import com.ddup.sys.model.Role;
 import com.ddup.sys.service.PrivilegeService;
 import com.ddup.sys.service.RoleService;
 import com.ddup.utils.ProcessUtil;
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 /**
  * @Description: 角色相关操作
@@ -83,12 +81,12 @@ public class RoleAction extends BaseAction {
             List<Role> list=null;//结果list
             //查询数据库
             if (null==page||null==rows) {//全量查询
-                list=roleService.listForCRUD(map);//分页list是Page<E>类型
-            }else{//分页查询
-                PageHelper.startPage(page, rows);
-                list=roleService.listForCRUD(map);//分页list是Page<E>类型
-                PageInfo<Role> p = new PageInfo<Role>(list);//取出分页统计信息statistic
-                resultJson.put("total", p.getTotal());
+                list=roleService.listForCRUD(map);
+            }else{//手写分页查询
+                map.put("offset", (page-1)*rows);
+                map.put("limit", rows);
+                list=roleService.listForCRUD(map);
+                resultJson.put("total", roleService.listForCRUDCount(map));
             }
             //结果处理
             List<Map<String, Object>> resultList=ProcessUtil.formatRoleList2ArrayList(list);

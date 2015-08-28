@@ -147,6 +147,7 @@
         delete from sys_role_privilege where role_id = #{id,jdbcType=INTEGER}
     </delete>
     
+    <!-- 由于使用了Mybatis的集合嵌套结果Nested Results for Collection只能手写分页 -->
     <select id="listModelsByMap" parameterType="map" resultMap="detailRoleResult">
         select 
             r.id as id,
@@ -156,15 +157,33 @@
             r.update_time as update_time,
             p.id as p_id,
             p.name as p_name
-        from sys_role r 
-            left join sys_role_privilege rp on r.id = rp.role_id 
-            left join sys_privilege p on rp.privilege_id = p.id
-        <where>
-            <if test="fuzzyWord!=null">
-                and (name like "%"#{fuzzyWord}"%"
-                    or description like "%"#{fuzzyWord}"%")
-            </if>
-        </where>
+        from 
+            (
+                (
+                select * from sys_role 
+	                <where>
+			            <if test="fuzzyWord!=null">
+			                and (name like "%"#{fuzzyWord}"%"
+			                    or description like "%"#{fuzzyWord}"%")
+			            </if>
+	                </where>
+	                <if test="offset != null and limit != null">
+	                    limit #{offset},#{limit}
+	                </if>
+                ) r
+	            left join sys_role_privilege rp on r.id = rp.role_id 
+	            left join sys_privilege p on rp.privilege_id = p.id
+            )
+    </select>
+    <!-- 上面主语句(r)的总数 -->
+    <select id="listModelsByMap_count" parameterType="map" resultType="java.lang.Integer">
+         select count(*) from sys_role 
+         <where>
+             <if test="fuzzyWord != null">
+                 and (name like "%"#{fuzzyWord}"%"
+                     or description like "%"#{fuzzyWord}"%")
+             </if>
+         </where>
     </select>
     
     <select id="listMapsByMap" parameterType="map" resultType="map">
