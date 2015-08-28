@@ -11,7 +11,7 @@
 <script type="text/javascript">
 function fillGird(){
     $('#mainGrid').datagrid({
-        url:baseUrl+"/privilege/query/jsonlist",
+        url:baseUrl+"/user/query/jsonlist",
         queryParams: {},
         width:'98%',
         height:'100%',
@@ -28,15 +28,11 @@ function fillGird(){
         nowrap:false,
         columns:[[
             {field:'id',checkbox:true},
-            {field:'name',title:'权限名',width:100},
-            {field:'actionUrl',title:'权限url',width:100},
-            {field:'parentName',title:'父权限',width:100},
-            {field:'isMenu',title:'是否菜单',width:50,
-                formatter: function(value,row,index){
-                    if(value==1){return "是"}else{return "否"}
-                }
-            },
-            {field:'icon',title:'图标url',width:200},
+            {field:'userName',title:'用户名',width:100},
+            {field:'realName',title:'真实姓名',width:100},
+            {field:'rNames',title:'拥有角色',width:200},
+            {field:'mobileNo',title:'手机号码',width:100},
+            {field:'email',title:'电子邮箱',width:100},
             {field:'updateTime',title:'更新时间',width:100}
         ]],
         toolbar:[{
@@ -49,7 +45,7 @@ function fillGird(){
                 	width:"50%",
                 	close:false,
                 	cache:false,
-                	href:baseUrl+"/privilege/query/addUI",
+                	href:baseUrl+"/user/query/addUI",
                 	modal:true
                 });
             }
@@ -73,7 +69,7 @@ function fillGird(){
                         width:"50%",
                         close:false,
                         cache:false,
-                        href:baseUrl+"/privilege/query/updateUI?id="+id,
+                        href:baseUrl+"/user/query/updateUI?id="+id,
                         modal:true
                     });
                 }
@@ -97,7 +93,7 @@ function fillGird(){
                         if(ids.length>0){
                             $.ajax({
                                 type : "POST",
-                                url : baseUrl+"/privilege/delete",
+                                url : baseUrl+"/user/delete",
                                 data:{ids:ids},
                                 success : function(data) {
                                     if(data.state==200){
@@ -115,97 +111,6 @@ function fillGird(){
         }]
     });
 }
-
-/**
- * 保存，新增或修改的
- */
-function dlg_saveOrUpdate(){
-    var idT=$("#id").val();
-    if(""!=idT&&undefined!=idT){//修改
-        dlg_update();
-    }else{//新增save
-        var type=$("#type").combobox("getValue");
-        var title=$("#title").val();
-        var content=$("#content").val();
-        if(type==""){
-            $.messager.alert("消息提示", "类型不能为空！","warning");
-            return false;
-        }else if (title=="") {
-            $.messager.alert("消息提示", "标题不能为空！","warning");
-            return false;
-        }else if (content=="") {
-            $.messager.alert("消息提示", "内容不能为空！","warning");
-            return false;
-        }else{
-            $.ajax({
-                type : "POST",
-                url : baseUrl+"/title_addOne",
-                data:{
-                    type:type,
-                    title:title,
-                    content:content
-                },
-                success : function(data) {
-                    if(data.state==200){
-                        $.messager.alert("消息提示", "成功！");
-                        $('#dlg_save').dialog('close');
-                        $('#mainGrid').datagrid("reload");
-                    }else{
-                        $.messager.alert("消息提示", "抱歉，数据异常请重试！","warning");
-                    }
-                }
-            });
-        }
-    }
-}
-
-/**
- * 更新
- */
-function dlg_update(){
-    var id=$("#id").val();
-    var type=$("#type").combobox("getValue");
-    var title=$("#title").val();
-    var content=$("#content").val();
-    if(type==""){
-        $.messager.alert("消息提示", "类型不能为空！","warning");
-        return false;
-    }else if (title=="") {
-        $.messager.alert("消息提示", "标题不能为空！","warning");
-        return false;
-    }else if (content=="") {
-        $.messager.alert("消息提示", "内容不能为空！","warning");
-        return false;
-    }else{
-        $.ajax({
-            type : "POST",
-            url : baseUrl+"/title_udpateOne",
-            data:{
-                id:id,
-                type:type,
-                title:title,
-                content:content
-            },
-            success : function(data) {
-                if(data.state==1){
-                    $.messager.alert("消息提示", "成功！");
-                    $('#dlg_save').dialog('close');
-                    $('#mainGrid').datagrid("reload");
-                }else{
-                    $.messager.alert("消息提示", "抱歉，数据异常请重试！","warning");
-                }
-            }
-        });
-    }
-}
-
-/**
- * 重置
- */
-function clearForm(){
-    $('#ff').form('clear');
-}
-
 
 $(function(){
     fillGird();

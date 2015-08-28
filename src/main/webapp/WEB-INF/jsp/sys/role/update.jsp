@@ -71,7 +71,7 @@ $(function(){
     
     //选择父权限
     $("#pickPrivilege").click(function(){
-    	treeObj=$.fn.zTree.init($("#roleTree"), setting, treeNode);
+    	treeObj=$.fn.zTree.init($("#privilegeTree"), setting, treeNode);
     });
     
 });
@@ -92,7 +92,7 @@ $(function(){
                 <textarea id="pNames" readonly="readonly">${pNames}</textarea>
                 <input type="hidden" name="pIds" id="pIds" value="${pIds}" />
                 <input type="button" id="pickPrivilege" value="选择" />
-                <ul id="roleTree" class="ztree"></ul>
+                <ul id="privilegeTree" class="ztree"></ul>
             </td>
         </tr>
         <tr>

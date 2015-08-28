@@ -112,7 +112,7 @@ CREATE TABLE `sys_user` (
   `email` varchar(100) DEFAULT '',
   `create_time` datetime NOT NULL,
   `update_time` datetime NOT NULL COMMENT '更新时间',
-  `login_count` bigint(20) NOT NULL COMMENT '登陆次数',
+  `login_count` bigint(20) NOT NULL DEFAULT 0 COMMENT '登陆次数',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 

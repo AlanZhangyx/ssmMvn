@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ddup.sys.dao.UserMapper;
-import com.ddup.sys.model.Role;
 import com.ddup.sys.model.User;
 import com.ddup.sys.service.UserService;
 

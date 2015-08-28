@@ -36,7 +36,6 @@ import com.ddup.utils.ProcessUtil;
 @Controller("systemUser")
 public class UserAction extends BaseAction{
     
-    private static final String JSP_PREFIX="/WEB-INF/jsp/sys/user";//User前缀
     private static final Logger LOGGER=Logger.getLogger(UserAction.class);//日志
     @Resource
     private UserService userService;
@@ -122,7 +121,7 @@ public class UserAction extends BaseAction{
             LOGGER.error(errorMsg, e);
             throw new ToJSPException(errorMsg);
         }
-        return JSP_PREFIX+"/list";
+        return JSP_PREFIX_USER+"/list";
     }
     
     
@@ -167,7 +166,7 @@ public class UserAction extends BaseAction{
      */
     @RequestMapping("/user/query/addUI")
     public ModelAndView addUI(HttpServletRequest request) throws ToJSPException{
-        ModelAndView mav=new ModelAndView(JSP_PREFIX+"/add");
+        ModelAndView mav=new ModelAndView(JSP_PREFIX_USER+"/add");
         try {
             JSONArray jsonArray=new JSONArray();
             jsonArray.addAll(roleService.listForZtree());
@@ -225,7 +224,7 @@ public class UserAction extends BaseAction{
      */
     @RequestMapping("/user/query/updateUI")
     public ModelAndView updateUI(Integer id) throws ToJSPException{
-        ModelAndView mav=new ModelAndView(JSP_PREFIX+"/update");
+        ModelAndView mav=new ModelAndView(JSP_PREFIX_USER+"/update");
         try {
             //用户
             User record=userService.selectByPrimaryKey(id);

@@ -202,8 +202,8 @@ public class ProcessUtil {
                     rIds+=pList.get(j).getId()+",";
                     rNames+=pList.get(j).getName()+",";
                 }
-                tempMap.put("pIds",rIds.substring(0, rIds.length()-1));
-                tempMap.put("pNames",rNames.substring(0, rNames.length()-1));
+                tempMap.put("rIds",rIds.substring(0, rIds.length()-1));
+                tempMap.put("rNames",rNames.substring(0, rNames.length()-1));
                 
                 //清除privilegeList列
                 tempMap.remove("roleList");
@@ -223,7 +223,12 @@ public class ProcessUtil {
             for (int i = 0; i < descriptors.length; i++) {
                 String name = descriptors[i].getName();
                 if (!StringUtils.equals(name, "class")) {
-                    params.put(name, propertyUtilsBean.getNestedProperty(obj, name)); 
+                    Object property=propertyUtilsBean.getNestedProperty(obj, name);
+                    if (null!=property) {
+                        params.put(name, propertyUtilsBean.getNestedProperty(obj, name)); 
+                    }else{
+                        params.put(name, "");
+                    }
                 } 
             } 
         } catch (Exception e) { 

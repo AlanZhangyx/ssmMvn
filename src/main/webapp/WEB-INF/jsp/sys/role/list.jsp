@@ -4,7 +4,7 @@
 <head>
 <%@ include file="/include.script.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>用户列表</title>
+<title>列表</title>
 <style type="text/css">
     body{margin:0}
 </style>
