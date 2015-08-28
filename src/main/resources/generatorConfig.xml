@@ -3,10 +3,8 @@
   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
-    <!-- 请直接使用mvn来构建，如果没有mvn才用下边的方式，当然本项目是基于mvn的。所以请看resources下的同名文件 -->
-
-    <!-- 将此文件和mybatis-generator-core-1.3.2.jar放到一起，然后用cmd运行 -->
-    <!-- java -jar mybatis-generator-core-1.3.2.jar -configfile generatorConfig.xml -overwrite -->
+    <!-- 使用这个文件构建你的项目相关model,Mapper.xml,Mapper.java -->
+    <!-- maven goals:mybatis-generator:generate -->
     <!-- location和src写实际需要的磁盘路径 -->
 
     <!-- 数据库驱动 -->
@@ -32,20 +30,20 @@
         </javaTypeResolver>
         
         <!-- 生成模型的包名和位置,targetProject使用的是绝对路径 -->
-        <javaModelGenerator targetPackage="com.ddup.sys.model" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
+        <javaModelGenerator targetPackage="com.lm.sys.model" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
             <!-- 如果true，MBG会根据catalog和schema来生成子包。如果false就会直接用targetPackage属性。默认为false -->
             <property name="enableSubPackages" value="false"/>
             <!-- 数据库查询结果trim -->
-            <property name="trimStrings" value="false"/>
+            <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         
         <!-- 生成映射文件的包名和位置 -->
-        <sqlMapGenerator targetPackage="com.ddup.sys.dao.mapper" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
+        <sqlMapGenerator targetPackage="com.lm.sys.dao.mapper" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
         
         <!-- 生成DAO的包名和位置,XMLMAPPER所有的方法都在XML中，接口调用依赖XML文件 -->
-        <javaClientGenerator targetPackage="com.ddup.sys.dao" implementationPackage="com.ddup.sys.dao.impl" type="XMLMAPPER" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
+        <javaClientGenerator targetPackage="com.lm.sys.dao" implementationPackage="com.lm.sys.dao.impl" type="XMLMAPPER" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
         

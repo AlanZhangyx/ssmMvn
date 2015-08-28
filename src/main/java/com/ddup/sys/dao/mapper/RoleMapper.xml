@@ -9,6 +9,10 @@
 		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
 		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
 	</resultMap>
+	<resultMap id="detailRoleResult" type="Role">
+	
+	</resultMap>
+	
 	<sql id="Base_Column_List">
 		id, name, description, create_time, update_time
 	</sql>
