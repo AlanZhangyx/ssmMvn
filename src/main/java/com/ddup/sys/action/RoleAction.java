@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ddup.base.BaseAction;
 import com.ddup.base.ToJSPException;
 import com.ddup.sys.model.Role;
 import com.ddup.sys.service.PrivilegeService;
@@ -32,7 +31,7 @@ import com.ddup.utils.ProcessUtil;
  */
 @RequestMapping(value="/role",method = { RequestMethod.GET, RequestMethod.POST })
 @Controller
-public class RoleAction extends BaseAction {
+public class RoleAction{
     
     private static final String JSP_PREFIX="/WEB-INF/jsp/sys/role";//Role前缀
     private static final Logger LOGGER=Logger.getLogger(RoleAction.class);//日志

@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ddup.base.BaseAction;
 import com.ddup.base.ToJSPException;
 import com.ddup.sys.model.User;
 import com.ddup.sys.service.PrivilegeService;
@@ -34,7 +33,10 @@ import com.ddup.utils.ProcessUtil;
  */
 @RequestMapping(method = { RequestMethod.GET, RequestMethod.POST })
 @Controller("systemUser")
-public class UserAction extends BaseAction{
+public class UserAction{
+    
+    protected static final String JSP_PREFIX="/WEB-INF/jsp";//通用的jsp前缀
+    protected static final String JSP_PREFIX_USER="/WEB-INF/jsp/sys/user";//USER前缀
     
     private static final Logger LOGGER=Logger.getLogger(UserAction.class);//日志
     @Resource
@@ -208,9 +210,7 @@ public class UserAction extends BaseAction{
     public JSONObject delete(Integer... ids){
         resultJson=new JSONObject();
         try {
-            if (ids.length>0) {
-                userService.deleteByPrimaryKeys(ids);
-            }
+            userService.deleteByPrimaryKeys(ids);
         } catch (Exception e) {
             String errorMsg=ProcessUtil.formatErrMsg("删除用户");
             LOGGER.error(errorMsg, e);
