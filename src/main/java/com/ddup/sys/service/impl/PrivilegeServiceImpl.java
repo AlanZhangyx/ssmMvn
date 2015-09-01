@@ -97,7 +97,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
      * 用户的权限列表
      */
     @Override
-    public List<Map<String, Object>> listPrivilegesByUserId(Integer userId) {
+    public List<Map<String, Object>> listByUserId(Integer userId) {
         Map<String,Object> map=new HashMap<String,Object>();
         map.put(COLUMNS_KEY1, COLUMNS3);
         map.put(COLUMNS_KEY2, COLUMNS1);
@@ -122,7 +122,7 @@ public class PrivilegeServiceImpl implements PrivilegeService {
      * 角色的权限列表，checked角色所
      */
     @Override
-    public Map<String,Object> listPrivilegesByRoleId(Integer roleId) {
+    public Map<String,Object> listByRoleId(Integer roleId) {
         Map<String,Object> map=new HashMap<String,Object>();
         map.put(COLUMNS_KEY1, COLUMNS3);
         List<Map<String,Object>> listAll=privilegeMapper.listMaps(map);//获取所有
@@ -147,12 +147,16 @@ public class PrivilegeServiceImpl implements PrivilegeService {
                 }
             }
         }
+        if (listSelected.size()>0) {
+            pIds=pIds.substring(0, pIds.length()-1);
+            pNames=pNames.substring(0, pNames.length()-1);
+        }
         
         //构造返回结果
         map.clear();
         map.put("listAllWithChkSign", listAll);
-        map.put("pIds", pIds.substring(0, pIds.length()-1));
-        map.put("pNames", pNames.substring(0, pNames.length()-1));
+        map.put("pIds", pIds);
+        map.put("pNames", pNames);
         return map;
     }
     

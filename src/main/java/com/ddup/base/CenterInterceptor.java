@@ -111,7 +111,7 @@ public class CenterInterceptor extends HandlerInterceptorAdapter {
         
         List<Map<String, Object>> pList=null;//session中没有pList再查询并放入session
         if (null==(pList=(List<Map<String, Object>>)session.getAttribute("pList"))) {
-            pList=privilegeService.listPrivilegesByUserId(id);
+            pList=privilegeService.listByUserId(id);
             session.setAttribute("pList", pList);
         }
         for (int i = 0; i < pList.size(); i++) {

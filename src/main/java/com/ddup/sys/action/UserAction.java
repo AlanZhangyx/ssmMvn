@@ -229,7 +229,7 @@ public class UserAction{
         try {
             //用户
             User record=userService.selectByPrimaryKey(id);
-            Map<String,Object> resultMap=roleService.listRolesByUserId(id);
+            Map<String,Object> resultMap=roleService.listByUserId(id);
             //查询出角色的权限列表
             @SuppressWarnings("unchecked")
             List<Map<String, Object>> pList=(List<Map<String, Object>>)resultMap.get("listAllWithChkSign");
