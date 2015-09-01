@@ -37,7 +37,7 @@ public class User {
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.userName = userName == null ? null : userName.trim();
     }
 
     public String getRealName() {
@@ -45,7 +45,7 @@ public class User {
     }
 
     public void setRealName(String realName) {
-        this.realName = realName;
+        this.realName = realName == null ? null : realName.trim();
     }
 
     public String getPassword() {
@@ -53,7 +53,7 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = password == null ? null : password.trim();
     }
 
     public String getMobileNo() {
@@ -61,7 +61,7 @@ public class User {
     }
 
     public void setMobileNo(String mobileNo) {
-        this.mobileNo = mobileNo;
+        this.mobileNo = mobileNo == null ? null : mobileNo.trim();
     }
 
     public String getEmail() {
@@ -69,7 +69,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email == null ? null : email.trim();
     }
 
     public Date getCreateTime() {

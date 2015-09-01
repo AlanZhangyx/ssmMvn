@@ -29,7 +29,7 @@ public class Role {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getDescription() {
@@ -37,7 +37,7 @@ public class Role {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description == null ? null : description.trim();
     }
 
     public Date getCreateTime() {

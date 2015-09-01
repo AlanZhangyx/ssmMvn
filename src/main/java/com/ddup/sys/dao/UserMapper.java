@@ -16,7 +16,6 @@ public interface UserMapper {
     int deleteUserRole(Integer id);
 
     int updateByPrimaryKeySelective(User record);
-    int updateByPrimaryKey(User record);
     
     int countSelectedProperty(User record);
     User selectByPrimaryKey(Integer id);

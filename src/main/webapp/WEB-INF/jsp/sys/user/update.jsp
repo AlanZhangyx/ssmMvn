@@ -68,7 +68,7 @@ $(function(){
                 myEmail:true
             }
         }, messages: {
-            name:{
+        	userName:{
                 remote:"此角色名已存在,请重新输入!"
             }
         }, submitHandler:function(form){

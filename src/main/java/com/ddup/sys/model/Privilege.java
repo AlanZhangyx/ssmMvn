@@ -34,7 +34,7 @@ public class Privilege {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public String getActionUrl() {
@@ -42,7 +42,7 @@ public class Privilege {
     }
 
     public void setActionUrl(String actionUrl) {
-        this.actionUrl = actionUrl;
+        this.actionUrl = actionUrl == null ? null : actionUrl.trim();
     }
 
     public Integer getParentId() {
@@ -66,7 +66,7 @@ public class Privilege {
     }
 
     public void setIcon(String icon) {
-        this.icon = icon;
+        this.icon = icon == null ? null : icon.trim();
     }
 
     public String getDescription() {
@@ -74,7 +74,7 @@ public class Privilege {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.description = description == null ? null : description.trim();
     }
 
     public Date getCreateTime() {

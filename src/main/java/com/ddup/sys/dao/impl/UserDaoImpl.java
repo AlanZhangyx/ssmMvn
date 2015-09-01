@@ -62,11 +62,6 @@ public class UserDaoImpl extends BaseDao implements UserMapper {
     public int updateByPrimaryKeySelective(User record) {
         return getSqlSession().update(NAMESPACE+"updateByPrimaryKeySelective", record);
     }
-    @Override
-    public int updateByPrimaryKey(User record) {
-        return getSqlSession().update(NAMESPACE+"updateByPrimaryKey", record);
-    }
-    
     
     /*** 单个查询 ***/
     

@@ -24,6 +24,7 @@ import com.ddup.sys.model.User;
 import com.ddup.sys.service.PrivilegeService;
 import com.ddup.sys.service.RoleService;
 import com.ddup.sys.service.UserService;
+import com.ddup.sys.service.impl.UserServiceImpl;
 import com.ddup.utils.ProcessUtil;
 
 /**
@@ -151,7 +152,7 @@ public class UserAction{
                 resultJson.put("total", userService.listForCRUDCount(map));
             }
             //结果处理
-            List<Map<String, Object>> resultList=ProcessUtil.formatUserList2ArrayList(list);
+            List<Map<String, Object>> resultList=UserServiceImpl.formatUserList2ArrayList(list);
             
             resultJson.put("rows", resultList);//结果返回
         } catch (Exception e) {

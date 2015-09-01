@@ -22,6 +22,7 @@ import com.ddup.base.ToJSPException;
 import com.ddup.sys.model.Role;
 import com.ddup.sys.service.PrivilegeService;
 import com.ddup.sys.service.RoleService;
+import com.ddup.sys.service.impl.RoleServiceImpl;
 import com.ddup.utils.ProcessUtil;
 
 /**
@@ -88,7 +89,7 @@ public class RoleAction{
                 resultJson.put("total", roleService.listForCRUDCount(map));
             }
             //结果处理
-            List<Map<String, Object>> resultList=ProcessUtil.formatRoleList2ArrayList(list);
+            List<Map<String, Object>> resultList=RoleServiceImpl.formatRoleList2ArrayList(list);
             
             resultJson.put("rows", resultList);//结果返回
         } catch (Exception e) {

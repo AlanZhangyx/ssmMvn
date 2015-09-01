@@ -1,5 +1,8 @@
 package com.ddup.sys.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +13,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ddup.sys.dao.RoleMapper;
+import com.ddup.sys.model.Privilege;
 import com.ddup.sys.model.Role;
 import com.ddup.sys.service.PrivilegeService;
 import com.ddup.sys.service.RoleService;
+import com.ddup.utils.ProcessUtil;
 
 /**
  * @Description: TODO
@@ -167,6 +172,65 @@ public class RoleServiceImpl implements RoleService {
         map.put("rIds", rIds.substring(0, rIds.length()-1));
         map.put("rNames", rNames.substring(0, rNames.length()-1));
         return map;
+    }
+    
+    /*********************工具方法******************************/
+    
+    /**
+     * @Title: formatRoleList2ArrayList 
+     * @Description: 将list(Page<E>)转为他的父类ArrayList
+     * @param list
+     * @throws
+     */
+    public static List<Map<String, Object>> formatRoleList2ArrayList(List<Role> list) {
+        //返回的结果
+        List<Map<String,Object>> resultList=new ArrayList<Map<String,Object>>();
+        DateFormat sd= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//格式化时间
+        
+        Map<String,Object> tempMap=null;
+        for (int i = 0; i < list.size(); i++) {
+            Role item=list.get(i);//源Model
+            tempMap=new HashMap<String,Object>(0);//目标Map
+            ProcessUtil.beanToMap(item, tempMap);//转Map
+            
+            //对可能有的时间进行格式化
+            if(tempMap.containsKey("createTime")){
+                tempMap.put("createTime",sd.format(tempMap.get("createTime")));
+            }
+            if(tempMap.containsKey("updateTime")){
+                tempMap.put("updateTime",sd.format(tempMap.get("updateTime")));
+            }
+            
+            //对权限进行字符串化处理
+            String pIds="";
+            String pNames="";
+            next:
+            if(tempMap.containsKey("privilegeList")){
+                @SuppressWarnings("unchecked")
+                List<Privilege> pList=(List<Privilege>)tempMap.get("privilegeList");
+                if(pList.size()<1){
+                    tempMap.remove("privilegeList");
+                    break next;
+                }
+                
+                for (int j = 0; j < pList.size(); j++) {
+                    pIds+=pList.get(j).getId()+",";
+                    pNames+=pList.get(j).getName()+",";
+                }
+                pIds = pIds.substring(0, pIds.length()-1);
+                pNames = pNames.substring(0, pNames.length()-1);
+                
+                //清除privilegeList列
+                tempMap.remove("privilegeList");
+            }
+            //设置上面生成的字符串描述
+            tempMap.put("pIds",pIds);
+            tempMap.put("pNames",pNames);
+            
+            //返回
+            resultList.add(tempMap);
+        }
+        return resultList;
     }
 
 }
