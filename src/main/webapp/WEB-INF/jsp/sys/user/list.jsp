@@ -74,7 +74,7 @@ function fillGird(){
                     });
                 }
             }
-        },{
+        },'-',{
             text:'删除',
             iconCls:'icon-remove',
             handler:function(){
@@ -108,12 +108,19 @@ function fillGird(){
                     }
                 });
             }
+        },'-',{
+            text:'<input type="search" id="search" placeholder="请输入任意文字" /><input type="button" id="doSearch" value="搜索" />'
         }]
     });
 }
 
 $(function(){
     fillGird();
+    $("#doSearch").click(function(){
+        $("#mainGrid").datagrid("load", {
+            "fuzzyWord" : $("#search").val().trim()
+        });
+    });
 });
 </script>
 </head>

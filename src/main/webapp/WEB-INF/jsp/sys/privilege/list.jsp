@@ -78,7 +78,7 @@ function fillGird(){
                     });
                 }
             }
-        },{
+        },'-',{
             text:'删除',
             iconCls:'icon-remove',
             handler:function(){
@@ -112,103 +112,19 @@ function fillGird(){
                     }
                 });
             }
+        },'-',{
+            text:'<input type="search" id="search" placeholder="请输入任意文字" /><input type="button" id="doSearch" value="搜索" />'
         }]
     });
 }
 
-/**
- * 保存，新增或修改的
- */
-function dlg_saveOrUpdate(){
-    var idT=$("#id").val();
-    if(""!=idT&&undefined!=idT){//修改
-        dlg_update();
-    }else{//新增save
-        var type=$("#type").combobox("getValue");
-        var title=$("#title").val();
-        var content=$("#content").val();
-        if(type==""){
-            $.messager.alert("消息提示", "类型不能为空！","warning");
-            return false;
-        }else if (title=="") {
-            $.messager.alert("消息提示", "标题不能为空！","warning");
-            return false;
-        }else if (content=="") {
-            $.messager.alert("消息提示", "内容不能为空！","warning");
-            return false;
-        }else{
-            $.ajax({
-                type : "POST",
-                url : baseUrl+"/title_addOne",
-                data:{
-                    type:type,
-                    title:title,
-                    content:content
-                },
-                success : function(data) {
-                    if(data.state==200){
-                        $.messager.alert("消息提示", "成功！");
-                        $('#dlg_save').dialog('close');
-                        $('#mainGrid').datagrid("reload");
-                    }else{
-                        $.messager.alert("消息提示", "抱歉，数据异常请重试！","warning");
-                    }
-                }
-            });
-        }
-    }
-}
-
-/**
- * 更新
- */
-function dlg_update(){
-    var id=$("#id").val();
-    var type=$("#type").combobox("getValue");
-    var title=$("#title").val();
-    var content=$("#content").val();
-    if(type==""){
-        $.messager.alert("消息提示", "类型不能为空！","warning");
-        return false;
-    }else if (title=="") {
-        $.messager.alert("消息提示", "标题不能为空！","warning");
-        return false;
-    }else if (content=="") {
-        $.messager.alert("消息提示", "内容不能为空！","warning");
-        return false;
-    }else{
-        $.ajax({
-            type : "POST",
-            url : baseUrl+"/title_udpateOne",
-            data:{
-                id:id,
-                type:type,
-                title:title,
-                content:content
-            },
-            success : function(data) {
-                if(data.state==1){
-                    $.messager.alert("消息提示", "成功！");
-                    $('#dlg_save').dialog('close');
-                    $('#mainGrid').datagrid("reload");
-                }else{
-                    $.messager.alert("消息提示", "抱歉，数据异常请重试！","warning");
-                }
-            }
-        });
-    }
-}
-
-/**
- * 重置
- */
-function clearForm(){
-    $('#ff').form('clear');
-}
-
-
 $(function(){
     fillGird();
+    $("#doSearch").click(function(){
+        $("#mainGrid").datagrid("load", {
+            "fuzzyWord" : $("#search").val().trim()
+        });
+    });
 });
 </script>
 </head>

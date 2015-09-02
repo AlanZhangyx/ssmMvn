@@ -5,6 +5,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>欢迎</title>
     <%@ include file="/include.script.jsp"%>
+    <style type="text/css">
+        a,a:link{
+            color:#000;  
+        }
+        a:hover{
+            color:#fff;
+            text-decoration: underline;
+        }
+    </style>
     <script type="text/javascript">
         var domainUrl="<%=request.getContextPath()%>";
         <%-- 动态添加tab页 --%>
@@ -46,7 +55,10 @@
     </script>
 </head>
 <body class="easyui-layout">
-    <div data-options="region:'north',border:false" style="height:80px;background:#B3DFDA;padding:10px">天天向上</div>
+    <div data-options="region:'north',border:false" style="height:105px;font-size:0px;background:#A9FACD">
+        天天向上
+        <div style="position: absolute; bottom: 10px; right: 40px;"><span style="font-size:16px;">欢迎你：${user.userName} <a href="<%=request.getContextPath()%>/sys/signout" style="padding-left:10px">注销</a></span></div>
+    </div>
     <div data-options="region:'west',split:true,title:'导航菜单'" style="width:150px;">
         <ul id="navigateTree" class="ztree"></ul>
     </div>

@@ -200,9 +200,9 @@
                 select * from sys_user 
                     <where>
                         <if test="fuzzyWord!=null">
-                            and (userName like "%"#{fuzzyWord}"%"
-                                or realName like "%"#{fuzzyWord}"%"
-                                or mobileNo like "%"#{fuzzyWord}"%"
+                            and (user_name like "%"#{fuzzyWord}"%"
+                                or real_name like "%"#{fuzzyWord}"%"
+                                or mobile_no like "%"#{fuzzyWord}"%"
                                 or email like "%"#{fuzzyWord}"%")
                         </if>
                     </where>
@@ -219,9 +219,9 @@
          select count(*) from sys_user 
          <where>
              <if test="fuzzyWord!=null">
-                 and (userName like "%"#{fuzzyWord}"%"
-                     or realName like "%"#{fuzzyWord}"%"
-                     or mobileNo like "%"#{fuzzyWord}"%"
+                 and (user_name like "%"#{fuzzyWord}"%"
+                     or real_name like "%"#{fuzzyWord}"%"
+                     or mobile_no like "%"#{fuzzyWord}"%"
                      or email like "%"#{fuzzyWord}"%")
              </if>
          </where>
