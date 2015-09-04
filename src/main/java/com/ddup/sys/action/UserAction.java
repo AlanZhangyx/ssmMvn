@@ -185,7 +185,7 @@ public class UserAction{
     /**
      * 3.1 跳转到add页面
      */
-    @RequestMapping("/user/query/addUI")
+    @RequestMapping("/user/add/addUI")
     public ModelAndView addUI(HttpServletRequest request) throws ToJSPException{
         ModelAndView mav=new ModelAndView(JSP_PREFIX_USER+"/add");
         try {
@@ -241,7 +241,7 @@ public class UserAction{
     /**
      * 5.1 跳转到update页面
      */
-    @RequestMapping("/user/query/updateUI")
+    @RequestMapping("/user/update/updateUI")
     public ModelAndView updateUI(Integer id) throws ToJSPException{
         ModelAndView mav=new ModelAndView(JSP_PREFIX_USER+"/update");
         try {

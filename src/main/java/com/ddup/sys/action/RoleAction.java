@@ -104,7 +104,7 @@ public class RoleAction{
     /**
      * 3.1 跳转到add页面
      */
-    @RequestMapping("/query/addUI")
+    @RequestMapping("/add/addUI")
     public ModelAndView addUI(HttpServletRequest request) throws ToJSPException{
         ModelAndView mav=new ModelAndView(JSP_PREFIX+"/add");
         try {
@@ -162,7 +162,7 @@ public class RoleAction{
     /**
      * 5.1 跳转到update页面
      */
-    @RequestMapping("/query/updateUI")
+    @RequestMapping("/update/updateUI")
     public ModelAndView updateUI(Integer id) throws ToJSPException{
         ModelAndView mav=new ModelAndView(JSP_PREFIX+"/update");
         try {

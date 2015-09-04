@@ -43,7 +43,7 @@ function fillGird(){
                 	width:"50%",
                 	close:false,
                 	cache:false,
-                	href:baseUrl+"/role/query/addUI",
+                	href:baseUrl+"/role/add/addUI",
                 	modal:true
                 });
             }
@@ -67,7 +67,7 @@ function fillGird(){
                         width:"50%",
                         close:false,
                         cache:false,
-                        href:baseUrl+"/role/query/updateUI?id="+id,
+                        href:baseUrl+"/role/update/updateUI?id="+id,
                         modal:true
                     });
                 }

@@ -32,8 +32,8 @@ import com.ddup.utils.ProcessUtil;
  *              2 没有：跳转到非法请求页面
  *              
  * 例外注意：
- * 1 路径中有"/query",只会截取包括"query"的之前的路径去校验，如privilege/query/aaaa/bbb 校验:privilege/query
- *          
+ * 1 路径中有"/query"和"/add"和"/update",只会截取包括"query"/"add"/"update"的之前的路径去校验，如privilege/query/aaaa/bbb 校验:privilege/query
+ * 
  * @author zyx
  * @date 2015年8月21日 下午12:08:03
  */
@@ -101,22 +101,28 @@ public class CenterInterceptor extends HandlerInterceptorAdapter {
      */
     @SuppressWarnings("unchecked")
     private boolean hasPrivilege(HttpSession session, Integer id, String requestURI) {
-        //查询的权限以query开头，只在数据库中分配一次获取(query)权限
-        int getIndex=requestURI.indexOf("/query");
+      //1 查询/增加/修改一旦有权限了(如xxx/add)，所有子孙权限都有(xxx/add/xx)
+        int getIndex=requestURI.indexOf("/query");//query
         if (getIndex>-1) {
             requestURI=requestURI.substring(0, getIndex+6);
         }
+        int addIndex=requestURI.indexOf("/add");//add
+        if (addIndex>-1) {
+            requestURI=requestURI.substring(0, addIndex+4);
+        }
+        int updateIndex=requestURI.indexOf("/update");//update
+        if (updateIndex>-1) {
+            requestURI=requestURI.substring(0, updateIndex+7);
+        }
         
-        //主体检查
-        
+        //2 主体检查
         List<Map<String, Object>> pList=null;//session中没有pList再查询并放入session
         if (null==(pList=(List<Map<String, Object>>)session.getAttribute("pList"))) {
             pList=privilegeService.listByUserId(id);
             session.setAttribute("pList", pList);
         }
         for (int i = 0; i < pList.size(); i++) {
-            Map<String, Object> pMap=pList.get(i);
-            if(pMap.get("actionUrl").equals(requestURI)){
+            if(pList.get(i).get("actionUrl").equals(requestURI)){
                 return true;
             }
         }

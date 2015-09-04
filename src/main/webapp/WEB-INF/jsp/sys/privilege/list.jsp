@@ -49,7 +49,7 @@ function fillGird(){
                 	width:"50%",
                 	close:false,
                 	cache:false,
-                	href:baseUrl+"/privilege/query/addUI",
+                	href:baseUrl+"/privilege/add/addUI",
                 	modal:true
                 });
             }
@@ -73,7 +73,7 @@ function fillGird(){
                         width:"50%",
                         close:false,
                         cache:false,
-                        href:baseUrl+"/privilege/query/updateUI?id="+id,
+                        href:baseUrl+"/privilege/update/updateUI?id="+id,
                         modal:true
                     });
                 }
