@@ -80,6 +80,11 @@ $(function(){
     
 });
 </script>
+<style>
+    #actionUrl,#icon{
+        width:99%;
+    }
+</style>
 <!-- 新增页面 -->
 <form id="form" method="post" action="${pageContext.request.contextPath}/privilege/add">
     <table>

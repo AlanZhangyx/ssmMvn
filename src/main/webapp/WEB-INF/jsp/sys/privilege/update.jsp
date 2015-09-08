@@ -81,6 +81,11 @@ $(function(){
     
 });
 </script>
+<style>
+    #actionUrl,#icon{
+        width:99%;
+    }
+</style>
 <!-- 新增页面 -->
 <sp:form id="form" method="post" commandName="privilege" action="${pageContext.request.contextPath}/privilege/update">
     <table>
