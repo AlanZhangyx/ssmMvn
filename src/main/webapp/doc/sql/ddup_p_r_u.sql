@@ -37,19 +37,19 @@ CREATE TABLE `sys_privilege` (
 -- ----------------------------
 -- Records of sys_privilege
 -- ----------------------------
-INSERT INTO `sys_privilege` VALUES ('1', '系统管理', '', null, '', '/ssm/js/widget/zTree3.5/img/diy/1_close.png', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('2', '用户管理', '/ssm/user/query', '1', '', '/ssm/js/widget/zTree3.5/img/diy/1_close.png', '用户列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('3', '角色管理', '/ssm/role/query', '1', '', '/ssm/js/widget/zTree3.5/img/diy/1_close.png', '角色列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('4', '权限管理', '/ssm/privilege/query', '1', '', '/ssm/js/widget/zTree3.5/img/diy/1_close.png', '权限列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('5', '用户_新增', '/ssm/user/add', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('6', '用户_删除', '/ssm/user/delete', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('7', '用户_修改', '/ssm/user/update', '2', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '用户_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('8', '角色_新增', '/ssm/role/add', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('9', '角色_删除', '/ssm/role/delete', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('10', '角色_修改', '/ssm/role/update', '3', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '角色_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('11', '权限_新增', '/ssm/privilege/add', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('12', '权限_删除', '/ssm/privilege/delete', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
-INSERT INTO `sys_privilege` VALUES ('13', '权限_修改', '/ssm/privilege/update', '4', '\0', '/ssm/js/widget/zTree3.5/img/diy/3.png', '权限_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('1', '系统管理', '', null, '', '/js/widget/zTree3.5/img/diy/1_close.png', '管理权限分配的权限', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('2', '用户管理', '/user/query', '1', '', '/js/widget/zTree3.5/img/diy/1_close.png', '用户列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('3', '角色管理', '/role/query', '1', '', '/js/widget/zTree3.5/img/diy/1_close.png', '角色列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('4', '权限管理', '/privilege/query', '1', '', '/js/widget/zTree3.5/img/diy/1_close.png', '权限列表', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('5', '用户_新增', '/user/add', '2', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('6', '用户_删除', '/user/delete', '2', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('7', '用户_修改', '/user/update', '2', '\0', '/js/widget/zTree3.5/img/diy/3.png', '用户_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('8', '角色_新增', '/role/add', '3', '\0', '/js/widget/zTree3.5/img/diy/3.png', '角色_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('9', '角色_删除', '/role/delete', '3', '\0', '/js/widget/zTree3.5/img/diy/3.png', '角色_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('10', '角色_修改', '/role/update', '3', '\0', '/js/widget/zTree3.5/img/diy/3.png', '角色_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('11', '权限_新增', '/privilege/add', '4', '\0', '/js/widget/zTree3.5/img/diy/3.png', '权限_新增', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('12', '权限_删除', '/privilege/delete', '4', '\0', '/js/widget/zTree3.5/img/diy/3.png', '权限_删除', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
+INSERT INTO `sys_privilege` VALUES ('13', '权限_修改', '/privilege/update', '4', '\0', '/js/widget/zTree3.5/img/diy/3.png', '权限_修改', '2015-08-20 00:01:01', '2015-08-20 00:01:01');
 
 -- ----------------------------
 -- Table structure for sys_role
