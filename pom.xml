@@ -8,14 +8,51 @@
     <name>ssm Maven Webapp</name>
     <url>http://maven.apache.org</url>
     
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++项目properties配置++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <properties>
+    	<!-- 定义项目war包名字 -->
+		<war.warname>ssm</war.warname>
+    	<!-- java version -->
+		<java.version>1.7</java.version>
+    	<!-- 源代码编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- spring-version -->
         <spring.version>4.2.0.RELEASE</spring.version>
+        <!-- jackson-version -->
+		<jackson.version>2.6.3</jackson.version>
     </properties>
 
-    <!-- 依赖配置不需要执行jdk和tomcat之类， 因为那些东西是你必须有的，是前提，也是自定义的，我不想也不该控制 -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++依赖管理++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <!-- http://search.maven.org/ http://repo1.maven.org/maven2/ -->
     <dependencies>
+    	<!-- 1 servlet jsp jstl provided:已经提供的依赖，只在项目编码时使用，运行时由容器提供 (Tomcat7 支持servlet3.0 jsp2.2) -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.2.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Standard is a jstl's implement,but I am not sure it is used. -->
+		<!-- There are two jstl implements,one is below javax.servlet group another is jstl group -->
+		<!-- There are same.I am sure javax.servlet version is the new. -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+    	
+    	<!-- 2 junit test:测试时有效 -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -23,11 +60,12 @@
             <scope>test</scope>
         </dependency>
         
-        <!-- 1 DB drive -->
+        <!-- 3 DB drive runtime:测试/运行时有效,编译时只需要JDK提供的interface就好 -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.9</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.mchange</groupId>
@@ -35,7 +73,7 @@
             <version>0.9.5.1</version>
         </dependency>
 
-        <!-- 2 spring -->
+        <!-- 4 spring compile:默认范围编译/测试/运行都有效 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -57,13 +95,13 @@
             <version>${spring.version}</version>
         </dependency>
         
-        <!-- 3 mybatis -->
+        <!-- 5 mybatis -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>3.3.0</version>
         </dependency>
-        <!-- 添加mybatis与Spring整合的核心包 -->
+        <!-- 添加Mybatis的与Spring整合的核心包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
@@ -76,26 +114,14 @@
 		    <version>4.0.0</version>
 		</dependency>
         
-        <!-- 4 Logging -->
+        <!-- 6 Logging -->
 	    <dependency>
 	        <groupId>log4j</groupId>
 	        <artifactId>log4j</artifactId>
 	        <version>1.2.9</version>
 	    </dependency>
 	    
-	    <!-- 5 JSTL:I thank one is interface and another is implement -->
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>1.1.2</version>
-        </dependency>
-        
-        <!-- 6 json-lib jackson是spring注解用来解析返回json数据的 -->  
+        <!-- 7 json-lib is convenient,but jackson is spring annotation用来解析返回json数据的 -->  
 		<dependency>  
 		    <groupId>net.sf.json-lib</groupId>  
 		    <artifactId>json-lib</artifactId>  
@@ -105,27 +131,27 @@
 		<dependency>  
             <groupId>com.fasterxml.jackson.core</groupId>  
             <artifactId>jackson-core</artifactId>  
-            <version>2.6.1</version>
+            <version>${jackson.version}</version>
         </dependency>
 		<dependency>  
             <groupId>com.fasterxml.jackson.core</groupId>  
             <artifactId>jackson-databind</artifactId>  
-            <version>2.6.1</version>
+            <version>${jackson.version}</version>
         </dependency>
 		<dependency>  
             <groupId>com.fasterxml.jackson.core</groupId>  
             <artifactId>jackson-annotations</artifactId>  
-            <version>2.6.1</version>
+            <version>${jackson.version}</version>
         </dependency>
         
-        <!-- 7 poi -->
+        <!-- 8 poi -->
         <dependency> 
             <groupId>org.apache.poi</groupId> 
             <artifactId>poi-ooxml</artifactId> 
             <version>3.12</version> 
         </dependency>
         
-        <!-- 8 file -->
+        <!-- 9 file -->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -136,16 +162,81 @@
             <artifactId>commons-io</artifactId>
             <version>1.3.2</version>
         </dependency>
+        
+        <!-- 10 hibernate validator -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.2.2.Final</version>
+		</dependency>
 
     </dependencies>
+    
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++profiles+++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<!-- 默认激活开发环境 -->
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- 开发环境的数据库配置 -->
+				<maven.database.driverClassName>com.mysql.jdbc.Driver</maven.database.driverClassName>
+				<maven.database.url>jdbc:mysql://XXX:3306/XXX_dev?characterEncoding=UTF-8</maven.database.url>
+				<maven.database.username></maven.database.username>
+				<maven.database.password></maven.database.password>
+				<!-- 日志级别 -->
+				<maven.log.level>INFO</maven.log.level>
+				<!-- JSON 输出格式，调试时使用text/html;charset=UTF-8方便浏览器查看 -->
+                <maven.json.type>text/html;charset=UTF-8</maven.json.type>
+			</properties>
+		</profile>
+		<profile>
+			<!-- 使用时相关命令后加上 -Ppg -->
+			<id>pg</id>
+			<properties>
+				<!-- 部署境的数据库配置 -->
+				<maven.database.driverClassName>com.mysql.jdbc.Driver</maven.database.driverClassName>
+				<maven.database.url>jdbc:mysql://XXX:3306/XXX_dev?characterEncoding=UTF-8</maven.database.url>
+				<maven.database.username></maven.database.username>
+				<maven.database.password></maven.database.password>
+				<!-- 日志级别 -->
+				<maven.log.level>ERROR</maven.log.level>
+				<!-- War 包名称 -->
+				<war.warname>${war.warname}</war.warname>
+				<!-- 打包排除文件 -->
+				<package.warSourceExcludes>WEB-INF/log/**</package.warSourceExcludes>
+                <!-- JSON 输出格式，正式发布时使用application/json;charset=UTF-8 -->
+                <maven.json.type>application/json; charset=UTF-8</maven.json.type>
+			</properties>
+		</profile>
+	</profiles>
+	
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++build++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
     <build>
-        <finalName>ssm</finalName>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
+        	<!-- maven整合tomcat7 -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<port>8080</port>
+					<path>/${war.warname}</path>
+					<uriEncoding>UTF-8</uriEncoding>
+				</configuration>
+			</plugin>
+			
+        	<!-- mybatis-generator 自动代码插件 -->
             <plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.2</version>
                 <configuration>
+                	<!-- 配置文件 -->
+                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
                 </configuration>
