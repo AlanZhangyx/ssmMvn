@@ -17,7 +17,7 @@
     	<!-- 源代码编码 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- spring-version -->
-        <spring.version>4.2.0.RELEASE</spring.version>
+        <spring.version>4.2.2.RELEASE</spring.version>
         <!-- jackson-version -->
 		<jackson.version>2.6.3</jackson.version>
     </properties>
@@ -94,6 +94,12 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
         
         <!-- 5 mybatis -->
         <dependency>
