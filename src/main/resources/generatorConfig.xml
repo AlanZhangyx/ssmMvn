@@ -42,7 +42,10 @@
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
         
-        <!-- 生成DAO的包名和位置,XMLMAPPER所有的方法都在XML中，接口调用依赖XML文件 -->
+        <!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件 的代码
+            type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
+            type="MIXEDMAPPER",生成基于注解的Java Model 和相应的Mapper对象
+            type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口 -->
         <javaClientGenerator targetPackage="com.lm.sys.dao" implementationPackage="com.lm.sys.dao.impl" type="XMLMAPPER" targetProject="F:\Workspaces\Eclipse4.4WS1\ssmMvn\src\main\java">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
