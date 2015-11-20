@@ -101,7 +101,7 @@ public class CenterInterceptor extends HandlerInterceptorAdapter {
      */
     @SuppressWarnings("unchecked")
     private boolean hasPrivilege(HttpSession session, Integer id, String requestURI) {
-      //1 查询/增加/修改一旦有权限了(如xxx/add)，所有子孙权限都有(xxx/add/xx)
+        //1 查询/增加/修改一旦有权限了(如xxx/add)，所有子孙权限都有(xxx/add/xx)
         int getIndex=requestURI.indexOf("/query");//query
         if (getIndex>-1) {
             requestURI=requestURI.substring(0, getIndex+6);
